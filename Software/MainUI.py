@@ -36,46 +36,31 @@ except AttributeError:
 
 rcParams.update({'figure.autolayout': True})
 
-class MyMplCanvas(FigureCanvas):
-	"""Ultimately, this is a QWidget (as well as a FigureCanvasAgg, etc.)."""
-	def __init__(self, parent=None, width=5, height=4, dpi=100):
-		self.fig = Figure(figsize=(width, height), dpi=dpi)
-		self.axes = self.fig.add_subplot(111)
-
-		FigureCanvas.__init__(self, self.fig)
-		self.setParent(parent)
-
-		FigureCanvas.setSizePolicy(self,
-								   QSizePolicy.Expanding,
-								   QSizePolicy.Expanding)
-		FigureCanvas.updateGeometry(self)
-		FigureCanvas.mpl_connect(self,'button_press_event', self.double_click)
-
 class Ui_MainWindow(object):
 	def setupUi(self, MainWindow):
 		#Builds GUI
 		MainWindow.setObjectName(_fromUtf8("MainWindow"))
-		MainWindow.resize(1000, 800)
+		#MainWindow.resize(1000, 800)
+		MainWindow.showFullScreen()
 		self.centralwidget = QWidget(MainWindow)
 		self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
 
-		### Controls box ###
-		controlsBox = QGroupBox("Controls")
-		controlsBoxLayout = QGridLayout()
 		# Start Button
 		self.startButton = QPushButton('Start',self)
-		controlsBoxLayout.addWidget(self.startButton,0,0)
 		# Stop Button
 		self.stopButton = QPushButton('Stop',self)
 		self.stopButton.setEnabled(False)
-		controlsBoxLayout.addWidget(self.stopButton,0,1)
-
-		controlsBox.setLayout(controlsBoxLayout)
+		self.redBackground = QLabel()
+		self.redBackground.setStyleSheet("background-color: rgb(255, 0, 0);")
+		self.blueBackground = QLabel()
+		self.blueBackground.setStyleSheet("background-color: rgb(0, 0, 255);")
 
 		#Now we can set all the previously defined boxes into the main window
 		master_layout = QGridLayout()
-		master_layout.addWidget(controlsBox,0,0)
-
+		master_layout.addWidget(self.startButton,0,0)
+		master_layout.addWidget(self.stopButton,0,1)
+		master_layout.addWidget(self.redBackground,1,0)
+		master_layout.addWidget(self.blueBackground,1,1)
 		#self.centralwidget.addWidget(master_layout)
 		self.centralwidget.setLayout(master_layout)
 
