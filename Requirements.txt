@@ -1,0 +1,29 @@
+Requirements:
+
+Short term:
+Record points during sparring match
+- Two of three judges must register hit within X ms
+- Log different point value hits
+- Allow addition of penalty points
+Allow timout to be taken by either team
+Detect number of plugged in judge triggers
+Reset points between matches or if match is suspended
+Track time for each round, rest period, and unexpected pauses
+Display critical information during rounds
+- Display score during sparring match
+- Display time remaining
+- Display portion of round (1,2,rest...)
+Customize system to current rules
+- Options to control number of rounds, rest, and length
+- Options to control UI elements shown during round
+- Allow sides of Red and Blue to be switched to match competitor sides
+
+Long Term:
+Log point, person, and time
+Export file for analysis
+Build and maintain bracket
+- Track seeding and results of each match to generate next match
+Allow team sparring
+Wireless judge positions
+- Act as server
+- Allow score logging from iPhone or Android
