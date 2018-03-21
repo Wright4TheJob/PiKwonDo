@@ -5,7 +5,7 @@ Record points during sparring match
 - Two of three judges must register hit within X ms
 - Log different point value hits
 - Allow addition of penalty points
-Allow timout to be taken by either team
+Allow pause to clock
 Detect number of plugged in judge triggers
 Reset points between matches or if match is suspended
 Track time for each round, rest period, and unexpected pauses
@@ -17,6 +17,8 @@ Customize system to current rules
 - Options to control number of rounds, rest, and length
 - Options to control UI elements shown during round
 - Allow sides of Red and Blue to be switched to match competitor sides
+Add penalties
+Disqualified if get 10 penalties
 
 Long Term:
 Log point, person, and time

@@ -1,0 +1,2 @@
+Notes:
+Send judge signal over 3 bits using 8-3 binary encoder
