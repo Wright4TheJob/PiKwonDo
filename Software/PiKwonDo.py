@@ -232,22 +232,23 @@ class MainWindow(QMainWindow):
 		self.update()
 
 	def startRound(self):
-		print("Starting Round")
-
-		timer = Timer.TimerWorker(self.roundLength)
-		timer.signals.timerTicked.connect(self.timerTicked)
-		timer.signals.timerDone.connect(self.timerDone)
-		#timer.signals.timerStopped.connect(self.progress_fn)
-		#timer.signals.timerError.connect(self.progress_fn)
-
-		# Execute
-		self.threadpool.start(timer)
+		self.timerThread = Timer.TimerThread(self.roundLength)
+		# Connect to emitted signals
+		self.timerThread.timerTicked.connect(self.timerTicked)
+		self.timerThread.timerDone.connect(self.timerDone)
+		# Start the thread
+		self.timerThread.start()
 
 	def pauseRound(self):
-		print("Pausing Round")
+		self.timerThread.terminate()
 
 	def resumeRound(self):
-		print("Resuming Round")
+		self.timerThread = Timer.TimerThread(self.timeLeft)
+		# Connect to emitted signals
+		self.timerThread.timerTicked.connect(self.timerTicked)
+		self.timerThread.timerDone.connect(self.timerDone)
+		# Start the thread
+		self.timerThread.start()
 
 	def resetRound(self):
 		print("Resetting Round")
@@ -266,7 +267,6 @@ class MainWindow(QMainWindow):
 		QMainWindow.resizeEvent(self, event)
 
 	def timerTicked(self,newTime):
-		print("Timer Tick Recieved by main thread")
 		self.timeLeft = newTime
 		self.update()
 
