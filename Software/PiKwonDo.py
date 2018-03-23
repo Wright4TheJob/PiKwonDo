@@ -47,7 +47,6 @@ class MainWindow(QMainWindow):
 			self.sectionDurations.append(self.breakLength)
 			self.sectionDurations.append(self.roundLength)
 		self.sections = len(self.sectionDurations)
-		print(self.sectionDurations)
 		#self.startButton.clicked.connect(self.startOptimization)
 
 		self.threadpool = QThreadPool()
@@ -287,8 +286,6 @@ class MainWindow(QMainWindow):
 		self.timeLeft = 0
 		self.update()
 		time.sleep(1)
-		print("Current section: %i"%(self.currentSection))
-		print("Total Sections: %i"%(self.sections))
 		if self.currentSection < self.sections:
 			self.currentSection += 1
 			# TODO:Wait for manual trigger for start of next section?
