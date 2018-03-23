@@ -5,21 +5,13 @@
 
 
 #Import
+from PyQt5 import QtCore
+from PyQt5.QtCore import QThreadPool,Qt, QTimer, QCoreApplication, QThread, QRect
+from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
+from PyQt5.QtGui import QPainter, QColor, QFont
 import sys
 import datetime
 import time
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-
-from PyQt5.QtWidgets import (QWidget, QTreeView, QMessageBox, QHBoxLayout,
-							 QFileDialog, QLabel, QSlider, QCheckBox,
-							 QLineEdit, QVBoxLayout, QApplication, QPushButton,
-							 QTableWidget, QTableWidgetItem,QSizePolicy,
-							 QGridLayout,QGroupBox, QMainWindow,QAction)
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtGui import QPainter, QColor, QFont
-from PyQt5.QtCore import Qt, QTimer, QCoreApplication, QThread, QRect
 import os
 import math
 import csv
@@ -47,9 +39,15 @@ class MainWindow(QMainWindow):
 		self.blueScore = 0
 		self.redPenalties = 0
 		self.bluePenalties = 0
-		self.round = 1
+		self.currentSection = 1
 		self.timerRunning = False
 		self.setupUI(self)
+		self.sectionDurations = [self.roundLength]
+		for i in range(0,self.roundQuantity-1):
+			self.sectionDurations.append(self.breakLength)
+			self.sectionDurations.append(self.roundLength)
+		self.sections = len(self.sectionDurations)
+		print(self.sectionDurations)
 		#self.startButton.clicked.connect(self.startOptimization)
 
 		self.threadpool = QThreadPool()
@@ -85,23 +83,23 @@ class MainWindow(QMainWindow):
 		exit_action.triggered.connect(self.close) #This is built in
 		file_menu.addAction(exit_action)
 
-		round_menu = menuBar.addMenu('&Round')
-		startAction = QAction('&Start Round', self)
+		round_menu = menuBar.addMenu('&Match')
+		startAction = QAction('&Start Match', self)
 		#bluePointAction.setStatusTip('Exit application')
 		startAction.triggered.connect(self.startRound) #This is built in
 		round_menu.addAction(startAction)
 
-		pauseAction = QAction('&Pause Round', self)
+		pauseAction = QAction('&Pause Match', self)
 		#pauseAction.setStatusTip('Exit application')
 		pauseAction.triggered.connect(self.pauseRound) #This is built in
 		round_menu.addAction(pauseAction)
 
-		resumeAction = QAction('&Resume Round', self)
+		resumeAction = QAction('&Resume Match', self)
 		#bluePointAction.setStatusTip('Exit application')
 		resumeAction.triggered.connect(self.resumeRound) #This is built in
 		round_menu.addAction(resumeAction)
 
-		resetAction = QAction('&Reset Round', self)
+		resetAction = QAction('&Reset Match', self)
 		#bluePointAction.setStatusTip('Exit application')
 		resetAction.triggered.connect(self.resetRound)
 		round_menu.addAction(resetAction)
@@ -231,9 +229,13 @@ class MainWindow(QMainWindow):
 		self.bluePenalties += 1
 		self.update()
 
+	def startMatch(self):
+		self.currentSection = 1
+		self.startRound()
+
 	def startRound(self):
 		if self.timerRunning == False:
-			self.timerThread = Timer.TimerThread(self.roundLength)
+			self.timerThread = Timer.TimerThread(self.sectionDurations[self.currentSection-1])
 			# Connect to emitted signals
 			self.timerThread.timerTicked.connect(self.timerTicked)
 			self.timerThread.timerDone.connect(self.timerDone)
@@ -261,6 +263,7 @@ class MainWindow(QMainWindow):
 		self.blueScore = 0
 		self.redPenalties = 0
 		self.bluePenalties = 0
+		self.currentSection = 1
 		self.timeLeft = self.roundLength
 		if self.timerRunning == True:
 			self.timerThread.terminate()
@@ -279,9 +282,17 @@ class MainWindow(QMainWindow):
 		self.update()
 
 	def timerDone(self):
-		print("Timer done recieved by main thread")
+		#self.timerThread.terminate()
+		self.timerRunning = False
 		self.timeLeft = 0
 		self.update()
+		time.sleep(1)
+		print("Current section: %i"%(self.currentSection))
+		print("Total Sections: %i"%(self.sections))
+		if self.currentSection < self.sections:
+			self.currentSection += 1
+			# TODO:Wait for manual trigger for start of next section?
+			self.startRound()
 
 def main():
 	app = QApplication(sys.argv)

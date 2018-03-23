@@ -19,14 +19,15 @@ class TimerThread(QThread):
 	timerDone = pyqtSignal()
 	def __init__(self, duration):
 		QThread.__init__(self)
-		self.timeLeft = int(duration)
+		self.timeLeft = int(duration+1)
+		print("Starting timer with %i seconds"%(duration))
 
 	def __del__(self):
 		self.wait()
 
 	def run(self):
 		time.sleep(1)
-		while self.timeLeft > 0:
+		while self.timeLeft > 1:
 			self.timeLeft = self.timeLeft - 1
 			self.timerTicked.emit(self.timeLeft)
 			time.sleep(1)
