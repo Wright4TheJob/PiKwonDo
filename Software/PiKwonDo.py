@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
 		self.redPenalties = 0
 		self.bluePenalties = 0
 		self.round = 1
-
+		self.timerRunning = False
 		self.setupUI(self)
 		#self.startButton.clicked.connect(self.startOptimization)
 
@@ -232,15 +232,19 @@ class MainWindow(QMainWindow):
 		self.update()
 
 	def startRound(self):
-		self.timerThread = Timer.TimerThread(self.roundLength)
-		# Connect to emitted signals
-		self.timerThread.timerTicked.connect(self.timerTicked)
-		self.timerThread.timerDone.connect(self.timerDone)
-		# Start the thread
-		self.timerThread.start()
+		if self.timerRunning == False:
+			self.timerThread = Timer.TimerThread(self.roundLength)
+			# Connect to emitted signals
+			self.timerThread.timerTicked.connect(self.timerTicked)
+			self.timerThread.timerDone.connect(self.timerDone)
+			# Start the thread
+			self.timerThread.start()
+		self.timerRunning = True
 
 	def pauseRound(self):
-		self.timerThread.terminate()
+		if self.timerRunning == True:
+			self.timerThread.terminate()
+		self.timerRunning = False
 
 	def resumeRound(self):
 		self.timerThread = Timer.TimerThread(self.timeLeft)
@@ -248,16 +252,20 @@ class MainWindow(QMainWindow):
 		self.timerThread.timerTicked.connect(self.timerTicked)
 		self.timerThread.timerDone.connect(self.timerDone)
 		# Start the thread
-		self.timerThread.start()
+		if self.timerRunning == False:
+			self.timerThread.start()
+		self.timerRunning = True
 
 	def resetRound(self):
-		print("Resetting Round")
 		self.redScore = 0
 		self.blueScore = 0
 		self.redPenalties = 0
 		self.bluePenalties = 0
 		self.timeLeft = self.roundLength
+		if self.timerRunning == True:
+			self.timerThread.terminate()
 		self.update()
+		self.timerRunning = False
 
 	def resizeEvent(self, event):
 		#print("resize")
