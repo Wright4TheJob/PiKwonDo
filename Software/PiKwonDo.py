@@ -7,6 +7,11 @@
 #Import
 import sys
 import datetime
+import time
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+
 from PyQt5.QtWidgets import (QWidget, QTreeView, QMessageBox, QHBoxLayout,
 							 QFileDialog, QLabel, QSlider, QCheckBox,
 							 QLineEdit, QVBoxLayout, QApplication, QPushButton,
@@ -18,6 +23,7 @@ from PyQt5.QtCore import Qt, QTimer, QCoreApplication, QThread, QRect
 import os
 import math
 import csv
+import Timer
 
 try:
 	_fromUtf8 = QtCore.QString.fromUtf8
@@ -30,17 +36,23 @@ class MainWindow(QMainWindow):
 		self.programLoaded = False
 		super(self.__class__, self).__init__()
 
+		# Settings
+		self.roundLength = 90 # seconds
+		self.timeLeft = self.roundLength
+		self.roundQuantity = 2
+		self.breakLength = 30 # seconds
+
 		# Initialize variables
 		self.redScore = 0
 		self.blueScore = 0
 		self.redPenalties = 0
 		self.bluePenalties = 0
 		self.round = 1
-		self.roundLength = 90 # seconds
-		self.timeLeft = self.roundLength
 
 		self.setupUI(self)
 		#self.startButton.clicked.connect(self.startOptimization)
+
+		self.threadpool = QThreadPool()
 
 		self.programLoaded = True
 
@@ -154,7 +166,7 @@ class MainWindow(QMainWindow):
 
 	def drawScores(self, event, qp):
 		qp.setPen(QColor(255, 255, 255))
-		qp.setFont(QFont('Decorative', 100))
+		qp.setFont(QFont('Decorative', self.width/4))
 		qp.drawText(QRect(0, 0, self.width/2, self.height), Qt.AlignCenter, str(int(self.redScore)))
 		qp.drawText(QRect(self.width/2, 0, self.width/2+2, self.height), Qt.AlignCenter, str(int(self.blueScore)))
 
@@ -176,7 +188,7 @@ class MainWindow(QMainWindow):
 		self.timeString = ':'.join(str(self.timeString ).split(':')[1:])
 		self.timeString = self.timeString[1:]
 		qp.setPen(QColor(255, 255, 255))
-		qp.setFont(QFont('Decorative', 50))
+		qp.setFont(QFont('Decorative', int(self.timeHeight*3/4)))
 		qp.drawText(QRect(self.width/4, self.penaltyBarHeight, self.width/2, self.timeHeight), Qt.AlignCenter, self.timeString)
 
 	def load_data(self):
@@ -222,6 +234,15 @@ class MainWindow(QMainWindow):
 	def startRound(self):
 		print("Starting Round")
 
+		timer = Timer.TimerWorker(self.roundLength)
+		timer.signals.timerTicked.connect(self.timerTicked)
+		timer.signals.timerDone.connect(self.timerDone)
+		#timer.signals.timerStopped.connect(self.progress_fn)
+		#timer.signals.timerError.connect(self.progress_fn)
+
+		# Execute
+		self.threadpool.start(timer)
+
 	def pauseRound(self):
 		print("Pausing Round")
 
@@ -230,6 +251,12 @@ class MainWindow(QMainWindow):
 
 	def resetRound(self):
 		print("Resetting Round")
+		self.redScore = 0
+		self.blueScore = 0
+		self.redPenalties = 0
+		self.bluePenalties = 0
+		self.timeLeft = self.roundLength
+		self.update()
 
 	def resizeEvent(self, event):
 		#print("resize")
@@ -237,6 +264,16 @@ class MainWindow(QMainWindow):
 		self.height = self.frameGeometry().height()
 		self.update()
 		QMainWindow.resizeEvent(self, event)
+
+	def timerTicked(self,newTime):
+		print("Timer Tick Recieved by main thread")
+		self.timeLeft = newTime
+		self.update()
+
+	def timerDone(self):
+		print("Timer done recieved by main thread")
+		self.timeLeft = 0
+		self.update()
 
 def main():
 	app = QApplication(sys.argv)
