@@ -15,7 +15,6 @@ from PyQt5.QtWidgets import (QWidget, QTreeView, QMessageBox, QHBoxLayout,
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QPainter, QColor, QFont
 from PyQt5.QtCore import Qt, QTimer, QCoreApplication, QThread, QRect
-import MainUI
 import os
 import math
 import csv
@@ -40,12 +39,12 @@ class MainWindow(QMainWindow):
 		self.roundLength = 90 # seconds
 		self.timeLeft = self.roundLength
 
-		self.drawUI(self)
+		self.setupUI(self)
 		#self.startButton.clicked.connect(self.startOptimization)
 
 		self.programLoaded = True
 
-	def drawUI(self, MainWindow):
+	def setupUI(self, MainWindow):
 		#Builds GUI
 		MainWindow.setObjectName(_fromUtf8("MainWindow"))
 		MainWindow.resize(1000, 800)
@@ -58,15 +57,6 @@ class MainWindow(QMainWindow):
 		self.penaltyBarHeight = 50
 		self.timeHeight = 100
 
-		self.redPenaltyText = "Penalies: "
-		for i in range(0,self.redPenalties):
-			self.redPenaltyText += "X"
-		self.bluePenaltyText = "Penalies: "
-		for i in range(0,self.bluePenalties):
-			self.bluePenaltyText += "X"
-		self.timeString = str(datetime.timedelta(seconds=self.timeLeft))
-		self.timeString = ':'.join(str(self.timeString ).split(':')[1:])
-		self.timeString = self.timeString[1:]
 		self.setWindowTitle('PiKwonDo')
 		self.activateWindow()
 		self.raise_()
@@ -77,56 +67,60 @@ class MainWindow(QMainWindow):
 
 		file_menu = menuBar.addMenu('&File')
 
-#		open_file = QAction('&Open', self)
-#		open_file.setShortcut('Ctrl+O')
-#		open_file.setStatusTip('Load Truss Design')
-#		#open_file.triggered.connect(self.load_data)
-#		file_menu.addAction(open_file)
-
-#		saveInput_file = QAction('&Save Input Design',self)
-#		saveInput_file.setStatusTip('Save Optimized Design')
-		#saveInput_file.triggered.connect(self.saveInputData)
-#		file_menu.addAction(saveInput_file)
-
 		exit_action = QAction('&Exit', self)
 		exit_action.setShortcut('Ctrl+Q')
 		exit_action.setStatusTip('Exit application')
 		exit_action.triggered.connect(self.close) #This is built in
 		file_menu.addAction(exit_action)
 
-		control_menu = menuBar.addMenu('&Control')
-
-		redPointAction = QAction('&Red Point', self)
-		redPointAction.setShortcut('r')
-		#bluePointAction.setStatusTip('Exit application')
-		redPointAction.triggered.connect(lambda: self.redPoint(1)) #This is built in
-		control_menu.addAction(redPointAction)
-
-		bluePointAction = QAction('&Blue Point', self)
-		bluePointAction.setShortcut('b')
-		#bluePointAction.setStatusTip('Exit application')
-		bluePointAction.triggered.connect(lambda: self.bluePoint(1)) #This is built in
-		control_menu.addAction(bluePointAction)
-
+		round_menu = menuBar.addMenu('&Round')
 		startAction = QAction('&Start Round', self)
 		#bluePointAction.setStatusTip('Exit application')
 		startAction.triggered.connect(self.startRound) #This is built in
-		control_menu.addAction(startAction)
+		round_menu.addAction(startAction)
 
 		pauseAction = QAction('&Pause Round', self)
 		#pauseAction.setStatusTip('Exit application')
 		pauseAction.triggered.connect(self.pauseRound) #This is built in
-		control_menu.addAction(pauseAction)
+		round_menu.addAction(pauseAction)
 
 		resumeAction = QAction('&Resume Round', self)
 		#bluePointAction.setStatusTip('Exit application')
 		resumeAction.triggered.connect(self.resumeRound) #This is built in
-		control_menu.addAction(resumeAction)
+		round_menu.addAction(resumeAction)
 
 		resetAction = QAction('&Reset Round', self)
 		#bluePointAction.setStatusTip('Exit application')
-		resetAction.triggered.connect(self.resetRound) #This is built in
-		control_menu.addAction(resetAction)
+		resetAction.triggered.connect(self.resetRound)
+		round_menu.addAction(resetAction)
+
+
+		red_menu = menuBar.addMenu('&Red')
+
+		redPointAction = QAction('&Point', self)
+		redPointAction.setShortcut('r')
+		#bluePointAction.setStatusTip('Exit application')
+		redPointAction.triggered.connect(lambda: self.redPoint(1))
+		red_menu.addAction(redPointAction)
+
+		redPenaltyAction = QAction('&Penalty',self)
+		#redPenaltyAction.setShortcut('')
+		#bluePointAction.setStatusTip('Exit application')
+		redPenaltyAction.triggered.connect(self.redPenalty)
+		red_menu.addAction(redPenaltyAction)
+
+		blue_menu = menuBar.addMenu('&Blue')
+		bluePointAction = QAction('&Point', self)
+		bluePointAction.setShortcut('b')
+		#bluePointAction.setStatusTip('Exit application')
+		bluePointAction.triggered.connect(lambda: self.bluePoint(1))
+		blue_menu.addAction(bluePointAction)
+
+		bluePenaltyAction = QAction('&Penalty',self)
+		#redPenaltyAction.setShortcut('')
+		#bluePointAction.setStatusTip('Exit application')
+		bluePenaltyAction.triggered.connect(self.bluePenalty)
+		blue_menu.addAction(bluePenaltyAction)
 
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -166,12 +160,21 @@ class MainWindow(QMainWindow):
 
 	def drawPenalties(self,event,qp):
 		offset = 10
+		self.redPenaltyText = "Penalties: "
+		for i in range(0,self.redPenalties):
+			self.redPenaltyText += "X"
+		self.bluePenaltyText = "Penalties: "
+		for i in range(0,self.bluePenalties):
+			self.bluePenaltyText += "X"
 		qp.setPen(QColor(255, 255, 255))
 		qp.setFont(QFont('Decorative', 20))
 		qp.drawText(QRect(offset, 0, self.width/2, self.penaltyBarHeight), (Qt.AlignLeft | Qt.AlignVCenter), self.redPenaltyText)
 		qp.drawText(QRect(self.width/2+offset, 0, self.width/2, self.penaltyBarHeight), (Qt.AlignLeft | Qt.AlignVCenter), self.bluePenaltyText)
 
 	def drawTime(self,event,qp):
+		self.timeString = str(datetime.timedelta(seconds=self.timeLeft))
+		self.timeString = ':'.join(str(self.timeString ).split(':')[1:])
+		self.timeString = self.timeString[1:]
 		qp.setPen(QColor(255, 255, 255))
 		qp.setFont(QFont('Decorative', 50))
 		qp.drawText(QRect(self.width/4, self.penaltyBarHeight, self.width/2, self.timeHeight), Qt.AlignCenter, self.timeString)
@@ -200,11 +203,21 @@ class MainWindow(QMainWindow):
 			self.redrawInputTables()
 			self.graph_canvas.plotTruss(self.initialNodeArray,self.initialBeamArray)
 
+	def redPoint(self,pointValue):
+		self.redScore += pointValue
+		self.update()
+
+	def redPenalty(self):
+		self.redPenalties += 1
+		self.update()
+
 	def bluePoint(self,pointValue):
 		self.blueScore	+= pointValue
+		self.update()
 
-	def redPoint(self,pointValue):
-		self.redScore	+= pointValue
+	def bluePenalty(self):
+		self.bluePenalties += 1
+		self.update()
 
 	def startRound(self):
 		print("Starting Round")
@@ -217,6 +230,13 @@ class MainWindow(QMainWindow):
 
 	def resetRound(self):
 		print("Resetting Round")
+
+	def resizeEvent(self, event):
+		#print("resize")
+		self.width = self.frameGeometry().width()
+		self.height = self.frameGeometry().height()
+		self.update()
+		QMainWindow.resizeEvent(self, event)
 
 def main():
 	app = QApplication(sys.argv)
