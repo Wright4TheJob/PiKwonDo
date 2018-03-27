@@ -16,6 +16,7 @@ import os
 import math
 import csv
 import Timer
+import GPIOListener
 
 try:
 	_fromUtf8 = QtCore.QString.fromUtf8
@@ -33,7 +34,7 @@ class MainWindow(QMainWindow):
 		self.timeLeft = self.roundLength
 		self.roundQuantity = 2
 		self.breakLength = 30 # seconds
-
+		self.maxGapTime = 200 #ms
 		# Initialize variables
 		self.redScore = 0
 		self.blueScore = 0
@@ -212,16 +213,34 @@ class MainWindow(QMainWindow):
 			self.redrawInputTables()
 			self.graph_canvas.plotTruss(self.initialNodeArray,self.initialBeamArray)
 
+	def pointDetected(self,person,pointValue):
+		if person == 0:
+			self.redPoint(pointValue)
+		elif person == 1:
+			self.bluePoint(pointValue)
+		else:
+			print("Unknown person code sent to pointDetected: " + repr(person))
+
+	def pointDetected(self,person):
+		if person == 0:
+			self.redPenalty()
+		elif person == 1:
+			self.bluePenalty()
+		else:
+			print("Unknown person code sent to penaltyDetected: " + repr(person))
+
 	def redPoint(self,pointValue):
 		self.redScore += pointValue
 		self.update()
 
 	def redPenalty(self):
 		self.redPenalties += 1
+		self.bluePoint(1)
 		self.update()
 
 	def bluePoint(self,pointValue):
 		self.blueScore	+= pointValue
+		self.redPoint(1)
 		self.update()
 
 	def bluePenalty(self):
@@ -234,12 +253,22 @@ class MainWindow(QMainWindow):
 
 	def startRound(self):
 		if self.timerRunning == False:
+			# Timer Thread
 			self.timerThread = Timer.TimerThread(self.sectionDurations[self.currentSection-1])
 			# Connect to emitted signals
 			self.timerThread.timerTicked.connect(self.timerTicked)
 			self.timerThread.timerDone.connect(self.timerDone)
 			# Start the thread
 			self.timerThread.start()
+
+			# Point Listener Thread
+			self.gpioListenerThread = GPIOListener.GPIOListenerThread(self.maxGapTime)
+			# Connect to emitted signals
+			self.gpioListenerThread.pointDetected.connect(self.pointDetected)
+			self.gpioListenerThread.penaltyDetected.connect(self.pointDetected)
+			# Start the thread
+			self.pointListenerThread.start()
+
 		self.timerRunning = True
 
 	def pauseRound(self):

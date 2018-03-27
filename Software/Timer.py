@@ -17,6 +17,7 @@ class TimerThread(QThread):
 
 	timerTicked = pyqtSignal(int)
 	timerDone = pyqtSignal()
+	
 	def __init__(self, duration):
 		QThread.__init__(self)
 		self.timeLeft = int(duration+1)
