@@ -41,6 +41,7 @@ class MainWindow(QMainWindow):
 		self.redPenalties = 0
 		self.bluePenalties = 0
 		self.currentSection = 1
+		self.matchRunning = False
 		self.timerRunning = False
 		self.setupUI(self)
 		self.sectionDurations = [self.roundLength]
@@ -170,12 +171,18 @@ class MainWindow(QMainWindow):
 
 	def drawPenalties(self,event,qp):
 		offset = 10
-		self.redPenaltyText = "Penalties: "
-		for i in range(0,self.redPenalties):
-			self.redPenaltyText += "X"
-		self.bluePenaltyText = "Penalties: "
-		for i in range(0,self.bluePenalties):
-			self.bluePenaltyText += "X"
+		if self.redPenalties >= 10:
+			self.redPenaltyText = "Disqualified"
+		else:
+			self.redPenaltyText = "Penalties: "
+			for i in range(0,self.redPenalties):
+				self.redPenaltyText += "X"
+		if self.bluePenalties >= 10:
+			self.bluePenaltyText = "Disqualified"
+		else:
+			self.bluePenaltyText = "Penalties: "
+			for i in range(0,self.bluePenalties):
+				self.bluePenaltyText += "X"
 		qp.setPen(QColor(255, 255, 255))
 		qp.setFont(QFont('Decorative', 20))
 		qp.drawText(QRect(offset, 0, self.width/2, self.penaltyBarHeight), (Qt.AlignLeft | Qt.AlignVCenter), self.redPenaltyText)
@@ -240,17 +247,19 @@ class MainWindow(QMainWindow):
 
 	def bluePoint(self,pointValue):
 		self.blueScore	+= pointValue
-		self.redPoint(1)
 		self.update()
 
 	def bluePenalty(self):
 		self.bluePenalties += 1
+		self.redPoint(1)
 		self.update()
 
 	def startMatch(self):
-		self.currentSection = 1
-		self.startRound()
-
+		if self.matchRunning == False:
+			self.currentSection = 1
+			self.startRound()
+		else:
+			self.resumeRound()
 	def startRound(self):
 		if self.timerRunning == False:
 			# Timer Thread
@@ -267,7 +276,7 @@ class MainWindow(QMainWindow):
 			self.gpioListenerThread.pointDetected.connect(self.pointDetected)
 			self.gpioListenerThread.penaltyDetected.connect(self.pointDetected)
 			# Start the thread
-			self.pointListenerThread.start()
+			self.gpioListenerThread.start()
 
 		self.timerRunning = True
 
@@ -277,12 +286,11 @@ class MainWindow(QMainWindow):
 		self.timerRunning = False
 
 	def resumeRound(self):
-		self.timerThread = Timer.TimerThread(self.timeLeft)
-		# Connect to emitted signals
-		self.timerThread.timerTicked.connect(self.timerTicked)
-		self.timerThread.timerDone.connect(self.timerDone)
-		# Start the thread
 		if self.timerRunning == False:
+			self.timerThread = Timer.TimerThread(self.timeLeft)
+			# Connect to emitted signals
+			self.timerThread.timerTicked.connect(self.timerTicked)
+			self.timerThread.timerDone.connect(self.timerDone)
 			self.timerThread.start()
 		self.timerRunning = True
 
@@ -297,7 +305,7 @@ class MainWindow(QMainWindow):
 			self.timerThread.terminate()
 		self.update()
 		self.timerRunning = False
-
+		self.matchRunning = False
 	def resizeEvent(self, event):
 		#print("resize")
 		self.width = self.frameGeometry().width()
@@ -319,6 +327,8 @@ class MainWindow(QMainWindow):
 			self.currentSection += 1
 			# TODO:Wait for manual trigger for start of next section?
 			self.startRound()
+		elif self.currentSection == self.sections:
+			self.matchRunning = False
 
 def main():
 	app = QApplication(sys.argv)
