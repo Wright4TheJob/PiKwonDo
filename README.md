@@ -9,7 +9,9 @@ Phase 1 of the judging system will use judge triggers connected by wires to the 
 While the system is designed to mimic expensive World TaeKwonDo-approved systems, it is not currently recommended for official tournament use.
 
 # Status
-The project is under early development. No function prototype is ready at this time.
+The project is under early development. No function prototype is ready at this time. Hardware and software folders have individual README files with more particular statuses and todo items.
+
+All design files and software are provided "as-is." Any stable releases will be bundled for easy download, but this does not guarentee suitability for your particular setup.
 
 # Software
 The judging software and UI is written in python and QT.
