@@ -217,8 +217,10 @@ class GPIOListenerThread(QThread):
 		personCode = -1
 		if self.gpioRead(self.redPenaltyPin) == 1 and self.gpioRead(self.bluePenaltyPin) == 0:
 			personCode = 0
+			print('Penalty for Red')
 		elif self.gpioRead(self.redPenaltyPin) == 0 and self.gpioRead(self.bluePenaltyPin) == 1:
 			personCode = 1
+			print('Penalty for Blue')
 		else:
 			print("Unknown combination of penalty pin presses:")
 			print("Red Pin: %i" %(self.gpioRead(self.redPenaltyPin)))
