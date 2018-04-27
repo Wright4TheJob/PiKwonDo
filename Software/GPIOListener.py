@@ -16,17 +16,17 @@ import traceback, sys
 import threading
 
 class ButtonHandler(threading.Thread):
-    def __init__(self, pin, func, edge='both', bouncetime=100, glitchtime=5):
-        super().__init__(daemon=True)
+	def __init__(self, pin, func, edge='both', bouncetime=100, glitchtime=5):
+		super().__init__(daemon=True)
 
-        self.edge = edge
-        self.func = func
-        self.pin = pin
-        self.bouncetime = float(bouncetime)/1000
+		self.edge = edge
+		self.func = func
+		self.pin = pin
+		self.bouncetime = float(bouncetime)/1000
 		self.glitchtime = float(glitchtime)/1000
 
-        self.lastpinval = GPIO.input(self.pin)
-        self.glitchLock = threading.Lock()
+		self.lastpinval = GPIO.input(self.pin)
+		self.glitchLock = threading.Lock()
 		self.bounceLock = threading.Lock()
 
 		if (self.edge == 'rising'):
@@ -36,29 +36,29 @@ class ButtonHandler(threading.Thread):
 
 		GPIO.add_event_detect(pin,gpioEdge,callback=self)
 
-    def __call__(self, *args):
-        if not self.bounceLock.acquire(blocking=False):
-            return
+	def __call__(self, *args):
+		if not self.bounceLock.acquire(blocking=False):
+			return
 
-        glitchTimer = threading.Timer(self.bouncetime, self.glitchDone, args=args)
-        glitchTimer.start()
+		glitchTimer = threading.Timer(self.bouncetime, self.glitchDone, args=args)
+		glitchTimer.start()
 
 		bounceTimer = threading.Timer(self.glitchtime, self.bounceDone, args=args)
 		bounceTimer.start()
 
-    def glitchDone(self, *args):
-        pinval = GPIO.input(self.pin)
+	def glitchDone(self, *args):
+		pinval = GPIO.input(self.pin)
 
-        if (
-                ((pinval == 0 and self.lastpinval == 1) and
-                 (self.edge in ['falling', 'both'])) or
-                ((pinval == 1 and self.lastpinval == 0) and
-                 (self.edge in ['rising', 'both']))
-        ):
-            self.func(*args)
+		if (
+				((pinval == 0 and self.lastpinval == 1) and
+				 (self.edge in ['falling', 'both'])) or
+				((pinval == 1 and self.lastpinval == 0) and
+				 (self.edge in ['rising', 'both']))
+		):
+			self.func(*args)
 
-        self.lastpinval = pinval
-        self.glitchLock.release()
+		self.lastpinval = pinval
+		self.glitchLock.release()
 
 	def bounceDone(self, *args):
 		self.bounceLock.release()
