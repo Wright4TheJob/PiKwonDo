@@ -239,7 +239,7 @@ class MainWindow(QMainWindow):
 		else:
 			print("Unknown person code sent to pointDetected: " + repr(person))
 
-	def pointDetected(self,person):
+	def penaltyDetected(self,person):
 		if person == 0:
 			self.redPenalty()
 		elif person == 1:
@@ -271,6 +271,7 @@ class MainWindow(QMainWindow):
 			self.startRound()
 		else:
 			self.resumeRound()
+
 	def startRound(self):
 		if self.timerRunning == False:
 			# Timer Thread
@@ -309,6 +310,7 @@ class MainWindow(QMainWindow):
 		self.update()
 		self.timerRunning = False
 		self.matchRunning = False
+
 	def resizeEvent(self, event):
 		#print("resize")
 		self.width = self.frameGeometry().width()
