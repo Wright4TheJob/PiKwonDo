@@ -42,7 +42,7 @@ class GPIOListenerThread(QThread):
 		GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 		# Falling edge detection on all pins for judge boxes
 		# Judge 0 input pins
-		judge0pins = [2,3,4]
+		self.judge0pins = [2,3,4]
 		GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		GPIO.add_event_detect(2,GPIO.FALLING,callback=self.judge0Signal)
 		GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -51,7 +51,7 @@ class GPIOListenerThread(QThread):
 		GPIO.add_event_detect(4,GPIO.FALLING,callback=self.judge0Signal)
 
 		# Judge 1 input pins
-		judge1Pins = [17,27,22]
+		self.judge1Pins = [17,27,22]
 		GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		GPIO.add_event_detect(17,GPIO.FALLING,callback=self.judge1Signal)
 		GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -60,7 +60,7 @@ class GPIOListenerThread(QThread):
 		GPIO.add_event_detect(22,GPIO.FALLING,callback=self.judge1Signal)
 
 		# Judge 2 input pins
-		judge2Pins = [10,9,11]
+		self.judge2Pins = [10,9,11]
 		GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		GPIO.add_event_detect(10,GPIO.FALLING,callback=self.judge2Signal)
 		GPIO.setup(9, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -69,12 +69,12 @@ class GPIOListenerThread(QThread):
 		GPIO.add_event_detect(11,GPIO.FALLING,callback=self.judge2Signal)
 
 		# Timer input pins
-		timerPins = [5,6,13,19,26]
-		startPin = timerPins[0]
-		pausePin = timerPins[1]
-		resetPin = timerPins[2]
-		redPenaltyPin = timerPins[3]
-		bluePenaltyPin = timerPins[4]
+		self.timerPins = [5,6,13,19,26]
+		self.startPin = timerPins[0]
+		self.pausePin = timerPins[1]
+		self.resetPin = timerPins[2]
+		self.redPenaltyPin = timerPins[3]
+		self.bluePenaltyPin = timerPins[4]
 		GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 		GPIO.add_event_detect(5,GPIO.RISING,callback=self.startRoundPushed)
 		GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -115,14 +115,14 @@ class GPIOListenerThread(QThread):
 		return result
 
 	def judge0Signal(self,callback):
-		buttonBits = [self.gpioRead(pin) for pin in judge0Pins]
+		buttonBits = [self.gpioRead(pin) for pin in self.judge0Pins]
 		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 		thisJudge = 0
 		self.thisTime = datetime.datetime.now()
 		self.judgeTrigger(thisJudge)
 
 	def judge1Signal(self,callback):
-		buttonBits = [self.gpioRead(pin) for pin in judge1Pins]
+		buttonBits = [self.gpioRead(pin) for pin in self.judge1Pins]
 		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 
 		thisJudge = 1
@@ -130,7 +130,7 @@ class GPIOListenerThread(QThread):
 		self.judgeTrigger(thisJudge)
 
 	def judge2Signal(self,callback):
-		buttonBits = [self.gpioRead(pin) for pin in judge2Pins]
+		buttonBits = [self.gpioRead(pin) for pin in self.judge2Pins]
 		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 		thisJudge = 2
 		self.thisTime = datetime.datetime.now()
@@ -166,14 +166,14 @@ class GPIOListenerThread(QThread):
 
 	def penaltyPushed(self,callback):
 		personCode = -1
-		if self.gpioRead(redPenaltyPin) == 1 and self.gpioRead(bluePenaltyPin) == 0:
+		if self.gpioRead(self.redPenaltyPin) == 1 and self.gpioRead(self.bluePenaltyPin) == 0:
 			personCode = 0
-		elif self.gpioRead(redPenaltyPin) == 0 and self.gpioRead(bluePenaltyPin) == 1:
+		elif self.gpioRead(self.redPenaltyPin) == 0 and self.gpioRead(self.bluePenaltyPin) == 1:
 			personCode = 1
 		else:
 			print("Unknown combination of penalty pin presses:")
-			print("Red Pin: %i" %(self.gpioRead(redPenaltyPin)))
-			print("Blue Pin: %i" %(self.gpioRead(bluePenaltyPin)))
+			print("Red Pin: %i" %(self.gpioRead(self.redPenaltyPin)))
+			print("Blue Pin: %i" %(self.gpioRead(self.bluePenaltyPin)))
 		self.penaltyDetected.emit(personCode)
 
 	def __del__(self):
