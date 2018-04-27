@@ -1,4 +1,4 @@
-#!/bin/env/python
+#! /bin/env/python3
 # David Wright
 # Copyright 2017
 # Written for Python 3.5.2
@@ -114,14 +114,14 @@ class GPIOListenerThread(QThread):
 
 		return result
 
-	def judge0Signal(channel):
+	def judge0Signal(self,callback):
 		buttonBits = [gpioRead(pin) for pin in judge0Pins]
 		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 		thisJudge = 0
 		self.thisTime = datetime.datetime.now()
 		self.judgeTrigger(thisJudge)
 
-	def judge1Signal(self):
+	def judge1Signal(self,callback):
 		buttonBits = [gpioRead(pin) for pin in judge1Pins]
 		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 
@@ -129,17 +129,12 @@ class GPIOListenerThread(QThread):
 		self.thisTime = datetime.datetime.now()
 		self.judgeTrigger(thisJudge)
 
-	def judge2Signal(self):
+	def judge2Signal(self,callback):
 		buttonBits = [gpioRead(pin) for pin in judge2Pins]
 		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 		thisJudge = 2
 		self.thisTime = datetime.datetime.now()
 		self.judgeTrigger(thisJudge)
-
-	def signalDetect(self):
-		print('Signal detected from GPIO')
-		thisJudge = 0
-		self.thisValue = 2
 
 	def judgeTrigger(self,judge):
 		# TODO:Check to make sure it does not double-log points for all three judges scoring
@@ -160,16 +155,16 @@ class GPIOListenerThread(QThread):
 		self.lastPerson = self.thisPerson
 		self.lastTime = self.thisTime
 
-	def startRoundPushed(self):
+	def startRoundPushed(self,callback):
 		self.startRoundDetected.emit()
 
-	def pauseRoundPushed(self):
+	def pauseRoundPushed(self,callback):
 		self.pauseRoundDetected.emit()
 
-	def resetRoundPushed(self):
+	def resetRoundPushed(self,callback):
 		self.resetRoundDetected.emit()
 
-	def penaltyPushed(self):
+	def penaltyPushed(self,callback):
 		personCode = -1
 		if gpioRead(redPenaltyPin) == 1 and gpioRead(bluePenaltyPin) == 0:
 			personCode = 0
