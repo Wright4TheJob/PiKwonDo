@@ -4,7 +4,7 @@
 # Written for Python 3.5.2
 from PyQt5.QtCore import QThread
 import PyQt5.QtCore as QtCore
-#import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
 
 # PointListener.py
 #from PyQt5.QtGui import *
