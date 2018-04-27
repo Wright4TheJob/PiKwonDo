@@ -39,7 +39,7 @@ class GPIOListenerThread(QThread):
 		self.thisJudge = 0
 
 		#GPIO.setwarnings(False) # Ignore warning for now
-		GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
+		GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 		# Falling edge detection on all pins for judge boxes
 		# Judge 0 input pins
 		judge0pins = [2,3,4]
