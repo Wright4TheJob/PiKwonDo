@@ -22,6 +22,70 @@ class GPIOListenerThread(QThread):
 	pauseRoundDetected = pyqtSignal()
 	resetRoundDetected = pyqtSignal()
 
+	def __init__(self, judgeGapThreshhold):
+		QThread.__init__(self)
+		print("Starting gpio listener")
+		self.maxGapTime = judgeGapThreshhold
+		#self.lastTime = datetime.datetime.now()# - 1 minute to ensure first trigger counts
+		self.lastTime = [0,0,0]
+		self.lastValue = [0,0,0]
+
+		self.lastPerson = 0
+		self.lastValue = 0
+		self.lastJudge = 0 # Judge codes are 0, 1, and 2
+		self.thisTime = datetime.datetime.now()# - 1 minute to ensure first trigger counts
+		self.thisPerson = 0 # Red is 0, blue is 1
+		self.thisValue = 0
+		self.thisJudge = 0
+
+		#GPIO.setwarnings(False) # Ignore warning for now
+		GPIO.setmode(GPIO.BCM) # Use physical pin numbering
+		# Falling edge detection on all pins for judge boxes
+		# Judge 0 input pins
+		judge0pins = [2,3,4]
+		GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(2,GPIO.FALLING,callback=self.judge0Signal)
+		GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(3,GPIO.FALLING,callback=self.judge0Signal)
+		GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(4,GPIO.FALLING,callback=self.judge0Signal)
+
+		# Judge 1 input pins
+		judge1Pins = [17,27,22]
+		GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(17,GPIO.FALLING,callback=self.judge1Signal)
+		GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(27,GPIO.FALLING,callback=self.judge1Signal)
+		GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(22,GPIO.FALLING,callback=self.judge1Signal)
+
+		# Judge 2 input pins
+		judge2Pins = [10,9,11]
+		GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(10,GPIO.FALLING,callback=self.judge2Signal)
+		GPIO.setup(9, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(9,GPIO.FALLING,callback=self.judge2Signal)
+		GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.add_event_detect(11,GPIO.FALLING,callback=self.judge2Signal)
+
+		# Timer input pins
+		timerPins = [5,6,13,19,26]
+		startPin = timerPins[0]
+		pausePin = timerPins[1]
+		resetPin = timerPins[2]
+		redPenaltyPin = timerPins[3]
+		bluePenaltyPin = timerPins[4]
+		GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		GPIO.add_event_detect(5,GPIO.RISING,callback=self.startRoundPushed)
+		GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		GPIO.add_event_detect(6,GPIO.RISING,callback=self.pauseRoundPushed)
+		GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		GPIO.add_event_detect(13,GPIO.RISING,callback=self.resetRoundPushed)
+		GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		GPIO.add_event_detect(19,GPIO.RISING,callback=self.redPenaltyPushed)
+		GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		GPIO.add_event_detect(26,GPIO.RISING,callback=self.bluePenaltyPushed)
+
 	def decodeBinary(self, bitList):
 		if len(bitList) != 3:
 			print("Unknown number of bits sent to decodeBinary: %i"%(len(bitList)))
@@ -116,71 +180,6 @@ class GPIOListenerThread(QThread):
 			print("Red Pin: %i" %(gpioRead(redPenaltyPin)))
 			print("Blue Pin: %i" %(gpioRead(bluePenaltyPin)))
 		self.penaltyDetected.emit(personCode)
-
-	def __init__(self, judgeGapThreshhold):
-		QThread.__init__(self)
-		print("Starting gpio listener")
-		self.maxGapTime = judgeGapThreshhold
-		#self.lastTime = datetime.datetime.now()# - 1 minute to ensure first trigger counts
-		self.lastTime = [0,0,0]
-		self.lastValue = [0,0,0]
-
-		self.lastPerson = 0
-		self.lastValue = 0
-		self.lastJudge = 0 # Judge codes are 0, 1, and 2
-		self.thisTime = datetime.datetime.now()# - 1 minute to ensure first trigger counts
-		self.thisPerson = 0 # Red is 0, blue is 1
-		self.thisValue = 0
-		self.thisJudge = 0
-
-		#GPIO.setwarnings(False) # Ignore warning for now
-		GPIO.setmode(GPIO.BCM) # Use physical pin numbering
-		# Falling edge detection on all pins for judge boxes
-		# Judge 0 input pins
-		judge0pins = [2,3,4]
-		GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(2,GPIO.FALLING,callback=judge0Signal)
-		GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(3,GPIO.FALLING,callback=judge0Signal)
-		GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(4,GPIO.FALLING,callback=judge0Signal)
-
-		# Judge 1 input pins
-		judge1Pins = [17,27,22]
-		GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(17,GPIO.FALLING,callback=judge1Signal)
-		GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(27,GPIO.FALLING,callback=judge1Signal)
-		GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(22,GPIO.FALLING,callback=judge1Signal)
-
-		# Judge 2 input pins
-		judge2Pins = [10,9,11]
-		GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(10,GPIO.FALLING,callback=judge2Signal)
-		GPIO.setup(9, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(9,GPIO.FALLING,callback=judge2Signal)
-		GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(11,GPIO.FALLING,callback=judge2Signal)
-
-		# Timer input pins
-		timerPins = [5,6,13,19,26]
-		startPin = timerPins[0]
-		pausePin = timerPins[1]
-		resetPin = timerPins[2]
-		redPenaltyPin = timerPins[3]
-		bluePenaltyPin = timerPins[4]
-		GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(5,GPIO.RISING,callback=startRoundPushed)
-		GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(6,GPIO.RISING,callback=pauseRoundPushed)
-		GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(13,GPIO.RISING,callback=resetRoundPushed)
-		GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(19,GPIO.RISING,callback=redPenaltyPushed)
-		GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(26,GPIO.RISING,callback=bluePenaltyPushed)
-
 
 	def __del__(self):
 		#GPIO.cleanup() # Clean up
