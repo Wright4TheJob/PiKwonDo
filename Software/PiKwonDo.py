@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
 		self.gpioListenerThread = GPIOListener.GPIOListenerThread(self.maxGapTime)
 		# Connect to emitted signals
 		self.gpioListenerThread.pointDetected.connect(self.pointDetected)
-		self.gpioListenerThread.penaltyDetected.connect(self.pointDetected)
+		self.gpioListenerThread.penaltyDetected.connect(self.penaltyDetected)
 		self.gpioListenerThread.startRoundDetected.connect(self.startMatch)
 		self.gpioListenerThread.pauseRoundDetected.connect(self.pauseRound)
 		self.gpioListenerThread.resetRoundDetected.connect(self.resetRound)
@@ -281,7 +281,7 @@ class MainWindow(QMainWindow):
 			self.timerThread.timerDone.connect(self.timerDone)
 			# Start the thread
 			self.timerThread.start()
-
+		self.matchRunning = True
 		self.timerRunning = True
 
 	def pauseRound(self):
