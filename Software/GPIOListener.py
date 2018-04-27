@@ -125,12 +125,12 @@ class GPIOListenerThread(QThread):
 		GPIO.add_event_detect(self.resetPin,GPIO.RISING,callback=resetHandler)
 
 		GPIO.setup(self.redPenaltyPin , GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		redPenaltyHandler = ButtonHandler(self.redPenaltyPin, self.penaltyDetected, edge='rising', bouncetime=100)
+		redPenaltyHandler = ButtonHandler(self.redPenaltyPin, self.penaltyPushed, edge='rising', bouncetime=100)
 		redPenaltyHandler.start()
 		GPIO.add_event_detect(self.redPenaltyPin ,GPIO.RISING,callback=redPenaltyHandler)
 
 		GPIO.setup(self.bluePenaltyPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyDetected, edge='rising', bouncetime=100)
+		bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyPushed, edge='rising', bouncetime=100)
 		bluePenaltyHandler.start()
 		GPIO.add_event_detect(self.bluePenaltyPin,GPIO.RISING,callback=redPenaltyHandler)
 
