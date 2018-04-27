@@ -13,6 +13,40 @@ from PyQt5.QtCore import *
 import datetime
 import time
 import traceback, sys
+import threading
+
+class ButtonHandler(threading.Thread):
+    def __init__(self, pin, func, edge='both', bouncetime=200):
+        super().__init__(daemon=True)
+
+        self.edge = edge
+        self.func = func
+        self.pin = pin
+        self.bouncetime = float(bouncetime)/1000
+
+        self.lastpinval = GPIO.input(self.pin)
+        self.lock = threading.Lock()
+
+    def __call__(self, *args):
+        if not self.lock.acquire(blocking=False):
+            return
+
+        t = threading.Timer(self.bouncetime, self.read, args=args)
+        t.start()
+
+    def read(self, *args):
+        pinval = GPIO.input(self.pin)
+
+        if (
+                ((pinval == 0 and self.lastpinval == 1) and
+                 (self.edge in ['falling', 'both'])) or
+                ((pinval == 1 and self.lastpinval == 0) and
+                 (self.edge in ['rising', 'both']))
+        ):
+            self.func(*args)
+
+        self.lastpinval = pinval
+        self.lock.release()
 
 class GPIOListenerThread(QThread):
 
@@ -42,7 +76,7 @@ class GPIOListenerThread(QThread):
 		GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 		# Falling edge detection on all pins for judge boxes
 		# Judge 0 input pins
-		self.judge0pins = [2,3,4]
+		self.judge0Pins = [2,3,4]
 		GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		GPIO.add_event_detect(2,GPIO.FALLING,callback=self.judge0Signal)
 		GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -75,16 +109,30 @@ class GPIOListenerThread(QThread):
 		self.resetPin = self.timerPins[2]
 		self.redPenaltyPin = self.timerPins[3]
 		self.bluePenaltyPin = self.timerPins[4]
-		GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(5,GPIO.RISING,callback=self.startRoundPushed)
-		GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(6,GPIO.RISING,callback=self.pauseRoundPushed)
-		GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(13,GPIO.RISING,callback=self.resetRoundPushed)
-		GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(19,GPIO.RISING,callback=self.penaltyPushed)
-		GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(26,GPIO.RISING,callback=self.penaltyPushed)
+		GPIO.setup(self.startPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		startHandler = ButtonHandler(self.startPin, self.startRoundPushed, edge='rising', bouncetime=100)
+		starHandler.start()
+		GPIO.add_event_detect(self.startPin,GPIO.RISING,callback=startHandler)
+
+		GPIO.setup(self.pausePin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		pauseHandler = ButtonHandler(self.pausePin, self.pauseRoundPushed, edge='rising', bouncetime=100)
+		pauseHandler.start()
+		GPIO.add_event_detect(self.pausePin,GPIO.RISING,callback=pauseHandler)
+
+		GPIO.setup(self.resetPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		resetHandler = ButtonHandler(self.resetPin, self.resetRoundPushed, edge='rising', bouncetime=100)
+		resetHandler.start()
+		GPIO.add_event_detect(self.resetPin,GPIO.RISING,callback=resetHandler)
+
+		GPIO.setup(self.redPenaltyPin , GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		redPenaltyHandler = ButtonHandler(self.redPenaltyPin, self.penaltyDetected, edge='rising', bouncetime=100)
+		redPenaltyHandler.start()
+		GPIO.add_event_detect(self.redPenaltyPin ,GPIO.RISING,callback=redPenaltyHandler)
+
+		GPIO.setup(self.bluePenaltyPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyDetected, edge='rising', bouncetime=100)
+		bluePenaltyHandler.start()
+		GPIO.add_event_detect(self.bluePenaltyPin,GPIO.RISING,callback=redPenaltyHandler)
 
 	def decodeBinary(self, bitList):
 		if len(bitList) != 3:
@@ -137,6 +185,7 @@ class GPIOListenerThread(QThread):
 		self.judgeTrigger(thisJudge)
 
 	def judgeTrigger(self,judge):
+		print('Judge Trigger called with judge code %i' %(judge))
 		# TODO:Check to make sure it does not double-log points for all three judges scoring
 		# Two judges within x milliseconds
 		# One point even if all three judges trigger
