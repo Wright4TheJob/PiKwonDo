@@ -70,11 +70,11 @@ class GPIOListenerThread(QThread):
 
 		# Timer input pins
 		self.timerPins = [5,6,13,19,26]
-		self.startPin = timerPins[0]
-		self.pausePin = timerPins[1]
-		self.resetPin = timerPins[2]
-		self.redPenaltyPin = timerPins[3]
-		self.bluePenaltyPin = timerPins[4]
+		self.startPin = self.timerPins[0]
+		self.pausePin = self.timerPins[1]
+		self.resetPin = self.timerPins[2]
+		self.redPenaltyPin = self.timerPins[3]
+		self.bluePenaltyPin = self.timerPins[4]
 		GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 		GPIO.add_event_detect(5,GPIO.RISING,callback=self.startRoundPushed)
 		GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
