@@ -111,7 +111,7 @@ class GPIOListenerThread(QThread):
 		self.bluePenaltyPin = self.timerPins[4]
 		GPIO.setup(self.startPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 		startHandler = ButtonHandler(self.startPin, self.startRoundPushed, edge='rising', bouncetime=100)
-		starHandler.start()
+		startHandler.start()
 		GPIO.add_event_detect(self.startPin,GPIO.RISING,callback=startHandler)
 
 		GPIO.setup(self.pausePin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
