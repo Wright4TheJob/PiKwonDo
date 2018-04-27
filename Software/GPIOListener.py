@@ -16,25 +16,37 @@ import traceback, sys
 import threading
 
 class ButtonHandler(threading.Thread):
-    def __init__(self, pin, func, edge='both', bouncetime=200):
+    def __init__(self, pin, func, edge='both', bouncetime=100, glitchtime=5):
         super().__init__(daemon=True)
 
         self.edge = edge
         self.func = func
         self.pin = pin
         self.bouncetime = float(bouncetime)/1000
+		self.glitchtime = float(glitchtime)/1000
 
         self.lastpinval = GPIO.input(self.pin)
-        self.lock = threading.Lock()
+        self.glitchLock = threading.Lock()
+		self.bounceLock = threading.Lock()
+
+		if (self.edge == 'rising'):
+			gpioEdge = GPIO.RISING
+		elif (self.edge == 'falling'):
+			gpioEdge = GPIO.FALLING
+
+		GPIO.add_event_detect(pin,gpioEdge,callback=self)
 
     def __call__(self, *args):
-        if not self.lock.acquire(blocking=False):
+        if not self.bounceLock.acquire(blocking=False):
             return
 
-        t = threading.Timer(self.bouncetime, self.read, args=args)
-        t.start()
+        glitchTimer = threading.Timer(self.bouncetime, self.glitchDone, args=args)
+        glitchTimer.start()
 
-    def read(self, *args):
+		bounceTimer = threading.Timer(self.glitchtime, self.bounceDone, args=args)
+		bounceTimer.start()
+
+    def glitchDone(self, *args):
         pinval = GPIO.input(self.pin)
 
         if (
@@ -46,7 +58,10 @@ class ButtonHandler(threading.Thread):
             self.func(*args)
 
         self.lastpinval = pinval
-        self.lock.release()
+        self.glitchLock.release()
+
+	def bounceDone(self, *args):
+		self.bounceLock.release()
 
 class GPIOListenerThread(QThread):
 
@@ -110,29 +125,24 @@ class GPIOListenerThread(QThread):
 		self.redPenaltyPin = self.timerPins[3]
 		self.bluePenaltyPin = self.timerPins[4]
 		GPIO.setup(self.startPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		startHandler = ButtonHandler(self.startPin, self.startRoundPushed, edge='rising', bouncetime=100)
+		startHandler = ButtonHandler(self.startPin, self.startRoundPushed, edge='rising')
 		startHandler.start()
-		GPIO.add_event_detect(self.startPin,GPIO.RISING,callback=startHandler)
 
 		GPIO.setup(self.pausePin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		pauseHandler = ButtonHandler(self.pausePin, self.pauseRoundPushed, edge='rising', bouncetime=100)
+		pauseHandler = ButtonHandler(self.pausePin, self.pauseRoundPushed, edge='rising')
 		pauseHandler.start()
-		GPIO.add_event_detect(self.pausePin,GPIO.RISING,callback=pauseHandler)
 
 		GPIO.setup(self.resetPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		resetHandler = ButtonHandler(self.resetPin, self.resetRoundPushed, edge='rising', bouncetime=100)
+		resetHandler = ButtonHandler(self.resetPin, self.resetRoundPushed, edge='rising')
 		resetHandler.start()
-		GPIO.add_event_detect(self.resetPin,GPIO.RISING,callback=resetHandler)
 
 		GPIO.setup(self.redPenaltyPin , GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		redPenaltyHandler = ButtonHandler(self.redPenaltyPin, self.penaltyPushed, edge='rising', bouncetime=100)
+		redPenaltyHandler = ButtonHandler(self.redPenaltyPin, self.penaltyPushed, edge='rising')
 		redPenaltyHandler.start()
-		GPIO.add_event_detect(self.redPenaltyPin ,GPIO.RISING,callback=redPenaltyHandler)
 
 		GPIO.setup(self.bluePenaltyPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyPushed, edge='rising', bouncetime=100)
+		bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyPushed, edge='rising')
 		bluePenaltyHandler.start()
-		GPIO.add_event_detect(self.bluePenaltyPin,GPIO.RISING,callback=bluePenaltyHandler)
 
 	def decodeBinary(self, bitList):
 		if len(bitList) != 3:
