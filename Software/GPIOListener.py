@@ -132,7 +132,7 @@ class GPIOListenerThread(QThread):
 		GPIO.setup(self.bluePenaltyPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 		bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyPushed, edge='rising', bouncetime=100)
 		bluePenaltyHandler.start()
-		GPIO.add_event_detect(self.bluePenaltyPin,GPIO.RISING,callback=redPenaltyHandler)
+		GPIO.add_event_detect(self.bluePenaltyPin,GPIO.RISING,callback=bluePenaltyHandler)
 
 	def decodeBinary(self, bitList):
 		if len(bitList) != 3:
