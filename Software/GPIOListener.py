@@ -82,9 +82,9 @@ class GPIOListenerThread(QThread):
 		GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 		GPIO.add_event_detect(13,GPIO.RISING,callback=self.resetRoundPushed)
 		GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(19,GPIO.RISING,callback=self.redPenaltyPushed)
+		GPIO.add_event_detect(19,GPIO.RISING,callback=self.penaltyPushed)
 		GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-		GPIO.add_event_detect(26,GPIO.RISING,callback=self.bluePenaltyPushed)
+		GPIO.add_event_detect(26,GPIO.RISING,callback=self.penaltyPushed)
 
 	def decodeBinary(self, bitList):
 		if len(bitList) != 3:
