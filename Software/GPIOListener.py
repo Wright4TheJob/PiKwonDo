@@ -22,29 +22,31 @@ class ButtonHandler(threading.Thread):
 		self.edge = edge
 		self.func = func
 		self.pin = pin
-		self.bouncetime = float(bouncetime)/1000
+		#self.bouncetime = float(bouncetime)/1000
 		self.glitchtime = float(glitchtime)/1000
 
 		self.lastpinval = GPIO.input(self.pin)
 		self.glitchLock = threading.Lock()
-		self.bounceLock = threading.Lock()
+		#self.bounceLock = threading.Lock()
 
 		if (self.edge == 'rising'):
 			gpioEdge = GPIO.RISING
 		elif (self.edge == 'falling'):
 			gpioEdge = GPIO.FALLING
 
-		GPIO.add_event_detect(pin,gpioEdge,callback=self)
+		GPIO.add_event_detect(pin, gpioEdge,callback=self)
 
 	def __call__(self, *args):
-		if not self.bounceLock.acquire(blocking=False):
+		#if not self.bounceLock.acquire(blocking=False):
+		#	return
+		if not self.glitchLock.acquire(blocking=False):
 			return
 
-		glitchTimer = threading.Timer(self.bouncetime, self.glitchDone, args=args)
+		glitchTimer = threading.Timer(self.glitchtime, self.glitchDone, args=args)
 		glitchTimer.start()
 
-		bounceTimer = threading.Timer(self.glitchtime, self.bounceDone, args=args)
-		bounceTimer.start()
+		#bounceTimer = threading.Timer(self.bouncetime, self.bounceDone, args=args)
+		#bounceTimer.start()
 
 	def glitchDone(self, *args):
 		pinval = GPIO.input(self.pin)
@@ -60,8 +62,8 @@ class ButtonHandler(threading.Thread):
 		self.lastpinval = pinval
 		self.glitchLock.release()
 
-	def bounceDone(self, *args):
-		self.bounceLock.release()
+	#def bounceDone(self, *args):
+		#self.bounceLock.release()
 
 class GPIOListenerThread(QThread):
 
@@ -91,37 +93,37 @@ class GPIOListenerThread(QThread):
 		# Falling edge detection on all pins for judge boxes
 		# Judge 0 input pins
 		self.judge0Pins = [2,3,4]
-		GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge0Pins[0], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j01Handler = ButtonHandler(self.judge0Pins[0], self.judge0Signal, edge='falling')
 		j01Handler.start()
-		GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge0Pins[1], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j02Handler = ButtonHandler(self.judge0Pins[1], self.judge0Signal, edge='falling')
 		j02Handler.start()
-		GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge0Pins[2], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j03Handler = ButtonHandler(self.judge0Pins[2], self.judge0Signal, edge='falling')
 		j03Handler.start()
 
 		# Judge 1 input pins
 		self.judge1Pins = [17,27,22]
-		GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge1Pins[0], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j11Handler = ButtonHandler(self.judge1Pins[0], self.judge1Signal, edge='falling')
 		j11Handler.start()
-		GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge1Pins[1], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j12Handler = ButtonHandler(self.judge1Pins[1], self.judge1Signal, edge='falling')
 		j12Handler.start()
-		GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge1Pins[2], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j13Handler = ButtonHandler(self.judge1Pins[2], self.judge1Signal, edge='falling')
 		j13Handler.start()
 
 		# Judge 2 input pins
 		self.judge2Pins = [10,9,11]
-		GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge2Pins[0], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j21Handler = ButtonHandler(self.judge2Pins[0], self.judge2Signal, edge='falling')
 		j21Handler.start()
-		GPIO.setup(9, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge2Pins[1], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j22Handler = ButtonHandler(self.judge2Pins[1], self.judge2Signal, edge='falling')
 		j22Handler.start()
-		GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.judge2Pins[2], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		j23Handler = ButtonHandler(self.judge2Pins[2], self.judge2Signal, edge='falling')
 		j23Handler.start()
 
