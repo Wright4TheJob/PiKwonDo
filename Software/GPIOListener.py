@@ -75,17 +75,16 @@ class GPIOListenerThread(QThread):
 		QThread.__init__(self)
 		print("Starting gpio listener")
 		self.maxGapTime = judgeGapThreshhold
-		#self.lastTime = datetime.datetime.now()# - 1 minute to ensure first trigger counts
-		self.lastTime = [0,0,0]
-		self.lastValue = [0,0,0]
 
-		self.lastPerson = 0
-		self.lastValue = 0
+		self.lastTime = datetime.datetime.now()
 		self.lastJudge = 0 # Judge codes are 0, 1, and 2
+		self.lastValue = 0
+		self.lastFighter = 0
+		self.lastPointCounted = False
 		self.thisTime = datetime.datetime.now()# - 1 minute to ensure first trigger counts
-		self.thisPerson = 0 # Red is 0, blue is 1
-		self.thisValue = 0
 		self.thisJudge = 0
+		self.thisValue = 0
+		self.thisFighter = 0 # Red is 0, blue is 1
 
 		#GPIO.setwarnings(False) # Ignore warning for now
 		GPIO.setmode(GPIO.BCM) # Use physical pin numbering
@@ -93,29 +92,38 @@ class GPIOListenerThread(QThread):
 		# Judge 0 input pins
 		self.judge0Pins = [2,3,4]
 		GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(2,GPIO.FALLING,callback=self.judge0Signal)
+		j01Handler = ButtonHandler(self.judge0Pins[0], self.judge0Signal, edge='falling')
+		j01Handler.start()
 		GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(3,GPIO.FALLING,callback=self.judge0Signal)
+		j02Handler = ButtonHandler(self.judge0Pins[1], self.judge0Signal, edge='falling')
+		j02Handler.start()
 		GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(4,GPIO.FALLING,callback=self.judge0Signal)
+		j03Handler = ButtonHandler(self.judge0Pins[2], self.judge0Signal, edge='falling')
+		j03Handler.start()
 
 		# Judge 1 input pins
 		self.judge1Pins = [17,27,22]
 		GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(17,GPIO.FALLING,callback=self.judge1Signal)
+		j11Handler = ButtonHandler(self.judge1Pins[0], self.judge1Signal, edge='falling')
+		j11Handler.start()
 		GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(27,GPIO.FALLING,callback=self.judge1Signal)
+		j12Handler = ButtonHandler(self.judge1Pins[1], self.judge1Signal, edge='falling')
+		j12Handler.start()
 		GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(22,GPIO.FALLING,callback=self.judge1Signal)
+		j13Handler = ButtonHandler(self.judge1Pins[2], self.judge1Signal, edge='falling')
+		j13Handler.start()
 
 		# Judge 2 input pins
 		self.judge2Pins = [10,9,11]
 		GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(10,GPIO.FALLING,callback=self.judge2Signal)
+		j21Handler = ButtonHandler(self.judge2Pins[0], self.judge2Signal, edge='falling')
+		j21Handler.start()
 		GPIO.setup(9, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(9,GPIO.FALLING,callback=self.judge2Signal)
+		j22Handler = ButtonHandler(self.judge2Pins[1], self.judge2Signal, edge='falling')
+		j22Handler.start()
 		GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(11,GPIO.FALLING,callback=self.judge2Signal)
+		j23Handler = ButtonHandler(self.judge2Pins[2], self.judge2Signal, edge='falling')
+		j23Handler.start()
 
 		# Timer input pins
 		self.timerPins = [5,6,13,19,26]
@@ -174,44 +182,40 @@ class GPIOListenerThread(QThread):
 
 	def judge0Signal(self,callback):
 		buttonBits = [self.gpioRead(pin) for pin in self.judge0Pins]
-		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
-		thisJudge = 0
+		(self.thisFighter, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
+		self.thisJudge = 0
 		self.thisTime = datetime.datetime.now()
-		self.judgeTrigger(thisJudge)
+		self.judgeTrigger()
 
 	def judge1Signal(self,callback):
 		buttonBits = [self.gpioRead(pin) for pin in self.judge1Pins]
-		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
-
-		thisJudge = 1
+		(self.thisFighter, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
+		self.thisJudge = 1
 		self.thisTime = datetime.datetime.now()
-		self.judgeTrigger(thisJudge)
+		self.judgeTrigger()
 
 	def judge2Signal(self,callback):
 		buttonBits = [self.gpioRead(pin) for pin in self.judge2Pins]
-		(self.thisPerson, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
-		thisJudge = 2
+		(self.thisFighter, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
+		self.thisJudge = 2
 		self.thisTime = datetime.datetime.now()
-		self.judgeTrigger(thisJudge)
+		self.judgeTrigger()
 
-	def judgeTrigger(self,judge):
+	def judgeTrigger(self):
 		print('Judge Trigger called with judge code %i' %(judge))
-		# TODO:Check to make sure it does not double-log points for all three judges scoring
-		# Two judges within x milliseconds
-		# One point even if all three judges trigger
-		# Two points if two judges trigger in rapid succession
-		# (timeToLastSelfTrigger > gapBetweenPoints) AND (timeToOtherJudgeTrigger < judgeGapThreshhold) AND (thisValue == otherJudgeValue)
-		thisTriggerTime = datetime.datetime.now()
-		thisJudgeTimeDelta = thisTriggerTime - self.lastTime[judge]
 		timeDelta = self.thisTime - self.lastTime
 		if timeDelta.milliseconds < self.maxGapTime: # Log only trigger events within threshold
 			if self.lastJudge != self.thisJudge: # Prevent double-tapping by the same judge (debounce)
-				if self.lastPerson == self.thisPerson: # Only add scores if judeges trigger for the same competitor
+				if self.lastFighter == self.thisFighter: # Only add scores if judeges trigger for the same competitor
 					if self.lastValue == self.thisValue: # If the two judges trigger the same point value, use that value
-						self.pointDetected.emit(self.thisPerson,self.thisValue)
+						if self.lastPointCounted == False:
+							self.pointDetected.emit(self.thisPerson,self.thisValue)
+							self.lastPointCounted == True
+						elif self.lastPointCounted == True:
+							self.lastPointCounted == False
 
 		self.lastValue = self.thisValue
-		self.lastPerson = self.thisPerson
+		self.lastFighter = self.thisFighter
 		self.lastTime = self.thisTime
 
 	def startRoundPushed(self,callback):
