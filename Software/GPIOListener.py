@@ -93,39 +93,33 @@ class GPIOListenerThread(QThread):
 		# Falling edge detection on all pins for judge boxes
 		# Judge 0 input pins
 		self.judge0Pins = [2,3,4]
-		GPIO.setup(self.judge0Pins[0], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j01Handler = ButtonHandler(self.judge0Pins[0], self.judge0Signal, edge='falling')
-		j01Handler.start()
-		GPIO.setup(self.judge0Pins[1], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j02Handler = ButtonHandler(self.judge0Pins[1], self.judge0Signal, edge='falling')
-		j02Handler.start()
-		GPIO.setup(self.judge0Pins[2], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j03Handler = ButtonHandler(self.judge0Pins[2], self.judge0Signal, edge='falling')
-		j03Handler.start()
+		self.judge0TriggerPin = 16
+		GPIO.setup(self.judge0Pins[0], GPIO.IN)
+		GPIO.setup(self.judge0Pins[1], GPIO.IN)
+		GPIO.setup(self.judge0Pins[2], GPIO.IN)
+		GPIO.setup(self.judge0TriggerPin, GPIO.IN)
+		j0Handler = ButtonHandler(self.judge0TriggerPin, self.judge0Signal, edge='falling')
+		j0Handler.start()
 
 		# Judge 1 input pins
 		self.judge1Pins = [17,27,22]
-		GPIO.setup(self.judge1Pins[0], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j11Handler = ButtonHandler(self.judge1Pins[0], self.judge1Signal, edge='falling')
-		j11Handler.start()
-		GPIO.setup(self.judge1Pins[1], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j12Handler = ButtonHandler(self.judge1Pins[1], self.judge1Signal, edge='falling')
-		j12Handler.start()
-		GPIO.setup(self.judge1Pins[2], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j13Handler = ButtonHandler(self.judge1Pins[2], self.judge1Signal, edge='falling')
-		j13Handler.start()
+		self.judge1TriggerPin = 20
+		GPIO.setup(self.judge1Pins[0], GPIO.IN)
+		GPIO.setup(self.judge1Pins[1], GPIO.IN)
+		GPIO.setup(self.judge1Pins[2], GPIO.IN)
+		GPIO.setup(self.judge1TriggerPin, GPIO.IN)
+		j1Handler = ButtonHandler(self.judge1TriggerPin, self.judge1Signal, edge='falling')
+		j1Handler.start()
 
 		# Judge 2 input pins
 		self.judge2Pins = [10,9,11]
-		GPIO.setup(self.judge2Pins[0], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j21Handler = ButtonHandler(self.judge2Pins[0], self.judge2Signal, edge='falling')
-		j21Handler.start()
-		GPIO.setup(self.judge2Pins[1], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j22Handler = ButtonHandler(self.judge2Pins[1], self.judge2Signal, edge='falling')
-		j22Handler.start()
-		GPIO.setup(self.judge2Pins[2], GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		j23Handler = ButtonHandler(self.judge2Pins[2], self.judge2Signal, edge='falling')
-		j23Handler.start()
+		self.judge2TriggerPin = 21
+		GPIO.setup(self.judge2Pins[0], GPIO.IN)
+		GPIO.setup(self.judge2Pins[1], GPIO.IN)
+		GPIO.setup(self.judge2Pins[2], GPIO.IN)
+		GPIO.setup(self.judge2TriggerPin, GPIO.IN)
+		j2Handler = ButtonHandler(self.judge2TriggerPin, self.judge2Signal, edge='falling')
+		j2Handler.start()
 
 		# Timer input pins
 		self.timerPins = [5,6,13,19,26]
@@ -204,7 +198,10 @@ class GPIOListenerThread(QThread):
 		self.judgeTrigger()
 
 	def judgeTrigger(self):
-		print('Judge Trigger called with judge code %i' %(judge))
+		print('Judge Trigger called:')
+		print('Judge: %i'%(self.thisJudge))
+		print('Fighter: %i'%(self.thisFighter))
+		print('Points: %i'%(self.thisValue))
 		timeDelta = self.thisTime - self.lastTime
 		if timeDelta.milliseconds < self.maxGapTime: # Log only trigger events within threshold
 			if self.lastJudge != self.thisJudge: # Prevent double-tapping by the same judge (debounce)
