@@ -178,21 +178,21 @@ class GPIOListenerThread(QThread):
 
 	def judge0Signal(self,callback):
 		buttonBits = [self.gpioRead(pin) for pin in self.judge0Pins]
-		(self.thisFighter, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
+		(self.thisFighter, self.thisValue)  = self.decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 		self.thisJudge = 0
 		self.thisTime = datetime.datetime.now()
 		self.judgeTrigger()
 
 	def judge1Signal(self,callback):
 		buttonBits = [self.gpioRead(pin) for pin in self.judge1Pins]
-		(self.thisFighter, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
+		(self.thisFighter, self.thisValue)  = self.decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 		self.thisJudge = 1
 		self.thisTime = datetime.datetime.now()
 		self.judgeTrigger()
 
 	def judge2Signal(self,callback):
 		buttonBits = [self.gpioRead(pin) for pin in self.judge2Pins]
-		(self.thisFighter, self.thisValue)  = decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
+		(self.thisFighter, self.thisValue)  = self.decodeJudgeSignal(decodeBinary(buttonBits))# Read from GPIO to decode signal
 		self.thisJudge = 2
 		self.thisTime = datetime.datetime.now()
 		self.judgeTrigger()
