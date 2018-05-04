@@ -16,17 +16,19 @@ import PiKwonDo
 	#	self.assertEqual(0,result)
 
 class BadInput(unittest.TestCase):
-	self.badFighterValues = (-1,2,10)
+	badFighterValues = (-1,2,10)
 
 	def test_unknown_fighter_code_penalty(self):
 		'''penalty function should fail with bad fighter input'''
 		for badValue in self.badFighterValues:
-			self.assertRaises(PiKwonDo.UnknownFighterError,MainProgram.penaltyDetected, badValue)
+			testMainWindow = PiKwonDo.MainWindow()
+			self.assertRaises(PiKwonDo.UnknownFighterError,testMainWindow.penaltyDetected(badValue))
 
 	def test_unknown_fighter_code_point(self):
 		'''point function should fail with large input'''
 		for badValue in self.badFighterValues:
-			self.assertRaises(PiKwonDo.UnknownFighterError,MainProgram.pointDetected, badValue)
+			testMainWindow = PiKwonDo.MainWindow()
+			self.assertRaises(PiKwonDo.UnknownFighterError,testMainWindow.pointDetected(badValue, 1))
 
 if __name__ == '__main__':
 	unittest.main()
