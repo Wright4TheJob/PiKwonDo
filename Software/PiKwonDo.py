@@ -24,6 +24,12 @@ except AttributeError:
 	def _fromUtf8(s):
 		return s
 
+class OutOfRangeError(ValueError):
+    '''exeption raised when input or result is outside of specified bounds'''
+
+class UnknownFighterError(ValueError):
+    '''exeption raised when input or result is not a known fighter code'''
+
 class MainWindow(QMainWindow):
 	def __init__(self):
 		self.programLoaded = False
@@ -237,7 +243,7 @@ class MainWindow(QMainWindow):
 		elif person == 1:
 			self.bluePoint(pointValue)
 		else:
-			print("Unknown person code sent to pointDetected: " + repr(person))
+			raise UnknownFighterError('fighter code %i is not recognized in pointDetected'%(person))
 
 	def penaltyDetected(self,person):
 		if person == 0:
@@ -245,7 +251,7 @@ class MainWindow(QMainWindow):
 		elif person == 1:
 			self.bluePenalty()
 		else:
-			print("Unknown person code sent to penaltyDetected: " + repr(person))
+			raise UnknownFighterError('fighter code %i is not recognized penaltyDetected'%(person))
 
 	def redPoint(self,pointValue):
 		self.redScore += pointValue
@@ -334,6 +340,8 @@ class MainWindow(QMainWindow):
 			self.startRound()
 		elif self.currentSection == self.sections:
 			self.matchRunning = False
+		else:
+			raise OutOfRangeError('number is out of range (must be less than 10)')
 
 def main():
 	app = QApplication(sys.argv)
