@@ -1,4 +1,4 @@
-update=Thursday, May 03, 2018 'PMt' 10:34:10 PM
+update=Friday, May 04, 2018 'PMt' 05:05:15 PM
 version=1
 last_client=eeschema
 [pcbnew]
@@ -60,3 +60,6 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=Switch
+LibName32=Logic_74xx
+LibName33=Logic_CMOS_4000
+LibName34=Logic_CMOS_IEEE

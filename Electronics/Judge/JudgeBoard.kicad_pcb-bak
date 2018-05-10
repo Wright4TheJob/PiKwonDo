@@ -474,7 +474,7 @@
   )
 
   (module Capacitors_THT:CP_Axial_L11.0mm_D5.0mm_P18.00mm_Horizontal (layer F.Cu) (tedit 597BC7C3) (tstamp 5AECE8C9)
-    (at 94.488 87.376)
+    (at 97.028 77.724)
     (descr "CP, Axial series, Axial, Horizontal, pin pitch=18mm, , length*diameter=11*5mm^2, Electrolytic Capacitor")
     (tags "CP Axial series Axial Horizontal pin pitch 18mm  length 11mm diameter 5mm Electrolytic Capacitor")
     (path /5AECEE1D)
