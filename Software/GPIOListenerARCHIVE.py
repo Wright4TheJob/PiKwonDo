@@ -67,15 +67,6 @@ class ButtonHandler(threading.Thread):
 
 class GPIOListenerThread(QThread):
 
-	# send load signal
-	# Read first bit
-	# for n bits: on all peripherals in parellel
-		# shift bit
-		# Read Bit
-		# Store result
-	# Compare results to last values, check for differences
-	# If different, send
-
 	pointDetected = pyqtSignal(int,int) # Person(Red = 0, Blue = 1), Points
 	penaltyDetected = pyqtSignal(int) # Person(Red = 0, Blue = 1)
 	startRoundDetected = pyqtSignal()
