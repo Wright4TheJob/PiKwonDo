@@ -104,4 +104,5 @@ venv.bak/
 .mypy_cache/
 
 # 3D printing stuff
-.gcode
+*.gcode
+*.g
