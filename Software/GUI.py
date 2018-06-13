@@ -27,6 +27,8 @@ class MainWindow(QMainWindow):
 		self.bluePenalties = 0
 		self.currentSection = 0
 		self.time = 90
+		self.penaltyBarHeight = 50
+		self.timeHeight = 100
 
 		self.setupUI(self)
 
@@ -36,14 +38,13 @@ class MainWindow(QMainWindow):
 		#Builds GUI
 		MainWindow.setObjectName(_fromUtf8("MainWindow"))
 		MainWindow.resize(1000, 800)
-		#MainWindow.showFullScreen()
+		MainWindow.showFullScreen()
+
 		self.centralwidget = QWidget(MainWindow)
 		self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
 
 		self.width = MainWindow.frameGeometry().width()
 		self.height = MainWindow.frameGeometry().height()
-		self.penaltyBarHeight = 50
-		self.timeHeight = 100
 
 		self.setWindowTitle('PiKwonDo')
 		self.activateWindow()
