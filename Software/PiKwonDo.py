@@ -58,6 +58,7 @@ class PiKwonDo():
 
 		self.threadpool = QThreadPool()
 
+		"""
 		# Point Listener Thread
 		self.gpioListenerThread = GPIOListener.GPIOListenerThread(self.maxGapTime)
 		# Connect to emitted signals
@@ -68,8 +69,8 @@ class PiKwonDo():
 		self.gpioListenerThread.resetRoundDetected.connect(self.resetRound)
 		# Start the thread
 		self.gpioListenerThread.start()
-
-		self.mainWindow = MainWindow()
+		"""
+		self.mainWindow = MainWindow(self)
 
 		self.programLoaded = True
 
@@ -181,9 +182,12 @@ class PiKwonDo():
 		self.mainWindow.time = self.timeLeft
 		self.mainWindow.update()
 
+	def show(self):
+		self.mainWindow.show()
+
 def main():
 	app = QApplication(sys.argv)
-	form = MainWindow()
+	form = PiKwonDo()
 	form.show()
 	app.exec_()
 

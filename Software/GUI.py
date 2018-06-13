@@ -8,6 +8,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QThreadPool,Qt, QTimer, QCoreApplication, QThread, QRect
 from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
 from PyQt5.QtGui import QPainter, QColor, QFont
+import datetime
 
 try:
 	_fromUtf8 = QtCore.QString.fromUtf8
@@ -16,10 +17,10 @@ except AttributeError:
 		return s
 
 class MainWindow(QMainWindow):
-	def __init__(self):
+	def __init__(self,piKwonDo):
 		self.programLoaded = False
 		super(self.__class__, self).__init__()
-
+		self.mainProcess = piKwonDo
 		self.redScore = 0
 		self.blueScore = 0
 		self.redPenalties = 0
@@ -63,22 +64,22 @@ class MainWindow(QMainWindow):
 		round_menu = menuBar.addMenu('&Match')
 		startAction = QAction('&Start Match', self)
 		#bluePointAction.setStatusTip('Exit application')
-		startAction.triggered.connect(super().startRound) #This is built in
+		#startAction.triggered.connect(super().startRound) #This is built in
 		round_menu.addAction(startAction)
 
 		pauseAction = QAction('&Pause Match', self)
 		#pauseAction.setStatusTip('Exit application')
-		pauseAction.triggered.connect(super().pauseRound) #This is built in
+		#pauseAction.triggered.connect(super().pauseRound) #This is built in
 		round_menu.addAction(pauseAction)
 
 		resumeAction = QAction('&Resume Match', self)
 		#bluePointAction.setStatusTip('Exit application')
-		resumeAction.triggered.connect(super().resumeRound) #This is built in
+		#resumeAction.triggered.connect(super().resumeRound) #This is built in
 		round_menu.addAction(resumeAction)
 
 		resetAction = QAction('&Reset Match', self)
 		#bluePointAction.setStatusTip('Exit application')
-		resetAction.triggered.connect(super().resetRound)
+		#resetAction.triggered.connect(super().resetRound)
 		round_menu.addAction(resetAction)
 
 
@@ -87,26 +88,26 @@ class MainWindow(QMainWindow):
 		redPointAction = QAction('&Point', self)
 		redPointAction.setShortcut('r')
 		#bluePointAction.setStatusTip('Exit application')
-		redPointAction.triggered.connect(lambda: self.redPoint(1))
+		redPointAction.triggered.connect(lambda: self.mainProcess.redPoint(1))
 		red_menu.addAction(redPointAction)
 
 		redPenaltyAction = QAction('&Penalty',self)
 		#redPenaltyAction.setShortcut('')
 		#bluePointAction.setStatusTip('Exit application')
-		redPenaltyAction.triggered.connect(super().redPenalty)
+		redPenaltyAction.triggered.connect(self.mainProcess.redPenalty)
 		red_menu.addAction(redPenaltyAction)
 
 		blue_menu = menuBar.addMenu('&Blue')
 		bluePointAction = QAction('&Point', self)
 		bluePointAction.setShortcut('b')
 		#bluePointAction.setStatusTip('Exit application')
-		bluePointAction.triggered.connect(lambda: self.bluePoint(1))
+		bluePointAction.triggered.connect(lambda: self.mainProcess.bluePoint(1))
 		blue_menu.addAction(bluePointAction)
 
 		bluePenaltyAction = QAction('&Penalty',self)
 		#redPenaltyAction.setShortcut('')
 		#bluePointAction.setStatusTip('Exit application')
-		bluePenaltyAction.triggered.connect(super().bluePenalty)
+		bluePenaltyAction.triggered.connect(self.mainProcess.bluePenalty)
 		blue_menu.addAction(bluePenaltyAction)
 
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -165,7 +166,7 @@ class MainWindow(QMainWindow):
 		qp.drawText(QRect(self.width/2+offset, 0, self.width/2, self.penaltyBarHeight), (Qt.AlignLeft | Qt.AlignVCenter), self.bluePenaltyText)
 
 	def drawTime(self,event,qp):
-		self.timeString = str(datetime.timedelta(seconds=self.timeLeft))
+		self.timeString = str(datetime.timedelta(seconds=self.time))
 		self.timeString = ':'.join(str(self.timeString ).split(':')[1:])
 		self.timeString = self.timeString[1:]
 		qp.setPen(QColor(255, 255, 255))
