@@ -65,16 +65,90 @@ class ButtonHandler(threading.Thread):
 	#def bounceDone(self, *args):
 		#self.bounceLock.release()
 
-class GPIOListenerThread(QThread):
+class PeriodicActionThread(threading.Thread):
 
-	# send load signal
-	# Read first bit
-	# for n bits: on all peripherals in parellel
-		# shift bit
-		# Read Bit
-		# Store result
-	# Compare results to last values, check for differences
-	# If different, send
+	def __init__(self,function,period):
+		self.function = function
+		self.timer = threading.Timer(period,self.step)
+		self.timer.start()
+		self.lock = threading.Lock()
+
+	def step(self):
+		self.timer.start()
+		if self.lock.acquire(blocking=False):
+			self.function()
+			self.lock.release()
+
+class HardwareControllerScanner():
+	pinChanged = pyqtSignal(int,int,bool)
+
+	def __init__(self):
+
+		# specify pin connections (load, clock, data pin array)
+		self.bitsToScan = 10
+		self.scanPeriod = 5 # ms
+		GPIO.setup(self.judge0Pins[0], GPIO.IN)
+		self.periodicActionThread = PeriodicActionThread()
+		periodicActionThread.init(self.step,self.scanPeriod)
+
+		self.oldBits = []
+
+	def pinChangeSignals(self):
+		return self.pinChangeSignalArray
+
+	def microsecond(self):
+		time.sleep(0.001)
+
+	def pulseGPIOPin(self,pin):
+		GPIO.set(pin,HIGH)
+		self.microsecond()
+		GPIO.set(pin,LOW)
+
+	def readBits(self):
+		result = []
+		for pin in self.dataPins:
+			result.append(GPIO.read(pin))
+		return result
+
+	def scanBits(self):
+		result = []
+		# send load signal
+		self.pulseGPIOPin(self.loadPin)
+		for i in range(0,bitCount-1):
+			self.microsecond()
+			result.append(self.readBits())
+			self.pulseGPIOPin(self.shiftPin)
+
+		return zip(*result)
+
+	def compareBits(self,olds,news):
+		for i in range(0,len(olds)):
+			oldList = olds[i]
+			for j in range(0,len(oldList)):
+				change = news[i][j] - olds[i][j]
+				if change == -1:
+					self.pinChanged.emit(i,j,False)
+				elif change == 1:
+					self.pinChanged.emit(i,j,True)
+
+	def step(self):
+		newBits = self.scanBits()
+		if len(self.oldBits) != 0:
+			self.compareBits(self.oldBits,newBits)
+		self.oldBits = newBits
+
+class BitDecoder():
+	for i in range():
+		for j in range():
+
+	#[pin1,pin2,pin3...]
+	#[bit1,bit1,bit1...]
+	#[bit2,bit2,bit2...]
+	#[bit3,bit3,bit3...]
+	# where each element is a touple of rising and falling signals
+	self.pinChangeSignalArray = [[[signal.rising,signal.falling]]]
+
+class GPIOListenerThread(QThread):
 
 	pointDetected = pyqtSignal(int,int) # Person(Red = 0, Blue = 1), Points
 	penaltyDetected = pyqtSignal(int) # Person(Red = 0, Blue = 1)
@@ -156,6 +230,10 @@ class GPIOListenerThread(QThread):
 		GPIO.setup(self.bluePenaltyPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 		bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyPushed, edge='rising')
 		bluePenaltyHandler.start()
+
+
+		# Compare results to last values, check for differences
+		# If different, send
 
 	def decodeBinary(self, bitList):
 		if len(bitList) != 3:

@@ -31,6 +31,11 @@ class OutOfRangeError(ValueError):
 class UnknownFighterError(ValueError):
     '''exeption raised when input or result is not a known fighter code'''
 
+# Create game class
+# Have game emit signal to indicate something changed
+# Have GUI check game variables
+# Program manager creates game and GUI instances, passes game to GUI, sets up hardware classes
+
 class PiKwonDo():
 	def __init__(self):
 		self.programLoaded = False
