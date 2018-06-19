@@ -1,6 +1,6 @@
-update=Friday, May 04, 2018 'PMt' 05:05:15 PM
+update=Mon 18 Jun 2018 05:11:32 PM CDT
 version=1
-last_client=eeschema
+last_client=kicad
 [pcbnew]
 version=1
 LastNetListRead=
@@ -59,7 +59,17 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=Switch
-LibName32=Logic_74xx
-LibName33=Logic_CMOS_4000
-LibName34=Logic_CMOS_IEEE
+LibName31=/home/david/repositories/PiKwonDo/Electronics/Libraries/Logic_74xx
+LibName32=/home/david/repositories/PiKwonDo/Electronics/Libraries/Logic_CMOS_4000
+LibName33=/home/david/repositories/PiKwonDo/Electronics/Libraries/Logic_CMOS_IEEE
+LibName34=/home/david/repositories/PiKwonDo/Electronics/Libraries/Switch
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60

@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name PiKwonDo)(type KiCad)(uri /home/david/repositories/PiKwonDo/Electronics/Libraries/PiKwonDo.pretty)(options "")(descr ""))
+)
