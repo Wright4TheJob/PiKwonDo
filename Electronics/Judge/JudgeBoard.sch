@@ -343,8 +343,6 @@ $EndComp
 Wire Wire Line
 	7650 3650 8250 3650
 Wire Wire Line
-	9700 2050 8700 2050
-Wire Wire Line
 	8700 2050 8700 2250
 $Comp
 L CP1 C3
@@ -615,17 +613,17 @@ F 3 "" H 1350 7100 60  0001 C CNN
 	1    1350 7100
 	1    0    0    -1  
 $EndComp
-Text Label 8900 2050 0    60   ~ 0
+Text Label 9200 2050 0    60   ~ 0
 CLK
 $Comp
 L D D2
 U 1 1 5B2833EA
-P 8550 2050
-F 0 "D2" H 8550 2150 50  0000 C CNN
-F 1 "D" H 8550 1950 50  0000 C CNN
-F 2 "Diodes_THT:D_DO-35_SOD27_P5.08mm_Vertical_AnodeUp" H 8550 2050 50  0001 C CNN
-F 3 "" H 8550 2050 50  0001 C CNN
-	1    8550 2050
+P 8900 2050
+F 0 "D2" H 8900 2150 50  0000 C CNN
+F 1 "D" H 8900 1950 50  0000 C CNN
+F 2 "Diodes_THT:D_DO-35_SOD27_P5.08mm_Vertical_AnodeUp" H 8900 2050 50  0001 C CNN
+F 3 "" H 8900 2050 50  0001 C CNN
+	1    8900 2050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -651,7 +649,7 @@ F 3 "" H 8250 2250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8000 2050 8400 2050
+	8000 2050 8750 2050
 Wire Wire Line
 	8250 2100 8250 2050
 Connection ~ 8250 2050
@@ -769,4 +767,7 @@ Connection ~ 4600 4500
 Wire Wire Line
 	4700 5800 1850 5800
 Connection ~ 4700 4650
+Connection ~ 8700 2050
+Wire Wire Line
+	9050 2050 9700 2050
 $EndSCHEMATC
