@@ -19,3 +19,12 @@ The timer control board contains 5 buttons: three to control the round timing (S
 
 ## Judge
 The judge box board contains 10 buttons corresponding to point values of 1 through 5 for both red and blue. Two shift registers passing data in series are used to store the values of all 10 buttons.
+
+# Status
+Circuit diagrams have been completed and initial PCB layout and trace routing is done.
+
+## TODO
+* Finalize button positions on timer controller.
+* Finalize BOM and component selection.
+* Update component footprints to reflect BOM.
+* Update trace size and spacing to ensure manufacturability.
