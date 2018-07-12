@@ -1,4 +1,4 @@
-update=Fri 22 Jun 2018 06:26:03 PM CDT
+update=Wednesday, July 11, 2018 'PMt' 10:11:11 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,19 +25,9 @@ version=1
 NetIExt=net
 [general]
 version=1
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
 [eeschema]
 version=1
-LibDir=../../../single-axis-tracker/Electronics/kicad-symbols-master
+LibDir=../../../single-axis-tracker/Electronics/kicad-symbols-master;../Libraries
 [eeschema/libraries]
 LibName1=JudgeBoard-rescue
 LibName2=power
@@ -72,5 +62,15 @@ LibName30=valves
 LibName31=/home/david/repositories/PiKwonDo/Electronics/Libraries/Logic_74xx
 LibName32=/home/david/repositories/PiKwonDo/Electronics/Libraries/Logic_CMOS_4000
 LibName33=/home/david/repositories/PiKwonDo/Electronics/Libraries/Logic_CMOS_IEEE
-LibName34=/home/david/repositories/PiKwonDo/Electronics/Libraries/Switch
-LibName35=/home/david/repositories/PiKwonDo/Electronics/Libraries/PiKwonDo
+LibName34=/home/david/repositories/PiKwonDo/Electronics/Libraries/PiKwonDo
+LibName35=/home/david/repositories/PiKwonDo/Electronics/Libraries/Switch
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60

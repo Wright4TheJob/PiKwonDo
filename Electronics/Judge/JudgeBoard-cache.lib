@@ -142,20 +142,26 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# D_Zener_Quad
+# D_Zener
 #
-DEF D_Zener_Quad D 0 40 Y Y 1 F N
-F0 "D" 200 150 60 H V C CNN
-F1 "D_Zener_Quad" 0 300 60 H V C CNN
-F2 "" -450 450 60 H I C CNN
-F3 "" -450 450 60 H I C CNN
+DEF D_Zener D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "D_Zener" 0 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ TO-???*
+ *SingleDiode
+ *_Diode_*
+ *SingleDiode*
+ D_*
+$ENDFPLIST
 DRAW
-S -350 250 350 -200 0 1 0 N
-X Cath_1 1 -550 200 200 R 50 50 1 1 I
-X Annode 2 550 0 200 L 50 50 1 1 I
-X Cath_2 3 -550 100 200 R 50 50 1 1 I
-X Cath_3 4 -550 0 200 R 50 50 1 1 I
-X Cath_4 5 -550 -100 200 R 50 50 1 1 I
+P 2 0 1 0 50 0 -50 0 N
+P 3 0 1 8 -50 -50 -50 50 -30 50 N
+P 4 0 1 8 50 -50 50 50 -50 0 50 -50 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -181,6 +187,8 @@ F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
  LED*
+ LED_SMD:*
+ LED_THT:*
 $ENDFPLIST
 DRAW
 P 2 0 1 8 -50 -50 -50 50 N
@@ -254,7 +262,7 @@ ENDDEF
 DEF R_Network05 RN 0 0 N N 1 F N
 F0 "RN" -300 0 50 V V C CNN
 F1 "R_Network05" 300 0 50 V V C CNN
-F2 "Resistors_THT:R_Array_SIP6" 375 0 50 V I C CNN
+F2 "Resistor_THT:R_Array_SIP6" 375 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
  R?Array?SIP*
