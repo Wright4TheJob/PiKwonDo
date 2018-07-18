@@ -28,7 +28,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:Device
 LIBS:PiKwonDoHAT-cache
 EELAYER 25 0
 EELAYER END
@@ -195,7 +194,6 @@ Text Label 4000 3200 0    60   ~ 0
 LOAD
 NoConn ~ 3450 3500
 NoConn ~ 3450 3400
-NoConn ~ 3450 3300
 NoConn ~ 3450 3200
 NoConn ~ 3450 3100
 NoConn ~ 3450 3000
@@ -209,7 +207,6 @@ NoConn ~ 3450 2300
 NoConn ~ 3450 2200
 NoConn ~ 3450 2100
 NoConn ~ 3450 2000
-NoConn ~ 3450 1900
 NoConn ~ 3450 1800
 NoConn ~ 3450 1700
 NoConn ~ 3450 1600
@@ -869,7 +866,7 @@ Wire Wire Line
 Connection ~ 4800 3250
 Connection ~ 6450 3150
 Wire Wire Line
-	7000 4000 6450 4000
+	6450 4000 7000 4000
 Wire Wire Line
 	7000 4200 5850 4200
 Wire Wire Line
@@ -889,4 +886,34 @@ Connection ~ 5050 4100
 Wire Wire Line
 	4800 4250 4800 4200
 Connection ~ 4800 4200
+$Comp
+L GND #PWR?
+U 1 1 5B4F3E4D
+P 3300 3400
+F 0 "#PWR?" H 3300 3150 50  0001 C CNN
+F 1 "GND" H 3300 3250 50  0000 C CNN
+F 2 "" H 3300 3400 50  0001 C CNN
+F 3 "" H 3300 3400 50  0001 C CNN
+	1    3300 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 3300 3300 3300
+Wire Wire Line
+	3300 3300 3300 3400
+$Comp
+L GND #PWR?
+U 1 1 5B4F406A
+P 3250 2100
+F 0 "#PWR?" H 3250 1850 50  0001 C CNN
+F 1 "GND" H 3250 1950 50  0000 C CNN
+F 2 "" H 3250 2100 50  0001 C CNN
+F 3 "" H 3250 2100 50  0001 C CNN
+	1    3250 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 1900 3250 1900
+Wire Wire Line
+	3250 1900 3250 2100
 $EndSCHEMATC
