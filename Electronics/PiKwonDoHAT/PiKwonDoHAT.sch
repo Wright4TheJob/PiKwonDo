@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date ""
+Date "2018-7-28.1"
 Rev ""
 Comp ""
 Comment1 ""
@@ -45,21 +45,21 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L RJ12-UNSHLD J2
+L RJ12-UNSHLD CN2
 U 1 1 5B25A715
 P 9300 1600
-F 0 "J2" H 9500 2100 50  0000 C CNN
-F 1 "Judge3" H 9150 2100 50  0000 C CNN
+F 0 "CN2" H 9500 2100 50  0000 C CNN
+F 1 "Judge1" H 9150 2100 50  0000 C CNN
 F 2 "PiKwonDo:TH-RJ12" H 9300 1600 50  0001 C CNN
 F 3 "" H 9300 1600 50  0001 C CNN
 	1    9300 1600
 	0    1    1    0   
 $EndComp
 $Comp
-L RJ12-UNSHLD J3
+L RJ12-UNSHLD CN3
 U 1 1 5B25A769
 P 9300 2900
-F 0 "J3" H 9500 3400 50  0000 C CNN
+F 0 "CN3" H 9500 3400 50  0000 C CNN
 F 1 "Judge2" H 9150 3400 50  0000 C CNN
 F 2 "PiKwonDo:TH-RJ12" H 9300 2900 50  0001 C CNN
 F 3 "" H 9300 2900 50  0001 C CNN
@@ -67,21 +67,21 @@ F 3 "" H 9300 2900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L RJ12-UNSHLD J4
+L RJ12-UNSHLD CN4
 U 1 1 5B25A78D
 P 9300 4200
-F 0 "J4" H 9500 4700 50  0000 C CNN
-F 1 "Judge1" H 9150 4700 50  0000 C CNN
+F 0 "CN4" H 9500 4700 50  0000 C CNN
+F 1 "Judge3" H 9150 4700 50  0000 C CNN
 F 2 "PiKwonDo:TH-RJ12" H 9300 4200 50  0001 C CNN
 F 3 "" H 9300 4200 50  0001 C CNN
 	1    9300 4200
 	0    1    1    0   
 $EndComp
 $Comp
-L RJ12-UNSHLD J5
+L RJ12-UNSHLD CN5
 U 1 1 5B25A7B5
 P 9300 5500
-F 0 "J5" H 9500 6000 50  0000 C CNN
+F 0 "CN5" H 9500 6000 50  0000 C CNN
 F 1 "Controller" H 9150 6000 50  0000 C CNN
 F 2 "PiKwonDo:TH-RJ12" H 9300 5500 50  0001 C CNN
 F 3 "" H 9300 5500 50  0001 C CNN
@@ -599,7 +599,7 @@ Wire Wire Line
 Wire Wire Line
 	3000 2900 2600 2900
 Text Label 2600 3000 0    60   ~ 0
-J1_Data
+J1_DATA
 Text Label 2600 2900 0    60   ~ 0
 J1_LOAD
 Text Label 6050 3000 0    60   ~ 0
@@ -637,7 +637,7 @@ Wire Wire Line
 Wire Wire Line
 	3000 3300 2600 3300
 Text Label 2600 3400 0    60   ~ 0
-J2_Data
+J2_DATA
 Text Label 2600 3300 0    60   ~ 0
 J2_LOAD
 Wire Wire Line
@@ -664,7 +664,7 @@ Wire Wire Line
 Wire Wire Line
 	3000 3700 2600 3700
 Text Label 2600 3800 0    60   ~ 0
-J3_Data
+J3_DATA
 Text Label 2600 3700 0    60   ~ 0
 J3_LOAD
 Wire Wire Line
@@ -680,7 +680,7 @@ C_CLK
 Wire Wire Line
 	3000 4400 2600 4400
 Text Label 2600 4500 0    60   ~ 0
-C_Data
+C_DATA
 Text Label 2600 4400 0    60   ~ 0
 C_LOAD
 Wire Wire Line
