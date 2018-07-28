@@ -111,10 +111,10 @@ F 3 "" H 3050 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Conn_02x20_Odd_Even J1
+L Conn_02x20_Odd_Even CN1
 U 1 1 5B25D769
 P 3300 3700
-F 0 "J1" H 3350 4700 50  0000 C CNN
+F 0 "CN1" H 3350 4700 50  0000 C CNN
 F 1 "Conn_02x20_Odd_Even" H 3350 2600 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_2x20_Pitch2.54mm" H 3300 3700 50  0001 C CNN
 F 3 "" H 3300 3700 50  0001 C CNN
