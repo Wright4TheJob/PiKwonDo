@@ -252,27 +252,17 @@ $EndComp
 $Comp
 L R R6
 U 1 1 5B482126
-<<<<<<< HEAD
 P 7550 3000
 F 0 "R6" V 7500 2825 50  0000 C CNN
 F 1 "470" V 7550 3000 50  0000 C CNN
 F 2 "Resistors_SMD:R_1206_HandSoldering" V 7480 3000 50  0001 C CNN
 F 3 "" H 7550 3000 50  0001 C CNN
 	1    7550 3000
-=======
-P 4000 2200
-F 0 "R2" V 4080 2200 50  0000 C CNN
-F 1 "470" V 4000 2200 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 3930 2200 50  0001 C CNN
-F 3 "" H 4000 2200 50  0001 C CNN
-	1    4000 2200
->>>>>>> master
 	0    -1   1    0   
 $EndComp
 $Comp
 L D_Zener D2
 U 1 1 5B4821E8
-<<<<<<< HEAD
 P 6750 1900
 F 0 "D2" V 6650 1925 50  0000 L CNN
 F 1 "3.3V" V 6850 1925 50  0000 L CNN
@@ -280,20 +270,10 @@ F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 6750 1900 50  0001 C CNN
 F 3 "" H 6750 1900 50  0001 C CNN
 	1    6750 1900
 	0    1    1    0   
-=======
-P 4900 1450
-F 0 "D1" H 4900 1550 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4900 1350 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4900 1450 50  0001 C CNN
-F 3 "" H 4900 1450 50  0001 C CNN
-	1    4900 1450
-	0    -1   1    0   
->>>>>>> master
 $EndComp
 $Comp
 L D_Zener D3
 U 1 1 5B482275
-<<<<<<< HEAD
 P 7100 1900
 F 0 "D3" V 7000 1925 50  0000 L CNN
 F 1 "3.3V" V 7200 1925 50  0000 L CNN
@@ -312,42 +292,10 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8388 1750 50  0001 C CNN
 F 3 "" H 8350 1900 50  0001 C CNN
 	1    8350 1900
 	1    0    0    -1  
-=======
-P 4650 1450
-F 0 "D5" H 4650 1550 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4650 1350 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4650 1450 50  0001 C CNN
-F 3 "" H 4650 1450 50  0001 C CNN
-	1    4650 1450
-	0    -1   1    0   
-$EndComp
-$Comp
-L D_Zener D9
-U 1 1 5B48230A
-P 11100 3150
-F 0 "D9" H 11100 3250 50  0000 C CNN
-F 1 "D_Zener_5V" H 11100 3050 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 11100 3150 50  0001 C CNN
-F 3 "" H 11100 3150 50  0001 C CNN
-	1    11100 3150
-	0    -1   1    0   
-$EndComp
-$Comp
-L C C5
-U 1 1 5B482357
-P 3000 1450
-F 0 "C5" H 3025 1550 50  0000 L CNN
-F 1 "470pF" H 3025 1350 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3038 1300 50  0001 C CNN
-F 3 "" H 3000 1450 50  0001 C CNN
-	1    3000 1450
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
 L C C5
 U 1 1 5B482411
-<<<<<<< HEAD
 P 8000 1900
 F 0 "C5" H 8025 2000 50  0000 L CNN
 F 1 "470pF" H 8025 1800 50  0000 L CNN
@@ -355,15 +303,6 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8038 1750 50  0001 C CNN
 F 3 "" H 8000 1900 50  0001 C CNN
 	1    8000 1900
 	1    0    0    -1  
-=======
-P 3250 1450
-F 0 "C1" H 3275 1550 50  0000 L CNN
-F 1 "470pF" H 3275 1350 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3288 1300 50  0001 C CNN
-F 3 "" H 3250 1450 50  0001 C CNN
-	1    3250 1450
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 Wire Wire Line
 	7700 2800 8850 2800
@@ -395,7 +334,6 @@ Wire Wire Line
 $Comp
 L GND #PWR07
 U 1 1 5B4829BF
-<<<<<<< HEAD
 P 8350 2050
 F 0 "#PWR07" H 8350 1800 50  0001 C CNN
 F 1 "GND" H 8350 1900 50  0000 C CNN
@@ -403,140 +341,10 @@ F 2 "" H 8350 2050 50  0001 C CNN
 F 3 "" H 8350 2050 50  0001 C CNN
 	1    8350 2050
 	1    0    0    -1  
-=======
-P 3100 1700
-F 0 "#PWR08" H 3100 1450 50  0001 C CNN
-F 1 "GND" H 3100 1550 50  0000 C CNN
-F 2 "" H 3100 1700 50  0001 C CNN
-F 3 "" H 3100 1700 50  0001 C CNN
-	1    3100 1700
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	3100 1700 3100 1650
-Connection ~ 3100 1650
-$Comp
-L D_Zener D6
-U 1 1 5B483622
-P 4650 2400
-F 0 "D6" H 4650 2500 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4650 2300 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4650 2400 50  0001 C CNN
-F 3 "" H 4650 2400 50  0001 C CNN
-	1    4650 2400
-	0    -1   1    0   
-$EndComp
-$Comp
-L D_Zener D10
-U 1 1 5B483628
-P 4350 2400
-F 0 "D10" H 4350 2500 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4350 2300 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4350 2400 50  0001 C CNN
-F 3 "" H 4350 2400 50  0001 C CNN
-	1    4350 2400
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	4650 2550 4650 2650
-Wire Wire Line
-	4350 2650 4350 2550
-$Comp
-L GND #PWR09
-U 1 1 5B483635
-P 4650 2650
-F 0 "#PWR09" H 4650 2400 50  0001 C CNN
-F 1 "GND" H 4650 2500 50  0000 C CNN
-F 2 "" H 4650 2650 50  0001 C CNN
-F 3 "" H 4650 2650 50  0001 C CNN
-	1    4650 2650
-	-1   0    0    -1  
-$EndComp
-$Comp
-L D_Zener D7
-U 1 1 5B483732
-P 4650 3450
-F 0 "D7" H 4650 3550 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4650 3350 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4650 3450 50  0001 C CNN
-F 3 "" H 4650 3450 50  0001 C CNN
-	1    4650 3450
-	0    -1   1    0   
-$EndComp
-$Comp
-L D_Zener D11
-U 1 1 5B483738
-P 4400 3450
-F 0 "D11" H 4400 3550 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4400 3350 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4400 3450 50  0001 C CNN
-F 3 "" H 4400 3450 50  0001 C CNN
-	1    4400 3450
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	4400 3700 4650 3700
-Wire Wire Line
-	4650 3700 4650 3600
-Connection ~ 4650 3700
-Wire Wire Line
-	4400 3700 4400 3600
-$Comp
-L GND #PWR010
-U 1 1 5B483745
-P 4650 3700
-F 0 "#PWR010" H 4650 3450 50  0001 C CNN
-F 1 "GND" H 4650 3550 50  0000 C CNN
-F 2 "" H 4650 3700 50  0001 C CNN
-F 3 "" H 4650 3700 50  0001 C CNN
-	1    4650 3700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L D_Zener D8
-U 1 1 5B4837F0
-P 4650 4400
-F 0 "D8" H 4650 4500 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4650 4300 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4650 4400 50  0001 C CNN
-F 3 "" H 4650 4400 50  0001 C CNN
-	1    4650 4400
-	0    -1   1    0   
-$EndComp
-$Comp
-L D_Zener D12
-U 1 1 5B4837F6
-P 4400 4400
-F 0 "D12" H 4400 4500 50  0000 C CNN
-F 1 "D_Zener_3.3V" H 4400 4300 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 4400 4400 50  0001 C CNN
-F 3 "" H 4400 4400 50  0001 C CNN
-	1    4400 4400
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	4400 4650 4650 4650
-Wire Wire Line
-	4650 4550 4650 4700
-Connection ~ 4650 4650
-Wire Wire Line
-	4400 4650 4400 4550
-$Comp
-L GND #PWR011
-U 1 1 5B483803
-P 4650 4700
-F 0 "#PWR011" H 4650 4450 50  0001 C CNN
-F 1 "GND" H 4650 4550 50  0000 C CNN
-F 2 "" H 4650 4700 50  0001 C CNN
-F 3 "" H 4650 4700 50  0001 C CNN
-	1    4650 4700
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
 L C C8
 U 1 1 5B483DC0
-<<<<<<< HEAD
 P 8350 3200
 F 0 "C8" H 8375 3300 50  0000 L CNN
 F 1 "470pF" H 8375 3100 50  0000 L CNN
@@ -544,20 +352,10 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8388 3050 50  0001 C CNN
 F 3 "" H 8350 3200 50  0001 C CNN
 	1    8350 3200
 	1    0    0    -1  
-=======
-P 3000 2400
-F 0 "C6" H 3025 2500 50  0000 L CNN
-F 1 "470pF" H 3025 2300 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3038 2250 50  0001 C CNN
-F 3 "" H 3000 2400 50  0001 C CNN
-	1    3000 2400
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
 L C C7
 U 1 1 5B483DC6
-<<<<<<< HEAD
 P 8000 3200
 F 0 "C7" H 8025 3300 50  0000 L CNN
 F 1 "470pF" H 8025 3100 50  0000 L CNN
@@ -565,15 +363,6 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8038 3050 50  0001 C CNN
 F 3 "" H 8000 3200 50  0001 C CNN
 	1    8000 3200
 	1    0    0    -1  
-=======
-P 3250 2400
-F 0 "C2" H 3275 2500 50  0000 L CNN
-F 1 "470pF" H 3275 2300 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3288 2250 50  0001 C CNN
-F 3 "" H 3250 2400 50  0001 C CNN
-	1    3250 2400
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 Wire Wire Line
 	8350 3050 8350 2800
@@ -582,7 +371,6 @@ Wire Wire Line
 $Comp
 L C C10
 U 1 1 5B4840B1
-<<<<<<< HEAD
 P 8350 4500
 F 0 "C10" H 8375 4600 50  0000 L CNN
 F 1 "470pF" H 8375 4400 50  0000 L CNN
@@ -590,20 +378,10 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8388 4350 50  0001 C CNN
 F 3 "" H 8350 4500 50  0001 C CNN
 	1    8350 4500
 	1    0    0    -1  
-=======
-P 3000 3450
-F 0 "C7" H 3025 3550 50  0000 L CNN
-F 1 "470pF" H 3025 3350 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3038 3300 50  0001 C CNN
-F 3 "" H 3000 3450 50  0001 C CNN
-	1    3000 3450
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
 L C C9
 U 1 1 5B4840B7
-<<<<<<< HEAD
 P 8000 4500
 F 0 "C9" H 8025 4600 50  0000 L CNN
 F 1 "470pF" H 8025 4400 50  0000 L CNN
@@ -611,15 +389,6 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8038 4350 50  0001 C CNN
 F 3 "" H 8000 4500 50  0001 C CNN
 	1    8000 4500
 	1    0    0    -1  
-=======
-P 3250 3450
-F 0 "C3" H 3275 3550 50  0000 L CNN
-F 1 "470pF" H 3275 3350 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3288 3300 50  0001 C CNN
-F 3 "" H 3250 3450 50  0001 C CNN
-	1    3250 3450
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 Wire Wire Line
 	8350 4350 8350 4100
@@ -628,7 +397,6 @@ Wire Wire Line
 $Comp
 L C C12
 U 1 1 5B484431
-<<<<<<< HEAD
 P 8350 5800
 F 0 "C12" H 8375 5900 50  0000 L CNN
 F 1 "470pF" H 8375 5700 50  0000 L CNN
@@ -636,20 +404,10 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8388 5650 50  0001 C CNN
 F 3 "" H 8350 5800 50  0001 C CNN
 	1    8350 5800
 	1    0    0    -1  
-=======
-P 3000 4400
-F 0 "C8" H 3025 4500 50  0000 L CNN
-F 1 "470pF" H 3025 4300 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3038 4250 50  0001 C CNN
-F 3 "" H 3000 4400 50  0001 C CNN
-	1    3000 4400
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
 L C C11
 U 1 1 5B484437
-<<<<<<< HEAD
 P 8000 5800
 F 0 "C11" H 8025 5900 50  0000 L CNN
 F 1 "470pF" H 8025 5700 50  0000 L CNN
@@ -657,15 +415,6 @@ F 2 "Capacitors_SMD:C_0603_HandSoldering" H 8038 5650 50  0001 C CNN
 F 3 "" H 8000 5800 50  0001 C CNN
 	1    8000 5800
 	1    0    0    -1  
-=======
-P 3250 4400
-F 0 "C4" H 3275 4500 50  0000 L CNN
-F 1 "470pF" H 3275 4300 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3288 4250 50  0001 C CNN
-F 3 "" H 3250 4400 50  0001 C CNN
-	1    3250 4400
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 Connection ~ 8350 2800
 Wire Wire Line
@@ -689,21 +438,12 @@ $EndComp
 $Comp
 L R R9
 U 1 1 5B48509E
-<<<<<<< HEAD
 P 7550 4300
 F 0 "R9" V 7500 4125 50  0000 C CNN
 F 1 "470" V 7550 4300 50  0000 C CNN
 F 2 "Resistors_SMD:R_1206_HandSoldering" V 7480 4300 50  0001 C CNN
 F 3 "" H 7550 4300 50  0001 C CNN
 	1    7550 4300
-=======
-P 4000 3250
-F 0 "R3" V 4080 3250 50  0000 C CNN
-F 1 "470" V 4000 3250 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 3930 3250 50  0001 C CNN
-F 3 "" H 4000 3250 50  0001 C CNN
-	1    4000 3250
->>>>>>> master
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
@@ -719,38 +459,6 @@ F 3 "" H 7550 5400 50  0001 C CNN
 	1    7550 5400
 	0    -1   1    0   
 $EndComp
-<<<<<<< HEAD
-=======
-$Comp
-L R R8
-U 1 1 5B485165
-P 3700 4100
-F 0 "R8" V 3780 4100 50  0000 C CNN
-F 1 "10" V 3700 4100 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 3630 4100 50  0001 C CNN
-F 3 "" H 3700 4100 50  0001 C CNN
-	1    3700 4100
-	0    -1   1    0   
-$EndComp
-$Comp
-L R R4
-U 1 1 5B48516B
-P 4000 4200
-F 0 "R4" V 4080 4200 50  0000 C CNN
-F 1 "470" V 4000 4200 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 3930 4200 50  0001 C CNN
-F 3 "" H 4000 4200 50  0001 C CNN
-	1    4000 4200
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1900 4100 3550 4100
-Wire Wire Line
-	3550 4000 5950 4000
-Wire Wire Line
-	3850 4100 5350 4100
-Connection ~ 3000 3050
->>>>>>> master
 Wire Wire Line
 	7700 5500 8850 5500
 Wire Wire Line
@@ -776,7 +484,6 @@ Wire Wire Line
 $Comp
 L GND #PWR08
 U 1 1 5B4F3E4D
-<<<<<<< HEAD
 P 2600 3100
 F 0 "#PWR08" H 2600 2850 50  0001 C CNN
 F 1 "GND" H 2600 2950 50  0000 C CNN
@@ -784,27 +491,6 @@ F 2 "" H 2600 3100 50  0001 C CNN
 F 3 "" H 2600 3100 50  0001 C CNN
 	1    2600 3100
 	0    1    -1   0   
-=======
-P 10050 3350
-F 0 "#PWR015" H 10050 3100 50  0001 C CNN
-F 1 "GND" H 10050 3200 50  0000 C CNN
-F 2 "" H 10050 3350 50  0001 C CNN
-F 3 "" H 10050 3350 50  0001 C CNN
-	1    10050 3350
-	-1   0    0    -1  
-$EndComp
-NoConn ~ 10450 4550
-$Comp
-L C C10
-U 1 1 5B5A4A2E
-P 8650 800
-F 0 "C10" H 8675 900 50  0000 L CNN
-F 1 "10nF" H 8675 700 50  0000 L CNN
-F 2 "Capacitors_SMD:C_1206_HandSoldering" H 8688 650 50  0001 C CNN
-F 3 "" H 8650 800 50  0001 C CNN
-	1    8650 800 
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 NoConn ~ 3000 4300
 $Comp
@@ -1163,7 +849,6 @@ F 3 "" H 6750 3350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-<<<<<<< HEAD
 L D_Zener D6
 U 1 1 5B5D62DF
 P 6750 4500
@@ -1184,17 +869,6 @@ F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 7100 4500 50  0001 C CNN
 F 3 "" H 7100 4500 50  0001 C CNN
 	1    7100 4500
 	0    1    1    0   
-=======
-L C C12
-U 1 1 5B5BC07F
-P 8200 1750
-F 0 "C12" H 8225 1850 50  0000 L CNN
-F 1 "10nF" H 8225 1650 50  0000 L CNN
-F 2 "Capacitors_SMD:C_1206_HandSoldering" H 8238 1600 50  0001 C CNN
-F 3 "" H 8200 1750 50  0001 C CNN
-	1    8200 1750
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
 L GND #PWR029
@@ -1227,7 +901,6 @@ Wire Wire Line
 	6750 4350 6750 4300
 Connection ~ 6750 4300
 $Comp
-<<<<<<< HEAD
 L D_Zener D8
 U 1 1 5B5D6CDF
 P 6750 5800
@@ -1237,20 +910,8 @@ F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 6750 5800 50  0001 C CNN
 F 3 "" H 6750 5800 50  0001 C CNN
 	1    6750 5800
 	0    1    1    0   
-=======
-L C C11
-U 1 1 5B5BD26E
-P 7700 2800
-F 0 "C11" H 7725 2900 50  0000 L CNN
-F 1 "10nF" H 7725 2700 50  0000 L CNN
-F 2 "Capacitors_SMD:C_1206_HandSoldering" H 7738 2650 50  0001 C CNN
-F 3 "" H 7700 2800 50  0001 C CNN
-	1    7700 2800
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
-<<<<<<< HEAD
 L D_Zener D9
 U 1 1 5B5D6CE5
 P 7100 5800
@@ -1260,17 +921,6 @@ F 2 "Diodes_SMD:D_SOD-323_HandSoldering" H 7100 5800 50  0001 C CNN
 F 3 "" H 7100 5800 50  0001 C CNN
 	1    7100 5800
 	0    1    1    0   
-=======
-L C C9
-U 1 1 5B5BE924
-P 7300 3750
-F 0 "C9" H 7325 3850 50  0000 L CNN
-F 1 "10nF" H 7325 3650 50  0000 L CNN
-F 2 "Capacitors_SMD:C_1206_HandSoldering" H 7338 3600 50  0001 C CNN
-F 3 "" H 7300 3750 50  0001 C CNN
-	1    7300 3750
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $Comp
 L GND #PWR031
@@ -1493,7 +1143,6 @@ Wire Wire Line
 Wire Wire Line
 	6050 1500 7400 1500
 $Comp
-<<<<<<< HEAD
 L D_Zener D1
 U 1 1 5B5DD772
 P 3800 2900
@@ -1547,16 +1196,5 @@ F 2 "Resistors_SMD:R_1206_HandSoldering" V 7480 5600 50  0001 C CNN
 F 3 "" H 7550 5600 50  0001 C CNN
 	1    7550 5600
 	0    -1   1    0   
-=======
-L GND #PWR033
-U 1 1 5B5B9833
-P 10450 4150
-F 0 "#PWR033" H 10450 3900 50  0001 C CNN
-F 1 "GND" H 10450 4000 50  0000 C CNN
-F 2 "" H 10450 4150 50  0001 C CNN
-F 3 "" H 10450 4150 50  0001 C CNN
-	1    10450 4150
-	-1   0    0    -1  
->>>>>>> master
 $EndComp
 $EndSCHEMATC
