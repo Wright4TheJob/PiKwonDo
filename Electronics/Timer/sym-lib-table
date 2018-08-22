@@ -1,0 +1,8 @@
+(sym_lib_table
+  (lib (name Timer-rescue)(type Legacy)(uri ${KIPRJMOD}/Timer-rescue.lib)(options "")(descr ""))
+  (lib (name Logic_74xx)(type Legacy)(uri /Users/davidwright/repositories/PiKwonDo/Electronics/Libraries/Logic_74xx.lib)(options "")(descr ""))
+  (lib (name Logic_CMOS_4000)(type Legacy)(uri /Users/davidwright/repositories/PiKwonDo/Electronics/Libraries/Logic_CMOS_4000.lib)(options "")(descr ""))
+  (lib (name Logic_CMOS_IEEE)(type Legacy)(uri /Users/davidwright/repositories/PiKwonDo/Electronics/Libraries/Logic_CMOS_IEEE.lib)(options "")(descr ""))
+  (lib (name Switch1)(type Legacy)(uri /Users/davidwright/repositories/PiKwonDo/Electronics/Libraries/Switch.lib)(options "")(descr ""))
+  (lib (name PiKwonDo)(type Legacy)(uri /Users/davidwright/repositories/PiKwonDo/Electronics/Libraries/PiKwonDo.lib)(options "")(descr ""))
+)
