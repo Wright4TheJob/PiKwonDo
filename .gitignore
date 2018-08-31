@@ -103,10 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# 3D printing stuff
-*.gcode
-*.g
-
 ### KiCad ###
 # For PCBs designed using KiCad: http://www.kicad-pcb.org/
 
@@ -128,10 +124,6 @@ _autosave-*
 # Exported BOM files
 *.xml
 *.csv
-
-# Manufacturing Files
-*.drl
-*.gbr
 
 ### macOS ###
 *.DS_Store
