@@ -1,41 +1,6 @@
-EESchema Schematic File Version 2
-LIBS:JudgeBoard-rescue
-LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:Logic_74xx
-LIBS:Logic_CMOS_4000
-LIBS:Logic_CMOS_IEEE
-LIBS:PiKwonDo
-LIBS:Switch
+EESchema Schematic File Version 4
 LIBS:JudgeBoard-cache
-EELAYER 25 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -50,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L GND #PWR01
+L power1:GND #PWR01
 U 1 1 5AEBDB86
 P 800 3800
 F 0 "#PWR01" H 800 3550 50  0001 C CNN
@@ -63,7 +28,7 @@ $EndComp
 Wire Wire Line
 	800  3800 750  3800
 $Comp
-L +3.3V #PWR02
+L power1:+3.3V #PWR02
 U 1 1 5AEBE39C
 P 3950 1450
 F 0 "#PWR02" H 3950 1300 50  0001 C CNN
@@ -78,13 +43,13 @@ Wire Wire Line
 Wire Wire Line
 	1900 1900 3950 1900
 Wire Wire Line
-	2850 2100 6100 2100
+	2850 2100 4050 2100
 Wire Wire Line
 	4250 3000 3750 3000
 Wire Wire Line
 	4150 2800 1900 2800
 $Comp
-L 74HC165 U1
+L JudgeBoard-rescue:74HC165 U1
 U 1 1 5AECD96E
 P 6700 2450
 F 0 "U1" H 6700 2800 60  0000 C CNN
@@ -95,7 +60,7 @@ F 3 "" H 6700 2450 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HC165 U2
+L JudgeBoard-rescue:74HC165 U2
 U 1 1 5AECD9AB
 P 7650 4850
 F 0 "U2" H 7650 5200 60  0000 C CNN
@@ -106,7 +71,7 @@ F 3 "" H 7650 4850 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR03
+L power1:+3.3V #PWR03
 U 1 1 5AECDC8D
 P 7650 3650
 F 0 "#PWR03" H 7650 3500 50  0001 C CNN
@@ -117,7 +82,7 @@ F 3 "" H 7650 3650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR04
+L power1:+3.3V #PWR04
 U 1 1 5AECDCC2
 P 6700 1250
 F 0 "#PWR04" H 6700 1100 50  0001 C CNN
@@ -128,7 +93,7 @@ F 3 "" H 6700 1250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR05
+L power1:GND #PWR05
 U 1 1 5AECDCF7
 P 6700 3450
 F 0 "#PWR05" H 6700 3200 50  0001 C CNN
@@ -139,7 +104,7 @@ F 3 "" H 6700 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR06
+L power1:GND #PWR06
 U 1 1 5AECDDAA
 P 7650 5850
 F 0 "#PWR06" H 7650 5600 50  0001 C CNN
@@ -160,7 +125,7 @@ Wire Wire Line
 Wire Wire Line
 	6100 1500 5900 1500
 $Comp
-L +3.3V #PWR07
+L power1:+3.3V #PWR07
 U 1 1 5AECEC2E
 P 5350 1600
 F 0 "#PWR07" H 5350 1450 50  0001 C CNN
@@ -199,7 +164,7 @@ CLK
 Text Label 5900 1800 0    60   ~ 0
 LOAD
 $Comp
-L RJ12-UNSHLD J1
+L PiKwonDo:RJ12-UNSHLD J1
 U 1 1 5AED1621
 P 10650 2150
 F 0 "J1" H 10850 2650 50  0000 C CNN
@@ -210,7 +175,7 @@ F 3 "" H 10650 2150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L +3.3V #PWR08
+L power1:+3.3V #PWR08
 U 1 1 5AED16D2
 P 7450 2050
 F 0 "#PWR08" H 7450 1900 50  0001 C CNN
@@ -221,7 +186,7 @@ F 3 "" H 7450 2050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR09
+L power1:GND #PWR09
 U 1 1 5AED1707
 P 10200 2350
 F 0 "#PWR09" H 10200 2100 50  0001 C CNN
@@ -232,17 +197,15 @@ F 3 "" H 10200 2350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9700 2150 10200 2150
-Wire Wire Line
-	9500 2250 10200 2250
+	9500 2250 9650 2250
 Wire Wire Line
 	9100 4800 8250 4800
 Wire Wire Line
-	8950 2250 9200 2250
+	8950 2250 9100 2250
 Wire Wire Line
 	9100 2250 9100 4800
 $Comp
-L +3.3V #PWR010
+L power1:+3.3V #PWR010
 U 1 1 5AED1A4E
 P 750 750
 F 0 "#PWR010" H 750 600 50  0001 C CNN
@@ -253,7 +216,7 @@ F 3 "" H 750 750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR011
+L power1:GND #PWR011
 U 1 1 5AED1A83
 P 1050 900
 F 0 "#PWR011" H 1050 650 50  0001 C CNN
@@ -264,7 +227,7 @@ F 3 "" H 1050 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PWR_FLAG #FLG012
+L power1:PWR_FLAG #FLG012
 U 1 1 5AED1AC8
 P 1050 900
 F 0 "#FLG012" H 1050 975 50  0001 C CNN
@@ -275,7 +238,7 @@ F 3 "" H 1050 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PWR_FLAG #FLG013
+L power1:PWR_FLAG #FLG013
 U 1 1 5AED1B04
 P 750 750
 F 0 "#FLG013" H 750 825 50  0001 C CNN
@@ -288,16 +251,16 @@ $EndComp
 NoConn ~ 7300 2550
 NoConn ~ 8250 4950
 Wire Wire Line
-	6100 2700 6100 3400
+	6100 2700 6100 2850
 Wire Wire Line
-	7050 5100 7050 5800
+	7050 5100 7050 5250
 Connection ~ 7050 5250
 Wire Wire Line
 	6700 3400 6700 3450
 Wire Wire Line
 	7650 5800 7650 5850
 $Comp
-L C C1
+L device:C C1
 U 1 1 5AECE346
 P 7300 1400
 F 0 "C1" H 7325 1500 50  0000 L CNN
@@ -308,7 +271,7 @@ F 3 "" H 7300 1400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C2
+L device:C C2
 U 1 1 5AECE390
 P 8250 3800
 F 0 "C2" H 8275 3900 50  0000 L CNN
@@ -321,7 +284,7 @@ $EndComp
 Wire Wire Line
 	6700 1250 7300 1250
 $Comp
-L GND #PWR014
+L power1:GND #PWR014
 U 1 1 5AECE986
 P 7300 1550
 F 0 "#PWR014" H 7300 1300 50  0001 C CNN
@@ -332,7 +295,7 @@ F 3 "" H 7300 1550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR015
+L power1:GND #PWR015
 U 1 1 5AECEA91
 P 8250 3950
 F 0 "#PWR015" H 8250 3700 50  0001 C CNN
@@ -347,7 +310,7 @@ Wire Wire Line
 Wire Wire Line
 	7650 2050 7650 2250
 $Comp
-L CP1 C3
+L device:CP1 C3
 U 1 1 5AECEE1D
 P 7650 2400
 F 0 "C3" H 7675 2500 50  0000 L CNN
@@ -358,7 +321,7 @@ F 3 "" H 7650 2400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR016
+L power1:GND #PWR016
 U 1 1 5AECEE74
 P 7650 2550
 F 0 "#PWR016" H 7650 2300 50  0001 C CNN
@@ -369,7 +332,7 @@ F 3 "" H 7650 2550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPDT-Button S1
+L PiKwonDo:DPDT-Button S1
 U 1 1 5AF3A7BC
 P 1350 3950
 F 0 "S1" H 1350 4400 60  0000 C CNN
@@ -380,7 +343,7 @@ F 3 "" H 1350 3950 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR017
+L power1:GND #PWR017
 U 1 1 5AF3AF90
 P 800 2050
 F 0 "#PWR017" H 800 1800 50  0001 C CNN
@@ -391,7 +354,7 @@ F 3 "" H 800 2050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPDT-Button S2
+L PiKwonDo:DPDT-Button S2
 U 1 1 5AF3B1C2
 P 2300 2350
 F 0 "S2" H 2300 2800 60  0000 C CNN
@@ -402,7 +365,7 @@ F 3 "" H 2300 2350 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR018
+L power1:GND #PWR018
 U 1 1 5AF3B202
 P 1750 2200
 F 0 "#PWR018" H 1750 1950 50  0001 C CNN
@@ -413,7 +376,7 @@ F 3 "" H 1750 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPDT-Button S7
+L PiKwonDo:DPDT-Button S7
 U 1 1 5AF3B375
 P 3200 3250
 F 0 "S7" H 3200 3700 60  0000 C CNN
@@ -424,7 +387,7 @@ F 3 "" H 3200 3250 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR019
+L power1:GND #PWR019
 U 1 1 5AF3B3C9
 P 2650 3100
 F 0 "#PWR019" H 2650 2850 50  0001 C CNN
@@ -434,10 +397,8 @@ F 3 "" H 2650 3100 50  0001 C CNN
 	1    2650 3100
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2650 3100 2650 3100
 $Comp
-L GND #PWR020
+L power1:GND #PWR020
 U 1 1 5AF3B694
 P 800 2900
 F 0 "#PWR020" H 800 2650 50  0001 C CNN
@@ -448,7 +409,7 @@ F 3 "" H 800 2900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPDT-Button S3
+L PiKwonDo:DPDT-Button S3
 U 1 1 5AF3B69E
 P 1350 3050
 F 0 "S3" H 1350 3500 60  0000 C CNN
@@ -459,7 +420,7 @@ F 3 "" H 1350 3050 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPDT-Button S8
+L PiKwonDo:DPDT-Button S8
 U 1 1 5AF3B6A4
 P 1350 5000
 F 0 "S8" H 1350 5450 60  0000 C CNN
@@ -470,7 +431,7 @@ F 3 "" H 1350 5000 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR021
+L power1:GND #PWR021
 U 1 1 5AF3B6AA
 P 800 4850
 F 0 "#PWR021" H 800 4600 50  0001 C CNN
@@ -481,7 +442,7 @@ F 3 "" H 800 4850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR022
+L power1:GND #PWR022
 U 1 1 5AF3B6B7
 P 800 7250
 F 0 "#PWR022" H 800 7000 50  0001 C CNN
@@ -492,7 +453,7 @@ F 3 "" H 800 7250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPDT-Button S9
+L PiKwonDo:DPDT-Button S9
 U 1 1 5AF3B6C0
 P 2650 6350
 F 0 "S9" H 2650 6800 60  0000 C CNN
@@ -503,7 +464,7 @@ F 3 "" H 2650 6350 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR023
+L power1:GND #PWR023
 U 1 1 5AF3B6C6
 P 2100 6200
 F 0 "#PWR023" H 2100 5950 50  0001 C CNN
@@ -513,10 +474,8 @@ F 3 "" H 2100 6200 50  0001 C CNN
 	1    2100 6200
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3600 3300 3600 3300
 $Comp
-L DPDT-Button S5
+L PiKwonDo:DPDT-Button S5
 U 1 1 5AF3BB10
 P 1300 6050
 F 0 "S5" H 1300 6500 60  0000 C CNN
@@ -527,7 +486,7 @@ F 3 "" H 1300 6050 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR024
+L power1:GND #PWR024
 U 1 1 5AF3BB16
 P 750 5900
 F 0 "#PWR024" H 750 5650 50  0001 C CNN
@@ -538,7 +497,7 @@ F 3 "" H 750 5900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPDT-Button S10
+L PiKwonDo:DPDT-Button S10
 U 1 1 5AF3BB1F
 P 2700 5300
 F 0 "S10" H 2700 5750 60  0000 C CNN
@@ -549,7 +508,7 @@ F 3 "" H 2700 5300 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR025
+L power1:GND #PWR025
 U 1 1 5AF3BB25
 P 2150 5150
 F 0 "#PWR025" H 2150 4900 50  0001 C CNN
@@ -594,7 +553,7 @@ NoConn ~ 2150 5400
 NoConn ~ 2150 5600
 NoConn ~ 3250 5500
 $Comp
-L DPST-Button S6
+L JudgeBoard-rescue:DPST-Button S6
 U 1 1 5B19B7BA
 P 1350 1900
 F 0 "S6" H 1350 2350 60  0000 C CNN
@@ -605,7 +564,7 @@ F 3 "" H 1350 1900 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DPST-Button S4
+L JudgeBoard-rescue:DPST-Button S4
 U 1 1 5B19B80F
 P 1350 7100
 F 0 "S4" H 1350 7550 60  0000 C CNN
@@ -618,7 +577,7 @@ $EndComp
 Text Label 8800 2050 0    60   ~ 0
 CLK
 $Comp
-L LED D1
+L device:LED D1
 U 1 1 5B28344D
 P 9950 1400
 F 0 "D1" H 9950 1500 50  0000 C CNN
@@ -629,7 +588,7 @@ F 3 "" H 9950 1400 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R1
+L device:R R1
 U 1 1 5B283531
 P 9950 1850
 F 0 "R1" V 10030 1850 50  0000 C CNN
@@ -642,7 +601,7 @@ $EndComp
 Wire Wire Line
 	9950 1050 9950 1250
 $Comp
-L GND #PWR026
+L power1:GND #PWR026
 U 1 1 5B2837C7
 P 8650 3500
 F 0 "#PWR026" H 8650 3250 50  0001 C CNN
@@ -655,7 +614,7 @@ $EndComp
 Text Label 8400 2150 0    60   ~ 0
 LOAD
 $Comp
-L R_Network05 RN1
+L device:R_Network05 RN1
 U 1 1 5B28545A
 P 4150 1650
 F 0 "RN1" V 3850 1650 50  0000 C CNN
@@ -666,7 +625,7 @@ F 3 "" H 4150 1650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R_Network05 RN2
+L device:R_Network05 RN2
 U 1 1 5B285552
 P 4700 1650
 F 0 "RN2" V 4400 1650 50  0000 C CNN
@@ -677,7 +636,7 @@ F 3 "" H 4700 1650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR027
+L power1:+3.3V #PWR027
 U 1 1 5B2856AC
 P 4500 1450
 F 0 "#PWR027" H 4500 1300 50  0001 C CNN
@@ -688,15 +647,15 @@ F 3 "" H 4500 1450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3950 1850 3950 1950
+	3950 1850 3950 1900
 Wire Wire Line
 	4050 2100 4050 1850
 Wire Wire Line
-	4150 1850 4150 2800
+	4150 1850 4150 2250
 Wire Wire Line
-	4250 1850 4250 3000
+	4250 1850 4250 2400
 Wire Wire Line
-	4350 1850 4350 3700
+	4350 1850 4350 2550
 Wire Wire Line
 	3950 1950 6100 1950
 Connection ~ 3950 1900
@@ -716,31 +675,26 @@ Connection ~ 6100 2850
 Wire Wire Line
 	4500 4750 1900 4750
 Wire Wire Line
-	4500 1850 4500 4750
+	4500 1850 4500 4350
 Wire Wire Line
 	7050 4350 4500 4350
 Connection ~ 4500 4350
 Wire Wire Line
-	4600 1850 4600 5050
+	4600 1850 4600 4500
 Wire Wire Line
 	4600 4500 7050 4500
 Wire Wire Line
-	4700 1850 4700 5800
+	4700 1850 4700 4650
 Wire Wire Line
 	4700 4650 7050 4650
 Wire Wire Line
 	4800 6100 3200 6100
 Wire Wire Line
-	4800 1850 4800 6100
-Wire Wire Line
 	7050 4800 4800 4800
-Wire Wire Line
-	4800 4800 4800 4850
-Connection ~ 4800 4850
 Wire Wire Line
 	4900 7100 1900 7100
 Wire Wire Line
-	4900 1850 4900 7100
+	4900 1850 4900 4950
 Wire Wire Line
 	7050 4950 4900 4950
 Connection ~ 4900 4950
@@ -753,9 +707,8 @@ Connection ~ 4700 4650
 Connection ~ 7650 2050
 NoConn ~ 10200 2450
 NoConn ~ 10200 1950
-Connection ~ 9900 2150
 $Comp
-L R R4
+L device:R R4
 U 1 1 5B42E59D
 P 9750 2050
 F 0 "R4" V 9830 2050 50  0000 C CNN
@@ -766,7 +719,7 @@ F 3 "" H 9750 2050 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR028
+L power1:GND #PWR028
 U 1 1 5B42EA9B
 P 9950 1050
 F 0 "#PWR028" H 9950 800 50  0001 C CNN
@@ -777,7 +730,7 @@ F 3 "" H 9950 1050 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	9900 2050 10200 2050
+	9900 2050 9950 2050
 Wire Wire Line
 	9950 2050 9950 2000
 Wire Wire Line
@@ -787,7 +740,7 @@ Wire Wire Line
 Connection ~ 8300 2050
 Connection ~ 9950 2050
 $Comp
-L R R2
+L device:R R2
 U 1 1 5B42EE86
 P 9550 2150
 F 0 "R2" V 9630 2150 50  0000 C CNN
@@ -798,9 +751,9 @@ F 3 "" H 9550 2150 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	8400 2150 9400 2150
+	8400 2150 8650 2150
 $Comp
-L R R3
+L device:R R3
 U 1 1 5B42FAA7
 P 9350 2250
 F 0 "R3" V 9430 2250 50  0000 C CNN
@@ -811,7 +764,7 @@ F 3 "" H 9350 2250 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C C4
+L device:C C4
 U 1 1 5B42FD0B
 P 9650 2500
 F 0 "C4" H 9675 2600 50  0000 L CNN
@@ -825,7 +778,7 @@ Wire Wire Line
 	9650 2350 9650 2250
 Connection ~ 9650 2250
 $Comp
-L GND #PWR029
+L power1:GND #PWR029
 U 1 1 5B42FE22
 P 9650 2750
 F 0 "#PWR029" H 9650 2500 50  0001 C CNN
@@ -838,7 +791,7 @@ $EndComp
 Wire Wire Line
 	9650 2750 9650 2650
 $Comp
-L D_Schottky D2
+L device:D_Schottky D2
 U 1 1 5B430699
 P 8000 2050
 F 0 "D2" H 8000 2150 50  0000 C CNN
@@ -849,12 +802,12 @@ F 3 "" H 8000 2050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7450 2050 7850 2050
+	7450 2050 7650 2050
 Wire Wire Line
-	8150 2050 9600 2050
+	8150 2050 8300 2050
 Connection ~ 9100 2250
 $Comp
-L D_Zener D3
+L device:D_Zener D3
 U 1 1 5B4577C8
 P 8350 2900
 F 0 "D3" H 8350 3000 50  0000 C CNN
@@ -865,7 +818,7 @@ F 3 "" H 8350 2900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L D_Zener D4
+L device:D_Zener D4
 U 1 1 5B457892
 P 8650 2900
 F 0 "D4" H 8650 3000 50  0000 C CNN
@@ -876,7 +829,7 @@ F 3 "" H 8650 2900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L D_Zener D5
+L device:D_Zener D5
 U 1 1 5B4578F4
 P 8950 2900
 F 0 "D5" H 8950 3000 50  0000 C CNN
@@ -896,10 +849,60 @@ Wire Wire Line
 Wire Wire Line
 	8350 3050 8350 3350
 Wire Wire Line
-	8350 3350 8950 3350
+	8350 3350 8650 3350
 Wire Wire Line
-	8650 3050 8650 3500
+	8650 3050 8650 3350
 Connection ~ 8650 3350
 Wire Wire Line
 	8950 3350 8950 3050
+Wire Wire Line
+	7050 5550 7050 5800
+Wire Wire Line
+	7050 5400 7050 5550
+Wire Wire Line
+	7050 5250 7050 5400
+Wire Wire Line
+	3950 1900 3950 1950
+Wire Wire Line
+	4050 2100 6100 2100
+Wire Wire Line
+	4150 2250 4150 2800
+Wire Wire Line
+	4250 2400 4250 3000
+Wire Wire Line
+	4350 2550 4350 3700
+Wire Wire Line
+	6100 3150 6100 3400
+Wire Wire Line
+	6100 3000 6100 3150
+Wire Wire Line
+	6100 2850 6100 3000
+Wire Wire Line
+	4500 4350 4500 4750
+Wire Wire Line
+	4900 4950 4900 7100
+Wire Wire Line
+	4600 4500 4600 5050
+Wire Wire Line
+	4700 4650 4700 5800
+Wire Wire Line
+	7650 2050 7850 2050
+Wire Wire Line
+	8300 2050 9600 2050
+Wire Wire Line
+	9950 2050 10200 2050
+Wire Wire Line
+	9650 2250 10200 2250
+Wire Wire Line
+	9100 2250 9200 2250
+Wire Wire Line
+	8650 2150 9400 2150
+Wire Wire Line
+	8650 3350 8950 3350
+Wire Wire Line
+	8650 3350 8650 3500
+Wire Wire Line
+	9700 2150 10200 2150
+Wire Wire Line
+	4800 1850 4800 6100
 $EndSCHEMATC

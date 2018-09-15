@@ -1,0 +1,12 @@
+(sym_lib_table
+  (lib (name JudgeBoard-rescue)(type Legacy)(uri ${KIPRJMOD}/JudgeBoard-rescue.lib)(options "")(descr ""))
+  (lib (name power1)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/power.lib)(options "")(descr ""))
+  (lib (name device)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/device.lib)(options "")(descr ""))
+  (lib (name audio)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/audio.lib)(options "")(descr ""))
+  (lib (name interface)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/interface.lib)(options "")(descr ""))
+  (lib (name Logic_74xx)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/Logic_74xx.lib)(options "")(descr ""))
+  (lib (name Logic_CMOS_4000)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/Logic_CMOS_4000.lib)(options "")(descr ""))
+  (lib (name Logic_CMOS_IEEE)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/Logic_CMOS_IEEE.lib)(options "")(descr ""))
+  (lib (name PiKwonDo)(type Legacy)(uri ${PIKWONDO}/PiKwonDo.lib)(options "")(descr ""))
+  (lib (name Switch1)(type Legacy)(uri /Users/davidwright/repositories/single-axis-tracker/Electronics/kicad-symbols-master/Switch.lib)(options "")(descr ""))
+)
