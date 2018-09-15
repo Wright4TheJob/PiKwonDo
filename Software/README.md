@@ -8,10 +8,17 @@ The PiKwonDo software uses two primary processing threads to control 1) game log
 # Installation
 Delete the RPi folder in Software to direct the python installtion to the global GPIO library present on the Raspberry Pi. If testing or modifying the software on a desktop computer, the RPi folder mimics the GPIO library and allows the software to run.
 
+# Startup
+To start the PiKwonDo software, navigate to the Software folder in the terminal and launch the PyKwonDo.py file using Python 3:
+```
+$ python3 PyKwonDo.py
+```
+
 # Status
 Initial software class structure and functionality are in place. Interpretation of the button states is currently rudimentary. GUI is functional.
 
 ## TODO
-* Test GPIO scanning with hardware.
+* Add check for system parameters to allow non-Raspberry Pi code testing
+* Complete GPIO scanning code and test with hardware.
 * Unit test combinations of judge signals.
 * Create automated installation script.
