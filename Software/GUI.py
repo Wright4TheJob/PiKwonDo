@@ -1,7 +1,7 @@
 #!/bin/env/python
 # David Wright
 # Copyright 2018
-# Written for Python 3.6.3
+# Written for Python 3.7.0
 
 # imports
 from PyQt5 import QtCore
@@ -38,7 +38,7 @@ class MainWindow(QMainWindow):
         #Builds GUI
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(1000, 800)
-        MainWindow.showFullScreen()
+        #MainWindow.showFullScreen()
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -65,22 +65,22 @@ class MainWindow(QMainWindow):
         round_menu = menuBar.addMenu('&Match')
         startAction = QAction('&Start Match', self)
         #bluePointAction.setStatusTip('Exit application')
-        #startAction.triggered.connect(super().startRound) #This is built in
+        startAction.triggered.connect(self.mainProcess.startMatch) #This is built in
         round_menu.addAction(startAction)
 
         pauseAction = QAction('&Pause Match', self)
         #pauseAction.setStatusTip('Exit application')
-        #pauseAction.triggered.connect(super().pauseRound) #This is built in
+        pauseAction.triggered.connect(self.mainProcess.pauseRound) #This is built in
         round_menu.addAction(pauseAction)
 
         resumeAction = QAction('&Resume Match', self)
         #bluePointAction.setStatusTip('Exit application')
-        #resumeAction.triggered.connect(super().resumeRound) #This is built in
+        resumeAction.triggered.connect(self.mainProcess.resumeRound) #This is built in
         round_menu.addAction(resumeAction)
 
         resetAction = QAction('&Reset Match', self)
         #bluePointAction.setStatusTip('Exit application')
-        #resetAction.triggered.connect(super().resetRound)
+        resetAction.triggered.connect(self.mainProcess.resetRound)
         round_menu.addAction(resetAction)
 
 

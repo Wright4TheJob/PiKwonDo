@@ -15,19 +15,19 @@ import time
 import traceback, sys
 import threading
 
+
+# TODO: Do I even want this? Periodic scanning would make this not work
 class ButtonHandler(threading.Thread):
+    '''Detects desired signal from GPIO pin and emits signal after debounce'''
     def __init__(self, pin, func, edge='both', bouncetime=100, glitchtime=5):
         super().__init__(daemon=True)
 
         self.edge = edge
         self.func = func
         self.pin = pin
-        #self.bouncetime = float(bouncetime)/1000
         self.glitchtime = float(glitchtime)/1000
-
         self.lastpinval = GPIO.input(self.pin)
         self.glitchLock = threading.Lock()
-        #self.bounceLock = threading.Lock()
 
         if (self.edge == 'rising'):
             gpioEdge = GPIO.RISING
@@ -37,20 +37,14 @@ class ButtonHandler(threading.Thread):
         GPIO.add_event_detect(pin, gpioEdge,callback=self)
 
     def __call__(self, *args):
-        #if not self.bounceLock.acquire(blocking=False):
-        #	return
         if not self.glitchLock.acquire(blocking=False):
             return
 
         glitchTimer = threading.Timer(self.glitchtime, self.glitchDone, args=args)
         glitchTimer.start()
 
-        #bounceTimer = threading.Timer(self.bouncetime, self.bounceDone, args=args)
-        #bounceTimer.start()
-
     def glitchDone(self, *args):
         pinval = GPIO.input(self.pin)
-
         if (
             ((pinval == 0 and self.lastpinval == 1) and
             (self.edge in ['falling', 'both'])) or
@@ -61,9 +55,6 @@ class ButtonHandler(threading.Thread):
 
         self.lastpinval = pinval
         self.glitchLock.release()
-
-    #def bounceDone(self, *args):
-        #self.bounceLock.release()
 
 class PeriodicActionThread(threading.Thread):
 
@@ -80,7 +71,7 @@ class PeriodicActionThread(threading.Thread):
             self.lock.release()
 
 class HardwareControllerScanner():
-    pinChanged = pyqtSignal(int,int,bool)
+    bit_changed = pyqtSignal(float,object)
 
     def __init__(self):
         name = os.uname()
@@ -91,14 +82,40 @@ class HardwareControllerScanner():
             # disable GPIO pinging
             self.hasGPIO = False
         # specify pin connections (load, clock, data pin array)
-        self.bitsToScan = 10
+        self.bitsToScan = 13
         self.scanPeriod = 5 # ms
-        GPIO.setup(self.judge0Pins[0], GPIO.IN)
+        # cluster clock, step, and data pins
+        self.j0_load_pin = -1
+        self.j0_clk_pin = -1
+        self.j0_dat_pin = -1
+
+        self.j0_load_pin = -1
+        self.j0_clk_pin = -1
+        self.j0_dat_pin = -1
+
+        self.j0_load_pin = -1
+        self.j0_clk_pin = -1
+        self.j0_dat_pin = -1
+
+        # timer
+        self.t_load_pin = -1
+        self.t_clk_pin = -1
+        self.t_dat_pin = -1
+
+        self.load_pins = [self.j0_load_pin, self.j0_load_pin, self.j0_load_pin, self.t_load_pin]
+        self.clock_pins = [self.j0_clk_pin, self.j0_clk_pin, self.j0_clk_pin, self.t_clk_pin]
+        self.data_pins = [self.j0_dat_pin, self.j0_dat_pin, self.j0_dat_pin, self.t_dat_pin]
+
+        [GPIO.setup(pin, GPIO.OUT) for pin in self.load_pins]
+        [GPIO.setup(pin, GPIO.OUT) for pin in self.clock_pins]
+        [GPIO.setup(pin, GPIO.IN) for pin in self.data_pins]
+
         self.periodicActionThread = PeriodicActionThread()
         periodicActionThread.init(self.step,self.scanPeriod)
 
         self.oldBits = []
 
+    @property
     def pinChangeSignals(self):
         return self.pinChangeSignalArray
 
@@ -111,49 +128,72 @@ class HardwareControllerScanner():
         GPIO.set(pin,LOW)
 
     def readBits(self):
+        '''reads one bit from each controller'''
         result = []
         for pin in self.dataPins:
             result.append(GPIO.read(pin))
         return result
 
     def scanBits(self):
+        '''reads all data from controllers'''
         result = []
         # send load signal
         self.pulseGPIOPin(self.loadPin)
-        for i in range(0,bitCount-1):
-            self.microsecond()
-            result.append(self.readBits())
-            self.pulseGPIOPin(self.shiftPin)
+        # Read bits from all controllers
+        for i in range(0,self.bitsToScan):
+            self.microsecond() # Wait for signals to stabilize
+            result.append(self.readBits()) # Read a single bit from each of controllers
+            self.pulseGPIOPin(self.shiftPin) # Shift data to next bit
 
         return zip(*result)
 
     def compareBits(self,olds,news):
-        for i in range(0,len(olds)):
-            oldList = olds[i]
-            for j in range(0,len(oldList)):
-                change = news[i][j] - olds[i][j]
-                if change == -1:
-                    self.pinChanged.emit(i,j,False)
-                elif change == 1:
-                    self.pinChanged.emit(i,j,True)
+        '''Subtracts 2D list to determine changes to bit state'''
+        n = len(olds)
+        m = len(olds[0])
+        delta = [[0] * m for i in range(n)]
+        for i in range(0,n):
+            for j in range(0,m):
+                delta[i][j] = news[i][j] - olds[i][j]
+        return delta
+
+    def is_nonzero(self,delta):
+        '''Returns True if any element of 2D list is nonzero, otherwise False'''
+        nonzero = False
+        for row in delta:
+            for element in row:
+                if element != 0
+                    nonzero = True
+        return nonzero
 
     def step(self):
+        '''cycles bit scanning and detects changes'''
         newBits = self.scanBits()
         if len(self.oldBits) != 0:
-            self.compareBits(self.oldBits,newBits)
+            changes = self.compareBits(self.oldBits,newBits)
+            changed = self.is_nonzero(changes)
+            if changed:
+                time = -1 # TODO: Get current system time, or from start of match/round
+                self.bit_changed.emit(time,changes)
         self.oldBits = newBits
 
 class BitDecoder():
-    for i in range():
-        for j in range():
+    def __init__(self,piKwonDo):
+        self.main_process = piKwonDo
+        a = 13
+        b = 4
+        for i in range(0,a):
+            for j in range(0,b):
+                pass
+        #[pin1,pin2,pin3...]
+        #[bit1,bit1,bit1...]
+        #[bit2,bit2,bit2...]
+        #[bit3,bit3,bit3...]
+        # where each element is a touple of rising and falling signals
+        # or rising is 1, falling is -1, and
+        self.pinChangeSignalArray = [[1,0,-1],[0,0,0]]
 
-    #[pin1,pin2,pin3...]
-    #[bit1,bit1,bit1...]
-    #[bit2,bit2,bit2...]
-    #[bit3,bit3,bit3...]
-    # where each element is a touple of rising and falling signals
-    self.pinChangeSignalArray = [[[signal.rising,signal.falling]]]
-
+        connect(lambda: self.main_process.redPoint(1))
 class GPIOListenerThread(QThread):
 
     pointDetected = pyqtSignal(int,int) # Person(Red = 0, Blue = 1), Points
@@ -250,6 +290,7 @@ class GPIOListenerThread(QThread):
     def resetRoundPushed(self,callback):
         self.resetRoundDetected.emit()
 
+    # TODO: Replace this with more general interpretation method
     def penaltyPushed(self,callback):
         personCode = -1
         if self.gpioRead(self.redPenaltyPin) == 1 and self.gpioRead(self.bluePenaltyPin) == 0:
