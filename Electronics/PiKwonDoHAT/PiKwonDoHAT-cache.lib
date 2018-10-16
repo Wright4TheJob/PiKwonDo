@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Connector_Generic_MountingPin:Conn_02x20_Odd_Even_MountingPin
+# Connector_Generic_MountingPin_Conn_02x20_Odd_Even_MountingPin
 #
-DEF Connector_Generic_MountingPin:Conn_02x20_Odd_Even_MountingPin J 0 40 Y N 1 F N
+DEF Connector_Generic_MountingPin_Conn_02x20_Odd_Even_MountingPin J 0 40 Y N 1 F N
 F0 "J" 50 1000 50 H V C CNN
-F1 "Connector_Generic_MountingPin:Conn_02x20_Odd_Even_MountingPin" 100 -1100 50 H V L CNN
+F1 "Connector_Generic_MountingPin_Conn_02x20_Odd_Even_MountingPin" 100 -1100 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -96,11 +96,11 @@ X Pin_9 9 -200 500 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:C
+# Device_C
 #
-DEF Device:C C 0 10 N Y 1 F N
+DEF Device_C C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "Device:C" 25 -100 50 H V L CNN
+F1 "Device_C" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -114,11 +114,11 @@ X ~ 2 0 -150 110 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:D_Zener
+# Device_D_Zener
 #
-DEF Device:D_Zener D 0 40 N N 1 F N
+DEF Device_D_Zener D 0 40 N N 1 F N
 F0 "D" 0 100 50 H V C CNN
-F1 "Device:D_Zener" 0 -100 50 H V C CNN
+F1 "Device_D_Zener" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -136,11 +136,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device:R
+# Device_R
 #
-DEF Device:R R 0 0 N Y 1 F N
+DEF Device_R R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "Device:R" 0 0 50 V V C CNN
+F1 "Device_R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -153,11 +153,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# PiKwonDo:RJ12-UNSHLD
+# PiKwonDo_RJ12-UNSHLD
 #
-DEF PiKwonDo:RJ12-UNSHLD J 0 40 Y Y 1 F N
+DEF PiKwonDo_RJ12-UNSHLD J 0 40 Y Y 1 F N
 F0 "J" 200 500 50 H V C CNN
-F1 "PiKwonDo:RJ12-UNSHLD" -150 500 50 H V C CNN
+F1 "PiKwonDo_RJ12-UNSHLD" -150 500 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -178,11 +178,11 @@ X ~ 6 300 -450 150 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# PiKwonDo:SN74LV1T34DBVR
+# PiKwonDo_SN74LV1T34DBVR
 #
-DEF PiKwonDo:SN74LV1T34DBVR U 0 40 Y Y 1 F N
+DEF PiKwonDo_SN74LV1T34DBVR U 0 40 Y Y 1 F N
 F0 "U" 0 0 60 H V C CNN
-F1 "PiKwonDo:SN74LV1T34DBVR" 50 300 60 H V C CNN
+F1 "PiKwonDo_SN74LV1T34DBVR" 50 300 60 H V C CNN
 F2 "" 0 0 60 H I C CNN
 F3 "" 0 0 60 H I C CNN
 DRAW
@@ -195,11 +195,11 @@ X VCC 5 0 450 200 D 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# power:+5V
+# power_+5V
 #
-DEF power:+5V #PWR 0 0 Y Y 1 F P
+DEF power_+5V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power:+5V" 0 140 50 H V C CNN
+F1 "power_+5V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -210,11 +210,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:GND
+# power_GND
 #
-DEF power:GND #PWR 0 0 Y Y 1 F P
+DEF power_GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power:GND" 0 -150 50 H V C CNN
+F1 "power_GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -223,11 +223,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power:PWR_FLAG
+# power_PWR_FLAG
 #
-DEF power:PWR_FLAG #FLG 0 0 N N 1 F P
+DEF power_PWR_FLAG #FLG 0 0 N N 1 F P
 F0 "#FLG" 0 75 50 H I C CNN
-F1 "power:PWR_FLAG" 0 150 50 H V C CNN
+F1 "power_PWR_FLAG" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
