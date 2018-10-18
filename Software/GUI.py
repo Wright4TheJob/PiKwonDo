@@ -9,6 +9,7 @@ from PyQt5.QtCore import QThreadPool,Qt, QTimer, QCoreApplication, QThread, QRec
 from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
 from PyQt5.QtGui import QPainter, QColor, QFont
 import datetime
+import threading
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -205,3 +206,26 @@ class MainWindow(QMainWindow):
         self.height = self.frameGeometry().height()
         self.update()
         QMainWindow.resizeEvent(self, event)
+
+class LatestValueBoxIOQT():
+    qt_signal = pyqtSignal()
+
+    def __init__(value=None):
+        self.lock = threading.Lock()
+        self._value = value
+        self._pending = False
+
+    def put(value):
+        self.lock.acquire()
+        self._value = value
+        if not self._pending:
+            self.qt_signal.emit()
+            self._pending = True
+        self.lock.release()
+
+    def get():
+        self.lock.acquire()
+        value = self._value
+        self._pending = False
+        self.lock.release()
+        return value
