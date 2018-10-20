@@ -1,14 +1,15 @@
 #!/bin/env/python
 # David Wright
 # Copyright 2017
-# Written for Python 3.6.3
+# Written for Python 3.7
 
+# https://docs.python.org/3.7/library/queue.html
 
 #Import
-from PyQt5 import QtCore
-from PyQt5.QtCore import QThreadPool,Qt, QTimer, QCoreApplication, QThread, QRect
-from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
-from PyQt5.QtGui import QPainter, QColor, QFont
+#from PyQt5 import QtCore
+#from PyQt5.QtCore import QThreadPool,Qt, QTimer, QCoreApplication, QThread, QRect
+#from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
+#from PyQt5.QtGui import QPainter, QColor, QFont
 import sys
 import datetime
 import time
@@ -17,13 +18,7 @@ import math
 import csv
 import Timer
 import GPIOListener
-from GUI import MainWindow
-
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
+from GUI import FrontEndController
 
 class OutOfRangeError(ValueError):
     '''exeption raised when input or result is outside of specified bounds'''
@@ -37,7 +32,7 @@ class UnknownFighterError(ValueError):
 # Program manager creates game and GUI instances, passes game to GUI, sets up hardware classes
 
 class PiKwonDo():
-    def __init__(self):
+    def __init__(self,args):
         self.programLoaded = False
         super(self.__class__, self).__init__()
 
@@ -61,7 +56,7 @@ class PiKwonDo():
         	self.sectionDurations.append(self.roundLength)
         self.sections = len(self.sectionDurations)
 
-        self.threadpool = QThreadPool()
+#        self.threadpool = QThreadPool()
 
         """
         # Point Listener Thread
@@ -75,7 +70,7 @@ class PiKwonDo():
         # Start the thread
         self.gpioListenerThread.start()
         """
-        self.mainWindow = MainWindow(self)
+        self.gui_controller = FrontEndController(self,args)
 
         self.programLoaded = True
 
@@ -125,8 +120,8 @@ class PiKwonDo():
             # Timer Thread
             self.timerThread = Timer.TimerThread(self.sectionDurations[self.currentSection-1])
             # Connect to emitted signals
-            self.timerThread.timerTicked.connect(self.timerTicked)
-            self.timerThread.timerDone.connect(self.timerDone)
+            #self.timerThread.timerTicked.connect(self.timerTicked)
+            #self.timerThread.timerDone.connect(self.timerDone)
             # Start the thread
             self.timerThread.start()
         self.matchRunning = True
@@ -141,8 +136,8 @@ class PiKwonDo():
         if self.timerRunning == False:
             self.timerThread = Timer.TimerThread(self.timeLeft)
             # Connect to emitted signals
-            self.timerThread.timerTicked.connect(self.timerTicked)
-            self.timerThread.timerDone.connect(self.timerDone)
+            #self.timerThread.timerTicked.connect(self.timerTicked)
+            #self.timerThread.timerDone.connect(self.timerDone)
             self.timerThread.start()
         self.timerRunning = True
 
@@ -178,23 +173,8 @@ class PiKwonDo():
         else:
             raise OutOfRangeError('number is out of range (must be less than 10)')
 
-    def updateUI(self):
-        self.mainWindow.redScore = self.redScore
-        self.mainWindow.blueScore = self.blueScore
-        self.mainWindow.redPenalties = self.redPenalties
-        self.mainWindow.bluePenalties = self.bluePenalties
-        self.mainWindow.currentSection = self.currentSection
-        self.mainWindow.time = self.timeLeft
-        self.mainWindow.update()
-
-    def show(self):
-        self.mainWindow.show()
-
 def main():
-    app = QApplication(sys.argv)
-    form = PiKwonDo()
-    form.show()
-    app.exec_()
+    game_controller = PiKwonDo(sys.argv)
 
 if __name__ == '__main__':
     main()

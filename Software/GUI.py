@@ -5,7 +5,7 @@
 
 # imports
 from PyQt5 import QtCore
-from PyQt5.QtCore import QThreadPool,Qt, QTimer, QCoreApplication, QThread, QRect
+from PyQt5.QtCore import QThreadPool, Qt, QTimer, QCoreApplication, QThread, QRect, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
 from PyQt5.QtGui import QPainter, QColor, QFont
 import datetime
@@ -16,6 +16,27 @@ try:
 except AttributeError:
     def _fromUtf8(s):
         return s
+
+class FrontEndController():
+    def __init__(self,main,args):
+        app = QApplication(args)
+        self.main_window = MainWindow(main)
+        form = self.main_window
+        form.show()
+        app.exec_()
+
+
+    def updateUI(self):
+        self.main_window.redScore = self.redScore
+        self.main_window.blueScore = self.blueScore
+        self.main_window.redPenalties = self.redPenalties
+        self.main_window.bluePenalties = self.bluePenalties
+        self.main_window.currentSection = self.currentSection
+        self.main_window.time = self.timeLeft
+        self.main_window.update()
+
+    def show(self):
+        self.main_window.show()
 
 class MainWindow(QMainWindow):
     def __init__(self,piKwonDo):

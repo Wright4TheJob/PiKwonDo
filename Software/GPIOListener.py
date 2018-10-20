@@ -162,7 +162,7 @@ class HardwareControllerScanner():
         nonzero = False
         for row in delta:
             for element in row:
-                if element != 0
+                if element != 0:
                     nonzero = True
         return nonzero
 
