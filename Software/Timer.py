@@ -2,34 +2,45 @@
 # David Wright
 # Copyright 2017
 # Written for Python 3.5.2
-from PyQt5.QtCore import QThread
-import PyQt5.QtCore as QtCore
 
 # Timer.py
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
 import datetime
 import time
 import traceback, sys
+import threading
 
-class TimerThread(QThread):
+class TimerThread():
 
-	timerTicked = pyqtSignal(int)
-	timerDone = pyqtSignal()
+    def __init__(self, duration,interval = 1):
+        self._start_time = time.monotonic()
+        self.end_time = self._start_time + duration
+        print("Starting timer with %i seconds"%(duration))
+        self.interval = interval
+        self.is_done = threading.Event()
 
-	def __init__(self, duration):
-		QThread.__init__(self)
-		self.timeLeft = int(duration+1)
-		print("Starting timer with %i seconds"%(duration))
+    def start(self):
+        self._tick()
 
-	def __del__(self):
-		self.wait()
+    def tick(self):
+        pass
 
-	def run(self):
-		time.sleep(1)
-		while self.timeLeft > 1:
-			self.timeLeft = self.timeLeft - 1
-			self.timerTicked.emit(self.timeLeft)
-			time.sleep(1)
-		self.timerDone.emit()
+    def done(self):
+        pass
+
+    def _tick(self):
+        remaining = self.end_time - time.monotonic()
+        nextInterval = min(remaining, self.interval)
+        nextFn = self._tick if remaining > self.interval else self._done
+        timer = threading.Timer(nextInterval, nextFn)
+        timer.start()
+        self.tick()
+
+    def _done(self):
+        self.is_done.set()
+        self.done()
+
+    def current_time(self):
+        return time.monotonic() - self._start_time
+
+    def wait_until_done(self,timeout=None):
+        self.is_done.wait(timeout=timeout)
