@@ -22,17 +22,15 @@ class BadInput(unittest.TestCase):
 
     def test_unknown_fighter_code_penalty(self):
         '''penalty function should fail with bad fighter input'''
-        app = QApplication(sys.argv)
         for badValue in self.badFighterValues:
-            main = pkd.PiKwonDo()
+            main = pkd.PiKwonDo(create_gui = False)
             with self.assertRaises(pkd.UnknownFighterError):
                 main.penaltyDetected(badValue)
 
     def test_unknown_fighter_code_point(self):
         '''point function should fail with invalid fighter input'''
-        app = QApplication(sys.argv)
         for badValue in self.badFighterValues:
-            main = pkd.PiKwonDo()
+            main = pkd.PiKwonDo(create_gui = False)
             with self.assertRaises(pkd.UnknownFighterError):
                 main.pointDetected(badValue,1)
 

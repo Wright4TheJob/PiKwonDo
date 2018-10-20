@@ -32,9 +32,9 @@ class UnknownFighterError(ValueError):
 # Program manager creates game and GUI instances, passes game to GUI, sets up hardware classes
 
 class PiKwonDo():
-    def __init__(self,args):
+    def __init__(self,create_gui = True):
         self.programLoaded = False
-        super(self.__class__, self).__init__()
+        #super(self.__class__, self).__init__()
 
         # Settings
         self.roundLength = 90 # seconds
@@ -70,7 +70,8 @@ class PiKwonDo():
         # Start the thread
         self.gpioListenerThread.start()
         """
-        self.gui_controller = FrontEndController(self,args)
+        if create_gui == True:
+            self.gui_controller = FrontEndController(self)
 
         self.programLoaded = True
 
@@ -92,21 +93,21 @@ class PiKwonDo():
 
     def redPoint(self,pointValue):
         self.redScore += pointValue
-        self.updateUI()
+        #self.updateUI()
 
     def redPenalty(self):
         self.redPenalties += 1
         self.bluePoint(1)
-        self.updateUI()
+        #self.updateUI()
 
     def bluePoint(self,pointValue):
         self.blueScore	+= pointValue
-        self.updateUI()
+        #self.updateUI()
 
     def bluePenalty(self):
         self.bluePenalties += 1
         self.redPoint(1)
-        self.updateUI()
+        #self.updateUI()
 
     def startMatch(self):
         if self.matchRunning == False:
@@ -150,13 +151,13 @@ class PiKwonDo():
         self.timeLeft = self.roundLength
         if self.timerRunning == True:
             self.timerThread.terminate()
-        self.updateUI()
+        #self.updateUI()
         self.timerRunning = False
         self.matchRunning = False
 
     def timerTicked(self,newTime):
         self.timeLeft = newTime
-        self.updateUI()
+        #self.updateUI()
 
     def timerDone(self):
         #self.timerThread.terminate()
@@ -174,7 +175,7 @@ class PiKwonDo():
             raise OutOfRangeError('number is out of range (must be less than 10)')
 
 def main():
-    game_controller = PiKwonDo(sys.argv)
+    game_controller = PiKwonDo()
 
 if __name__ == '__main__':
     main()

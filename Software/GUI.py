@@ -18,8 +18,8 @@ except AttributeError:
         return s
 
 class FrontEndController():
-    def __init__(self,main,args):
-        app = QApplication(args)
+    def __init__(self,main):
+        app = QApplication([])
         self.main_window = MainWindow(main)
         form = self.main_window
         form.show()
