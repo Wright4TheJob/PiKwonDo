@@ -1,0 +1,38 @@
+Delta events possible for match:
+
+Kind (inputs)
+    - Modifies attribute
+    * Actions
+
+# Timing Controls
+Timer Ticked - Action
+    - Time +1
+
+Round Started - Note
+Round Ended - Note
+    Break Started - Special kind of round - Note
+    Break Ended - Special kind of round - Note
+
+Pause - Note
+Resume - Note
+
+Reset - Action
+    - Winner
+    * Save prior match
+    - Points = 0
+    - Penalties = 0
+    - Time = 0
+
+Penalty (contestant) - Action
+    - Point -1
+    - Penalty +1
+
+Disqualified (contestant) - Action
+    - Winner
+
+# Judging Controls
+Judge Pressed Button (judge, contestant, points) - Action
+    * Is point awarded?
+
+Add Points (contestant, points) - Action
+    - Points + points
