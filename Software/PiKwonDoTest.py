@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication
 import sys
 import time
 import threading
+import math
 #class KnownValues(unittest.TestCase):
     #self.fighterValues = ((0,1),(1,4))
 
@@ -67,6 +68,38 @@ class TickingTimer(unittest.TestCase):
         timer.start()
         timer.wait_until_done()
         self.assertTrue(is_done.wait(timeout=1))
+
+    def test_number_of_ticks(self):
+        duration = 0.1
+        interval = 0.01
+        ticks_max = math.floor(duration/interval)
+        ticks_min = ticks_max - 2
+        timer = Timer.TimerThread(duration,interval = interval)
+        self.ticks = 0
+        def on_tick():
+            self.ticks += 1
+        timer.tick = on_tick
+        timer.start()
+        timer.wait_until_done()
+        self.assertLessEqual(self.ticks,ticks_max)
+        self.assertGreaterEqual(self.ticks,ticks_min)
+
+    def test_time_between_ticks(self):
+        duration = 0.1
+        interval = 0.01
+        max_deviation = 0.5*interval # 50% error allowed
+        timer = Timer.TimerThread(duration,interval = interval)
+        self.times = []
+        def on_tick():
+            self.times.append(timer.current_time())
+        timer.tick = on_tick
+        timer.start()
+        timer.wait_until_done()
+        time_deltas = []
+        for i in range(0,len(self.times)-1):
+            time_deltas.append(self.times[i+1]-self.times[i])
+        self.assertGreaterEqual(interval+max_deviation,max(time_deltas))
+    # other tests:  time between ticks is acceptable
 
 if __name__ == '__main__':
     unittest.main()
