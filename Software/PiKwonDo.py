@@ -26,10 +26,12 @@ class OutOfRangeError(ValueError):
 class UnknownFighterError(ValueError):
     '''exeption raised when input or result is not a known fighter code'''
 
-# Create game class
+# Create match class
 # Have game emit signal to indicate something changed
 # Have GUI check game variables
-# Program manager creates game and GUI instances, passes game to GUI, sets up hardware classes
+# Program manager creates match and view controller instances, passes game to GUI, sets up hardware classes
+
+# TODO: Blink timer LED when waiting for round to start? Require press of start button to begin each round, not just whole match
 
 class PiKwonDo():
     def __init__(self,create_gui = True):
@@ -58,18 +60,6 @@ class PiKwonDo():
 
 #        self.threadpool = QThreadPool()
 
-        """
-        # Point Listener Thread
-        self.gpioListenerThread = GPIOListener.GPIOListenerThread(self.maxGapTime)
-        # Connect to emitted signals
-        self.gpioListenerThread.pointDetected.connect(self.pointDetected)
-        self.gpioListenerThread.penaltyDetected.connect(self.penaltyDetected)
-        self.gpioListenerThread.startRoundDetected.connect(self.startMatch)
-        self.gpioListenerThread.pauseRoundDetected.connect(self.pauseRound)
-        self.gpioListenerThread.resetRoundDetected.connect(self.resetRound)
-        # Start the thread
-        self.gpioListenerThread.start()
-        """
         if create_gui == True:
             self.gui_controller = FrontEndController(self)
 
@@ -173,6 +163,11 @@ class PiKwonDo():
             self.matchRunning = False
         else:
             raise OutOfRangeError('number is out of range (must be less than 10)')
+
+class Match():
+    def __init__(self):
+        print('Started new match!')
+
 
 def main():
     game_controller = PiKwonDo()

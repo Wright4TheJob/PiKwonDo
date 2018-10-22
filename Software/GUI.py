@@ -25,8 +25,8 @@ class FrontEndController():
         form.show()
         app.exec_()
 
-
     def updateUI(self):
+        # replace with queue-based data passing
         self.main_window.redScore = self.redScore
         self.main_window.blueScore = self.blueScore
         self.main_window.redPenalties = self.redPenalties
@@ -56,23 +56,23 @@ class MainWindow(QMainWindow):
 
         self.programLoaded = True
 
-    def setupUI(self, MainWindow):
+    def setupUI(self, window):
         #Builds GUI
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(1000, 800)
+        window.setObjectName(_fromUtf8("MainWindow"))
+        window.resize(1000, 800)
         #MainWindow.showFullScreen()
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
 
-        self.width = MainWindow.frameGeometry().width()
-        self.height = MainWindow.frameGeometry().height()
+        self.width = window.frameGeometry().width()
+        self.height = window.frameGeometry().height()
 
         self.setWindowTitle('PiKwonDo')
         self.activateWindow()
         self.raise_()
         self.show()
-        MainWindow.setCentralWidget(self.centralwidget)
+        window.setCentralWidget(self.centralwidget)
 
         menuBar = self.menuBar()
 
@@ -133,7 +133,7 @@ class MainWindow(QMainWindow):
         bluePenaltyAction.triggered.connect(self.mainProcess.bluePenalty)
         blue_menu.addAction(bluePenaltyAction)
 
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(window)
 
     def paintEvent(self, e):
         qp = QPainter()
@@ -197,29 +197,19 @@ class MainWindow(QMainWindow):
         qp.setFont(QFont('Decorative', int(self.timeHeight*3/4)))
         qp.drawText(QRect(self.width/4, self.penaltyBarHeight, self.width/2, self.timeHeight), Qt.AlignCenter, self.timeString)
 
-    def load_data(self):
+    #def load_data(self):
         #Write this function
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,
-            "QFileDialog.getOpenFileName()",
-            "","All Files (*);;Text Files (*.txt)",
-            options=options)
-        if fileName:
-            self.initialNodeArray = []
-            self.initialBeamArray = []
-            with open(fileName, 'r') as fin:
-                reader = csv.reader(fin, delimiter=',')
-                for line in reader:
-                    #print(line)
-                    if len(line) == 8:
-                        self.initialNodeArray.append([float(line[0]),float(line[1]),int(line[2]),int(line[3]),int(line[4]),int(line[5]),float(line[6]),float(line[7])])
-                    elif len(line) == 5:
-                        self.initialBeamArray.append([int(line[0]),int(line[1]),float(line[2]),float(line[3]),float(line[4])])
-                    else:
-                        print('Unexpected line length')
-            self.redrawInputTables()
-            self.graph_canvas.plotTruss(self.initialNodeArray,self.initialBeamArray)
+    #    options = QFileDialog.Options()
+    #    options |= QFileDialog.DontUseNativeDialog
+    #    fileName, _ = QFileDialog.getOpenFileName(self,
+    #        "QFileDialog.getOpenFileName()",
+    #        "","All Files (*);;Text Files (*.txt)",
+    #        options=options)
+    #    if fileName:
+    #        with open(fileName, 'r') as fin:
+    #            print('Reading file')
+    #        self.redrawInputTables()
+    #        self.graph_canvas.plotTruss(self.initialNodeArray,self.initialBeamArray)
 
     def resizeEvent(self, event):
         #print("resize")
