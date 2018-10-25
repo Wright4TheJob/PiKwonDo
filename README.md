@@ -13,6 +13,8 @@ The project is under alpha development. Software has been developed but has yet 
 
 All design files and software are provided "as-is." Any stable releases will be bundled for easy download, but this does not guarantee suitability for your particular setup.
 
+Bill of Materials (BOM) table validation: [![goodtables.io](https://goodtables.io/badge/github/Wright4TheJob/PiKwonDo.svg)](https://goodtables.io/github/Wright4TheJob/PiKwonDo)
+
 # Software
 The judging software and UI is written in python and QT. A dedicated thread scans the status of judge controller buttons. Game logic and UI are run as the primary thread.
 <!--Wireless versions of the software may use Twisted to create a local server.-->
