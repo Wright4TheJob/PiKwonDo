@@ -212,13 +212,18 @@ class MainWindow(QMainWindow):
     #        self.graph_canvas.plotTruss(self.initialNodeArray,self.initialBeamArray)
 
     def resizeEvent(self, event):
-        #print("resize")
         self.width = self.frameGeometry().width()
         self.height = self.frameGeometry().height()
         self.update()
         QMainWindow.resizeEvent(self, event)
 
 class LatestValueBoxIOQT():
+    '''A container which holds only the most recent object put in it.
+
+    The container provides threadsafe object storage and retrieval. Object get
+    and place functions are pure python. The container instance emits a qt
+    signal when a new object is placed in the container.
+    '''
     qt_signal = pyqtSignal()
 
     def __init__(value=None):
@@ -226,7 +231,13 @@ class LatestValueBoxIOQT():
         self._value = value
         self._pending = False
 
-    def put(value):
+    def put(self, value):
+        '''Place an object in the container.
+
+        :param value: Object to place in the container.
+
+        '''
+
         self.lock.acquire()
         self._value = value
         if not self._pending:
@@ -234,7 +245,13 @@ class LatestValueBoxIOQT():
             self._pending = True
         self.lock.release()
 
-    def get():
+    def get(self):
+        '''Retrieve the latest object from the container.
+
+        :returns: The object placed in the container.
+
+        '''
+
         self.lock.acquire()
         value = self._value
         self._pending = False
