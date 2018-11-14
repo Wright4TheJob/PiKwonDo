@@ -6,10 +6,6 @@
 # https://docs.python.org/3.7/library/queue.html
 
 #Import
-#from PyQt5 import QtCore
-#from PyQt5.QtCore import QThreadPool,Qt, QTimer, QCoreApplication, QThread, QRect
-#from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
-#from PyQt5.QtGui import QPainter, QColor, QFont
 import sys
 import datetime
 import time
@@ -167,6 +163,11 @@ class PiKwonDo():
 class Match():
     def __init__(self):
         print('Started new match!')
+        self.redScore = 0
+        self.blueScore = 0
+        self.redPenalties = 0
+        self.bluePenalties = 0
+        self.currentSection = 1
 
 
 def main():
