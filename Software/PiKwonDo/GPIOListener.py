@@ -15,7 +15,6 @@ import time
 import traceback, sys
 import threading
 
-
 # TODO: Do I even want this? Periodic scanning would make this not work
 class ButtonHandler(threading.Thread):
     '''Detects desired signal from GPIO pin and emits signal after debounce'''
@@ -60,22 +59,24 @@ class PeriodicActionThread(threading.Thread):
 
     def __init__(self,function,period):
         self.function = function
-        self.timer = threading.Timer(period,self.step)
-        self.timer.start()
         self.lock = threading.Lock()
+        self.period = period/1000
+        self.step()
 
     def step(self):
-        self.timer.start()
         if self.lock.acquire(blocking=False):
             self.function()
             self.lock.release()
+        self.timer = threading.Timer(self.period,self.step)
+        self.timer.start()
 
 class HardwareControllerScanner():
     bit_changed = pyqtSignal(float,object)
 
     def __init__(self):
         name = os.uname()
-        if name[0] == "RPi":#TODO:Check sys names on python
+        self.running_raspi = name[0] == "RPi"
+        if self.running_raspi == True:
             import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
             self.hasGPIO = True
         else:
@@ -89,31 +90,31 @@ class HardwareControllerScanner():
         self.j0_clk_pin = -1
         self.j0_dat_pin = -1
 
-        self.j0_load_pin = -1
-        self.j0_clk_pin = -1
-        self.j0_dat_pin = -1
+        self.j1_load_pin = -1
+        self.j1_clk_pin = -1
+        self.j1_dat_pin = -1
 
-        self.j0_load_pin = -1
-        self.j0_clk_pin = -1
-        self.j0_dat_pin = -1
+        self.j2_load_pin = -1
+        self.j2_clk_pin = -1
+        self.j2_dat_pin = -1
 
         # timer
         self.t_load_pin = -1
         self.t_clk_pin = -1
         self.t_dat_pin = -1
 
-        self.load_pins = [self.j0_load_pin, self.j0_load_pin, self.j0_load_pin, self.t_load_pin]
-        self.clock_pins = [self.j0_clk_pin, self.j0_clk_pin, self.j0_clk_pin, self.t_clk_pin]
-        self.data_pins = [self.j0_dat_pin, self.j0_dat_pin, self.j0_dat_pin, self.t_dat_pin]
+        self.load_pins = [self.j0_load_pin, self.j1_load_pin, self.j2_load_pin, self.t_load_pin]
+        self.clock_pins = [self.j0_clk_pin, self.j1_clk_pin, self.j2_clk_pin, self.t_clk_pin]
+        self.data_pins = [self.j0_dat_pin, self.j1_dat_pin, self.j2_dat_pin, self.t_dat_pin]
 
-        [GPIO.setup(pin, GPIO.OUT) for pin in self.load_pins]
-        [GPIO.setup(pin, GPIO.OUT) for pin in self.clock_pins]
-        [GPIO.setup(pin, GPIO.IN) for pin in self.data_pins]
+        if self.running_raspi == True:
+            [GPIO.setup(pin, GPIO.OUT) for pin in self.load_pins]
+            [GPIO.setup(pin, GPIO.OUT) for pin in self.clock_pins]
+            [GPIO.setup(pin, GPIO.IN) for pin in self.data_pins]
 
-        self.periodicActionThread = PeriodicActionThread()
-        periodicActionThread.init(self.step,self.scanPeriod)
+        self.oldBits = [[-1,-1],[-1,-1]]
 
-        self.oldBits = []
+        self.periodicActionThread = PeriodicActionThread(self.step,self.scanPeriod)
 
     @property
     def pinChangeSignals(self):
@@ -138,12 +139,12 @@ class HardwareControllerScanner():
         '''reads all data from controllers'''
         result = []
         # send load signal
-        self.pulseGPIOPin(self.loadPin)
+        [self.pulseGPIOPin(pin) for pin in self.load_pins]
         # Read bits from all controllers
         for i in range(0,self.bitsToScan):
             self.microsecond() # Wait for signals to stabilize
             result.append(self.readBits()) # Read a single bit from each of controllers
-            self.pulseGPIOPin(self.shiftPin) # Shift data to next bit
+            [self.pulseGPIOPin(pin) for pin in self.clock_pins] # Shift data to next bit
 
         return zip(*result)
 
@@ -168,7 +169,10 @@ class HardwareControllerScanner():
 
     def step(self):
         '''cycles bit scanning and detects changes'''
-        newBits = self.scanBits()
+        if self.running_raspi == True:
+            newBits = self.scanBits()
+        else:
+            newBits = [[-1,-1],[-1,-1]]
         if len(self.oldBits) != 0:
             changes = self.compareBits(self.oldBits,newBits)
             changed = self.is_nonzero(changes)
