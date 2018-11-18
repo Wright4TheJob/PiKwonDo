@@ -1,37 +1,20 @@
 #! /bin/env/python3
 # David Wright
 # Copyright 2017
-# Written for Python 3.5.2
-from PyQt5.QtCore import QThread
-import PyQt5.QtCore as QtCore
+# Written for Python 3.7.1
 import os
-
-# PointListener.py
-from PyQt5.QtCore import *
 import datetime
 import time
-import traceback, sys
+import traceback
 import threading
 import sys
+import queue
 
-from PyQt5.QtWidgets import (QWidget, QTreeView, QMessageBox, QHBoxLayout,
-                             QFileDialog, QLabel, QSlider, QCheckBox,
-                             QLineEdit, QVBoxLayout, QApplication, QPushButton,
-                             QTableWidget, QTableWidgetItem,QSizePolicy,
-                             QGridLayout,QGroupBox, QMainWindow,QAction)
-from PyQt5.QtCore import Qt, QTimer, QCoreApplication, QThread
-from PyQt5 import QtCore, QtGui
-from scipy import stats
-from sympy import *
-import numpy as np
+from PyQt5.QtWidgets import QWidget, QApplication, QGridLayout, QLabel
+from PyQt5.QtCore import Qt
 import os
-import cmath
-import math
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
-from matplotlib import rcParams
-import matplotlib.mlab as mlab
-import csv
+#import cmath
+#import math
 import GPIOListener
 
 class App(QWidget):
@@ -43,8 +26,11 @@ class App(QWidget):
         self.top = 10
         self.width = 640
         self.height = 200
+        self.button_statuses = None
         self.initUI()
         self.start_gpio_scan()
+        self.dropbox = queue.SimpleQueue()
+        refresh_thread = GPIOListener.PeriodicActionThread(self.read_queue,500)
 
     def initUI(self):
         self.setWindowTitle(self.title)
@@ -67,7 +53,26 @@ class App(QWidget):
         self.show()
 
     def start_gpio_scan(self):
-        scanner = GPIOListener.HardwareControllerScanner()
+        self.scanner = GPIOListener.HardwareControllerScanner()
+
+    def read_queue(self):
+        try:
+            data = self.dropbox.get(block=False)
+            self.button_statuses = [x[0] for x in data]
+            self.update_UI()
+            print(data)
+        except queue.Empty:
+            # print('Queue is empty, not redrawing')
+
+    def update_UI(self):
+        [set_label_color(label,value) for label, value in zip(self.statuses,self.button_statuses)]
+
+    def set_label_color(self,label,value):
+        if value == 1:
+            label.setStyleSheet('background: green')
+        else:
+            label.setStyleSheet('background: red')
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

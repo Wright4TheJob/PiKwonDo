@@ -2,14 +2,14 @@
 # David Wright
 # Copyright 2017
 # Written for Python 3.5.2
-from PyQt5.QtCore import QThread
-import PyQt5.QtCore as QtCore
+#from PyQt5.QtCore import QThread
+#import PyQt5.QtCore as QtCore
 import os
 
 # PointListener.py
 #from PyQt5.QtGui import *
 #from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+#from PyQt5.QtCore import *
 import datetime
 import time
 import traceback, sys
@@ -71,7 +71,7 @@ class PeriodicActionThread(threading.Thread):
         self.timer.start()
 
 class HardwareControllerScanner():
-    bit_changed = pyqtSignal(float,object)
+    #bit_changed = pyqtSignal(float,object)
 
     def __init__(self):
         name = os.uname()
@@ -82,6 +82,8 @@ class HardwareControllerScanner():
         else:
             # disable GPIO pinging
             self.hasGPIO = False
+
+        self.target_queue = None
         # specify pin connections (load, clock, data pin array)
         self.bitsToScan = 13
         self.scanPeriod = 5 # ms
@@ -178,7 +180,9 @@ class HardwareControllerScanner():
             changed = self.is_nonzero(changes)
             if changed:
                 time = -1 # TODO: Get current system time, or from start of match/round
-                self.bit_changed.emit(time,changes)
+                if self.target_queue is not None:
+                    self.target_queue.put(newBits)
+                #self.bit_changed.emit(time,changes)
         self.oldBits = newBits
 
 class BitDecoder():
@@ -198,16 +202,17 @@ class BitDecoder():
         self.pinChangeSignalArray = [[1,0,-1],[0,0,0]]
 
         connect(lambda: self.main_process.redPoint(1))
-class GPIOListenerThread(QThread):
 
-    pointDetected = pyqtSignal(int,int) # Person(Red = 0, Blue = 1), Points
-    penaltyDetected = pyqtSignal(int) # Person(Red = 0, Blue = 1)
-    startRoundDetected = pyqtSignal()
-    pauseRoundDetected = pyqtSignal()
-    resetRoundDetected = pyqtSignal()
+class GPIOListenerThread(threading.Thread):
+
+    #pointDetected = pyqtSignal(int,int) # Person(Red = 0, Blue = 1), Points
+    #penaltyDetected = pyqtSignal(int) # Person(Red = 0, Blue = 1)
+    #startRoundDetected = pyqtSignal()
+    #pauseRoundDetected = pyqtSignal()
+    #resetRoundDetected = pyqtSignal()
 
     def __init__(self, judgeGapThreshhold):
-        QThread.__init__(self)
+        #QThread.__init__(self)
         print("Starting gpio listener")
         self.maxGapTime = judgeGapThreshhold
 
