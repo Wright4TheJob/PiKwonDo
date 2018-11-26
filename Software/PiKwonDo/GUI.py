@@ -52,6 +52,8 @@ class MainWindow(QMainWindow):
         self.penaltyBarHeight = 50
         self.timeHeight = 100
 
+        self.current_match = None
+
         self.setupUI(self)
 
         self.programLoaded = True

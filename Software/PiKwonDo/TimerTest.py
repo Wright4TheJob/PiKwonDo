@@ -2,19 +2,11 @@
 # David Wright
 # Copyright 2017
 # Written for Python 3.7.1
-import os
-import datetime
-import time
-import traceback
-import threading
 import sys
 import queue
-
 from PyQt5.QtWidgets import QWidget, QApplication, QGridLayout, QLabel
 from PyQt5.QtCore import Qt
 import os
-#import cmath
-#import math
 import GPIOListener
 
 class App(QWidget):

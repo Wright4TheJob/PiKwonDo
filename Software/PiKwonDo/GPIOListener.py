@@ -5,17 +5,11 @@
 #from PyQt5.QtCore import QThread
 #import PyQt5.QtCore as QtCore
 import os
-
-# PointListener.py
-#from PyQt5.QtGui import *
-#from PyQt5.QtWidgets import *
-#from PyQt5.QtCore import *
 import datetime
 import time
 import traceback, sys
 import threading
 
-# TODO: Do I even want this? Periodic scanning would make this not work
 class ButtonHandler(threading.Thread):
     '''Detects desired signal from GPIO pin and emits signal after debounce'''
     def __init__(self, pin, func, edge='both', bouncetime=100, glitchtime=5):
