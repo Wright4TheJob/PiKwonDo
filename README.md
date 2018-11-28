@@ -9,6 +9,7 @@ Phase 1 of the judging system will use judge triggers connected by wires to the 
 While the system is designed to mimic expensive World TaeKwonDo-approved systems, it is not certified for official tournament use.
 
 # Status
+[![Build Status](https://travis-ci.com/Wright4TheJob/PiKwonDo.svg?branch=master)](https://travis-ci.com/Wright4TheJob/PiKwonDo)
 The project is under alpha development. Software has been developed but has yet to be tested with the hardware. Electronics are designed for single-sided PCB routing and have all completed initial design but have not been tested yet. Cases are designed for 3D printing. Hardware and software folders have individual README files with more particular statuses and todo items.
 
 All design files and software are provided "as-is." Any stable releases will be bundled for easy download, but this does not guarantee suitability for your particular setup.
