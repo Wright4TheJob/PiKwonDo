@@ -55,6 +55,7 @@ class App(QWidget):
             print(data)
         except queue.Empty:
             # print('Queue is empty, not redrawing')
+            pass
 
     def update_UI(self):
         [set_label_color(label,value) for label, value in zip(self.statuses,self.button_statuses)]
