@@ -1,3 +1,4 @@
 ###### Requirements without Version Specifiers ######
 coverage
 pyqt5
+codecov
