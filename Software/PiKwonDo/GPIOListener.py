@@ -69,7 +69,7 @@ class HardwareControllerScanner():
 
     def __init__(self):
         name = os.uname()
-        self.running_raspi = name[0] == "RPi"
+        self.running_raspi = name[1] == "raspberrypi"
         if self.running_raspi == True:
             import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
             self.hasGPIO = True
