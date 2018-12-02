@@ -104,6 +104,7 @@ class HardwareControllerScanner():
         self.data_pins = [self.j0_dat_pin, self.j1_dat_pin, self.j2_dat_pin, self.t_dat_pin]
 
         if self.running_raspi == True:
+            GPIO.setmode(GPIO.BOARD)
             [GPIO.setup(pin, GPIO.OUT) for pin in self.load_pins]
             [GPIO.setup(pin, GPIO.OUT) for pin in self.clock_pins]
             [GPIO.setup(pin, GPIO.IN) for pin in self.data_pins]
