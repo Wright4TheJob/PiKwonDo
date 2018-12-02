@@ -22,7 +22,7 @@ class App(QWidget):
         self.initUI()
         self.start_gpio_scan()
         self.dropbox = queue.Queue()
-        refresh_thread = GPIOListener.PeriodicActionThread(self.read_queue,500)
+        refresh_thread = GPIOListener.PeriodicActionThread(self.read_queue,1000)
 
     def initUI(self):
         self.setWindowTitle(self.title)
@@ -50,12 +50,13 @@ class App(QWidget):
     def read_queue(self):
         try:
             data = self.dropbox.get(block=False)
+            print(data)
             self.button_statuses = [x[0] for x in data]
             self.update_UI()
             print(data)
         except queue.Empty:
-            # print('Queue is empty, not redrawing')
-            pass
+            print('Queue is empty, not redrawing')
+            # pass
 
     def update_UI(self):
         [set_label_color(label,value) for label, value in zip(self.statuses,self.button_statuses)]
