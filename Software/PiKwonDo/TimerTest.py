@@ -1,7 +1,7 @@
 #! /bin/env/python3
 # David Wright
 # Copyright 2017
-# Written for Python 3.7.1
+# Written for Python 3.5.6
 import sys
 import queue
 from PyQt5.QtWidgets import QWidget, QApplication, QGridLayout, QLabel
@@ -21,7 +21,7 @@ class App(QWidget):
         self.button_statuses = None
         self.initUI()
         self.start_gpio_scan()
-        self.dropbox = queue.SimpleQueue()
+        self.dropbox = queue.Queue()
         refresh_thread = GPIOListener.PeriodicActionThread(self.read_queue,500)
 
     def initUI(self):

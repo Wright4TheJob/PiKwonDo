@@ -1,7 +1,7 @@
 #!/bin/env/python
 # David Wright
 # Copyright 2017
-# Written for Python 3.5.2
+# Written for Python 3.5.6
 
 # Timer.py
 import datetime

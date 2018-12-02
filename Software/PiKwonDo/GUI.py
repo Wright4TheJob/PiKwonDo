@@ -1,7 +1,7 @@
 #!/bin/env/python
 # David Wright
 # Copyright 2018
-# Written for Python 3.7.0
+# Written for Python 3.5.6
 
 # imports
 from PyQt5 import QtCore

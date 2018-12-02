@@ -1,7 +1,7 @@
 #!/bin/env/python
 # David Wright
 # Copyright 2017
-# Written for Python 3.7
+# Written for Python 3.5.6
 
 # https://docs.python.org/3.7/library/queue.html
 

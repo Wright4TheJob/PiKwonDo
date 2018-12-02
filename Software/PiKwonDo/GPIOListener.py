@@ -1,7 +1,7 @@
 #! /bin/env/python3
 # David Wright
 # Copyright 2017
-# Written for Python 3.5.2
+# Written for Python 3.5.6
 #from PyQt5.QtCore import QThread
 #import PyQt5.QtCore as QtCore
 import os
