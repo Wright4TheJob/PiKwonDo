@@ -1,0 +1,19 @@
+sudo: false
+
+language: python
+
+python:
+  - 3.6
+
+install:
+  - pip install -r ./Software/requirements.txt
+
+branches:
+  only:
+    - master
+
+script:
+  - coverage run ./Software/PiKwonDo/PiKwonDoTest.py
+
+after_success:
+  - codecov
