@@ -1,11 +1,14 @@
-import unittest
-import PiKwonDo as pkd
-import Timer
-# from PyQt5.QtWidgets import QApplication
-# import sys
+"""Unit and integration tests for PiKwonDo."""
+
 import time
 import threading
 import math
+
+import unittest
+import PiKwonDo as pkd
+import pkd_timer
+# from PyQt5.QtWidgets import QApplication
+# import sys
 # class KnownValues(unittest.TestCase):
 # self.fighterValues = ((0,1),(1,4))
 
@@ -22,33 +25,43 @@ import math
 
 
 class BadInput(unittest.TestCase):
-    badFighterValues = (-1, 2, 10)
+    """Test error handling of functions."""
+
+    bad_fighter_values = (-1, 2, 10)
 
     def test_unknown_fighter_code_penalty(self):
-        '''penalty function should fail with bad fighter input'''
-        for badValue in self.badFighterValues:
+        """penalty function should fail with bad fighter input"""
+        for bad_value in self.bad_fighter_values:
             main = pkd.PiKwonDo(create_gui=False)
             with self.assertRaises(pkd.UnknownFighterError):
-                main.penaltyDetected(badValue)
+                main.penalty_detected(bad_value)
 
     def test_unknown_fighter_code_point(self):
-        '''point function should fail with invalid fighter input'''
-        for badValue in self.badFighterValues:
+        """point function should fail with invalid fighter input"""
+        for bad_value in self.bad_fighter_values:
             main = pkd.PiKwonDo(create_gui=False)
             with self.assertRaises(pkd.UnknownFighterError):
-                main.pointDetected(badValue, 1)
+                main.point_detected(bad_value, 1)
 
 
 class TickingTimer(unittest.TestCase):
+    """Test timing functions for accuracy and emissions."""
+
+    def __init__(self):
+        self.ticks = 0
+        self.times = []
+
     def test_known_duration(self):
+        """Set a timer for a known duration."""
         print('test_known_duration')
-        test_timer = Timer.TimerThread(0.1, interval=0.01)
+        test_timer = pkd_timer.TimerThread(0.1, interval=0.01)
         test_timer.start()
 
     def test_return_time(self):
-        print('test_return_time')
+        """Request current time from the running timer."""
+        # print('test_return_time')
         time_before = time.monotonic()
-        test_timer = Timer.TimerThread(0.1, interval=0.01)
+        test_timer = pkd_timer.TimerThread(0.1, interval=0.01)
 
         def on_tick():
             runtime = test_timer.current_time()
@@ -59,9 +72,10 @@ class TickingTimer(unittest.TestCase):
         test_timer.wait_until_done()
 
     def test_calls_done(self):
-        print('test_calls_done')
+        """Ensure the timer finishes with correct signal."""
+        # print('test_calls_done')
         is_done = threading.Event()
-        timer = Timer.TimerThread(0.1, interval=0.01)
+        timer = pkd_timer.TimerThread(0.1, interval=0.01)
 
         def on_tick():
             self.assertFalse(is_done.is_set())
@@ -75,11 +89,12 @@ class TickingTimer(unittest.TestCase):
         self.assertTrue(is_done.wait(timeout=1))
 
     def test_number_of_ticks(self):
+        """Ensure number of ticks is correct for given duration."""
         duration = 0.1
         interval = 0.01
         ticks_max = math.floor(duration/interval)
         ticks_min = ticks_max - 2
-        timer = Timer.TimerThread(duration, interval=interval)
+        timer = pkd_timer.TimerThread(duration, interval=interval)
         self.ticks = 0
 
         def on_tick():
@@ -91,10 +106,11 @@ class TickingTimer(unittest.TestCase):
         self.assertGreaterEqual(self.ticks, ticks_min)
 
     def test_time_between_ticks(self):
+        """Ensure that spacing between ticks is correct and consistant."""
         duration = 0.1
         interval = 0.01
         max_deviation = 0.5*interval  # 50% error allowed
-        timer = Timer.TimerThread(duration, interval=interval)
+        timer = pkd_timer.TimerThread(duration, interval=interval)
         self.times = []
 
         def on_tick():

@@ -1,4 +1,4 @@
-coverage run PiKwonDoTest.py
+coverage run unit_test.py
 #echo "#################################"
 echo "Coverage:"
 coverage report
@@ -6,10 +6,10 @@ coverage report
 cd ..
 
 echo "Code Style:"
-pycodestyle PiKwonDo/
+pycodestyle pikwondo/
 
 echo "Documentation:"
-pydocstyle PiKwonDo/
+pydocstyle pikwondo/
 
 echo "PyLint:"
-pylint PiKwonDo/
+pylint pikwondo/
