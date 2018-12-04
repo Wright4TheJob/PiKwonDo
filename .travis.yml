@@ -3,7 +3,7 @@ sudo: false
 language: python
 
 python:
-  - 3.6
+  - 3.5.6
 
 install:
   - pip install -r ./Software/requirements.txt
@@ -13,7 +13,7 @@ branches:
     - master
 
 script:
-  - coverage run ./Software/PiKwonDo/PiKwonDoTest.py
+  - coverage run ./Software/pikwondo/unit_test.py
 
 after_success:
   - codecov
