@@ -47,13 +47,14 @@ class BadInput(unittest.TestCase):
 class TickingTimer(unittest.TestCase):
     """Test timing functions for accuracy and emissions."""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.ticks = 0
         self.times = []
 
     def test_known_duration(self):
         """Set a timer for a known duration."""
-        print('test_known_duration')
+        # print('test_known_duration')
         test_timer = pkd_timer.TimerThread(0.1, interval=0.01)
         test_timer.start()
 
