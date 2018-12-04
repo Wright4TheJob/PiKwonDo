@@ -13,7 +13,7 @@ branches:
     - master
 
 script:
-  - coverage run ./Software/pikwondo/unit_test.py
+  - coverage run ./Software/PiKwonDo/unit_test.py
 
 after_success:
   - codecov
