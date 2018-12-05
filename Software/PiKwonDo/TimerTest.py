@@ -50,13 +50,11 @@ class App(QWidget):
     def read_queue(self):
         try:
             data = self.dropbox.get(block=False)
-            print(data)
             self.button_statuses = [x[0] for x in data]
             self.update_UI()
-            print(data)
         except queue.Empty:
-            print('Queue is empty, not redrawing')
-            # pass
+            # print('Queue is empty, not redrawing')
+            pass
 
     def update_UI(self):
         [set_label_color(label,value) for label, value in zip(self.statuses,self.button_statuses)]

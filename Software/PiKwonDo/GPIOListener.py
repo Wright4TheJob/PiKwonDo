@@ -9,7 +9,11 @@ import datetime
 import time
 import traceback, sys
 import threading
-
+try: 
+    import RPi.GPIO as GPIO
+except ImportError:
+    print("Not running on Pi")
+    
 class ButtonHandler(threading.Thread):
     '''Detects desired signal from GPIO pin and emits signal after debounce'''
     def __init__(self, pin, func, edge='both', bouncetime=100, glitchtime=5):
@@ -66,84 +70,100 @@ class PeriodicActionThread(threading.Thread):
 
 class HardwareControllerScanner():
     #bit_changed = pyqtSignal(float,object)
-
+    try: 
+        import RPi.GPIO as GPIO
+        hasGPIO = True
+        running_raspi = True
+    except ImportError:
+        print("Not running on raspberry Pi.")
+        hasGPIO = False
+        running_raspi = False
+        
     def __init__(self):
+        """Set initial pin numbers and class values."""
         name = os.uname()
         self.running_raspi = name[1] == "raspberrypi"
-        if self.running_raspi == True:
-            import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
-            self.hasGPIO = True
-        else:
-            # disable GPIO pinging
-            self.hasGPIO = False
 
         self.target_queue = None
-        # specify pin connections (load, clock, data pin array)
-        self.bitsToScan = 13
-        self.scanPeriod = 5 # ms
+        # last meaningful bit in the judge controller is the 13th
+        self.bitsToScan = 10
+        self.scanPeriod = 5  # ms
         # cluster clock, step, and data pins
-        self.j0_load_pin = -1
-        self.j0_clk_pin = -1
-        self.j0_dat_pin = -1
+        self.set_pinout()
+        self.setup_gpio()
 
-        self.j1_load_pin = -1
-        self.j1_clk_pin = -1
-        self.j1_dat_pin = -1
+        self.oldBits = False
 
-        self.j2_load_pin = -1
-        self.j2_clk_pin = -1
-        self.j2_dat_pin = -1
+        self.periodicActionThread = PeriodicActionThread(self.step,self.scanPeriod)
+
+    def set_pinout(self):
+        """Assign pins to circuit expectations."""
+        j0_clk_pin = 2
+        j0_load_pin = 3
+        j0_dat_pin = 4
+
+        j1_clk_pin = 17
+        j1_load_pin = 27
+        j1_dat_pin = 22
+
+        j2_clk_pin = 10
+        j2_load_pin = 9
+        j2_dat_pin = 11
 
         # timer
-        self.t_load_pin = -1
-        self.t_clk_pin = -1
-        self.t_dat_pin = -1
+        t_load_pin = 19
+        t_clk_pin = 6
+        t_dat_pin = 26
 
-        self.load_pins = [self.j0_load_pin, self.j1_load_pin, self.j2_load_pin, self.t_load_pin]
-        self.clock_pins = [self.j0_clk_pin, self.j1_clk_pin, self.j2_clk_pin, self.t_clk_pin]
-        self.data_pins = [self.j0_dat_pin, self.j1_dat_pin, self.j2_dat_pin, self.t_dat_pin]
+        self.load_pins = [j0_load_pin, j1_load_pin, j2_load_pin, t_load_pin]
+        self.clock_pins = [j0_clk_pin, j1_clk_pin, j2_clk_pin, t_clk_pin]
+        self.data_pins = [j0_dat_pin, j1_dat_pin, j2_dat_pin, t_dat_pin]
 
+    def setup_gpio(self):
+        """Set GPIO pin numbering scheme and pin assignments."""
         if self.running_raspi == True:
-            GPIO.setmode(GPIO.BOARD)
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setwarnings(False)
             [GPIO.setup(pin, GPIO.OUT) for pin in self.load_pins]
             [GPIO.setup(pin, GPIO.OUT) for pin in self.clock_pins]
             [GPIO.setup(pin, GPIO.IN) for pin in self.data_pins]
 
-        self.oldBits = [[-1,-1],[-1,-1]]
-
-        self.periodicActionThread = PeriodicActionThread(self.step,self.scanPeriod)
 
     @property
     def pinChangeSignals(self):
         return self.pinChangeSignalArray
 
-    def microsecond(self):
-        time.sleep(0.001)
+    def milliseconds(self,duration):
+        time.sleep(0.001*duration)
 
     def pulseGPIOPin(self,pin):
-        GPIO.set(pin,HIGH)
-        self.microsecond()
-        GPIO.set(pin,LOW)
+        GPIO.output(pin,GPIO.HIGH)
+        self.milliseconds(0.2)
+        GPIO.output(pin,GPIO.LOW)
 
     def readBits(self):
         '''reads one bit from each controller'''
-        result = []
-        for pin in self.dataPins:
-            result.append(GPIO.read(pin))
+        result = [GPIO.input(pin) for pin in self.data_pins]
         return result
+
+    def load_data(self):
+        """Load data into shift registers."""
+        [self.pulseGPIOPin(pin) for pin in self.load_pins]
+
+    def shift_data(self):
+        [self.pulseGPIOPin(pin) for pin in self.clock_pins]
 
     def scanBits(self):
         '''reads all data from controllers'''
         result = []
         # send load signal
-        [self.pulseGPIOPin(pin) for pin in self.load_pins]
+        self.load_data()
         # Read bits from all controllers
         for i in range(0,self.bitsToScan):
-            self.microsecond() # Wait for signals to stabilize
+            self.milliseconds(0.1) # Wait for signals to stabilize
             result.append(self.readBits()) # Read a single bit from each of controllers
-            [self.pulseGPIOPin(pin) for pin in self.clock_pins] # Shift data to next bit
-
-        return zip(*result)
+            self.shift_data()
+        return result
 
     def compareBits(self,olds,news):
         '''Subtracts 2D list to determine changes to bit state'''
@@ -168,15 +188,14 @@ class HardwareControllerScanner():
         '''cycles bit scanning and detects changes'''
         if self.running_raspi == True:
             newBits = self.scanBits()
-        else:
-            newBits = [[-1,-1],[-1,-1]]
-        if len(self.oldBits) != 0:
+        if self.oldBits and self.running_raspi:
             changes = self.compareBits(self.oldBits,newBits)
             changed = self.is_nonzero(changes)
             if changed:
-                time = -1 # TODO: Get current system time, or from start of match/round
-                if self.target_queue is not None:
-                    self.target_queue.put(newBits)
+                print(newBits)
+                # time = -1 # TODO: Get current system time, or from start of match/round
+                # if self.target_queue is not None:
+                    # self.target_queue.put(newBits)
                 #self.bit_changed.emit(time,changes)
         self.oldBits = newBits
 
