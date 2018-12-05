@@ -56,7 +56,7 @@ class ButtonHandler(threading.Thread):
 class PeriodicActionThread(threading.Thread):
     """Perform an action on a regular repeating schedule."""
     def __init__(self, function, period):
-        """Setup and begin thread."""
+        """Start thread and setup settings."""
         super().__init__()
         self.function = function
         self.lock = threading.Lock()
