@@ -5,8 +5,8 @@ coverage report
 
 cd ..
 
-echo "Code Style:"
-pycodestyle pikwondo/
+# echo "Code Style:"
+# pycodestyle pikwondo/
 
 echo "Documentation:"
 pydocstyle pikwondo/
