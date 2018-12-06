@@ -4,6 +4,8 @@
 # Software
 The PiKwonDo software uses two primary processing threads to control 1) game logic and GUI and 2) scanning buttons and driving GPIO data flow. Software is written in Python and uses PiQT5 for GUI elements.
 
+The documentation for PiKwonDo software can be found [here on the Github.io page](https://wright4thejob.github.io/PiKwonDo/docs/build/html/index.html).
+
 # Dependencies
 * PyQT5
 * GPIO
