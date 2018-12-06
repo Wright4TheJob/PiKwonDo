@@ -18,7 +18,7 @@ class TimerThread():
         """Establish duration, end time, and break off new thread."""
         self._start_time = time.monotonic()
         self.end_time = self._start_time + duration
-        # print("Starting timer with %i seconds" % (duration))
+        print("Starting timer with %i seconds" % (duration))
         self.interval = interval
         self.is_done = threading.Event()
 

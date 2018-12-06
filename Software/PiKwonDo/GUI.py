@@ -1,71 +1,82 @@
 #!/bin/env/python
 # David Wright
 # Copyright 2018
-# Written for Python 3.5.6
-
+# Written for Python 3.7.0
+"""Classes for front-end display and screen-based input."""
 # imports
-from PyQt5 import QtCore
-from PyQt5.QtCore import QThreadPool, Qt, QTimer, QCoreApplication, QThread, QRect, pyqtSignal
-from PyQt5.QtWidgets import (QWidget, QFileDialog, QApplication,QMainWindow,QAction)
-from PyQt5.QtGui import QPainter, QColor, QFont
 import datetime
 import threading
 
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
+from PyQt5 import QtCore
+from PyQt5.QtCore import Qt, QRect, pyqtSignal
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QAction
+from PyQt5.QtGui import QPainter, QColor, QFont
+
 
 class FrontEndController():
-    def __init__(self,main):
+    """Central QT window manager for all GUI elements."""
+    def __init__(self, main):
         app = QApplication([])
         self.main_window = MainWindow(main)
         form = self.main_window
         form.show()
         app.exec_()
 
-    def updateUI(self):
+    def update_ui(self):
+        """Redraw all elements of GUI that may change during use."""
         # replace with queue-based data passing
-        self.main_window.redScore = self.redScore
-        self.main_window.blueScore = self.blueScore
-        self.main_window.redPenalties = self.redPenalties
-        self.main_window.bluePenalties = self.bluePenalties
-        self.main_window.currentSection = self.currentSection
-        self.main_window.time = self.timeLeft
+        # self.main_window.redScore = self.redScore
+        # self.main_window.blueScore = self.blueScore
+        # self.main_window.redPenalties = self.redPenalties
+        # self.main_window.bluePenalties = self.bluePenalties
+        # self.main_window.currentSection = self.currentSection
+        # self.main_window.time = self.timeLeft
         self.main_window.update()
 
     def show(self):
+        """Show the window."""
         self.main_window.show()
 
+
 class MainWindow(QMainWindow):
-    def __init__(self,piKwonDo):
-        self.programLoaded = False
-        super(self.__class__, self).__init__()
-        self.mainProcess = piKwonDo
-        self.redScore = 0
-        self.blueScore = 0
-        self.redPenalties = 0
-        self.bluePenalties = 0
-        self.currentSection = 0
+    """Window for primary ringside display."""
+
+    # pylint: disable=too-many-instance-attributes
+    # Testing this supression
+
+    def __init__(self, pkd):
+        self.program_loaded = False
+        super().__init__()
+        self.main_process = pkd
+        self.red_score = 0
+        self.blue_score = 0
+        self.red_penalties = 0
+        self.blue_penalties = 0
+        self.current_section = 0
         self.time = 90
-        self.penaltyBarHeight = 50
-        self.timeHeight = 100
+        self.penalty_bar_height = 50
+        self.time_height = 100
 
-        self.current_match = None
-
+        # GUI sizing parameters
+        self.blue_penalty_text = ''
+        self.red_penalty_text = ''
+        self.height = None
+        self.time_string = ''
+        self.width = None
+        self.centralwidget = None
         self.setupUI(self)
 
-        self.programLoaded = True
+        self.program_loaded = True
 
-    def setupUI(self, window):
-        #Builds GUI
-        window.setObjectName(_fromUtf8("MainWindow"))
+    def setup_ui(self, window):
+        """Initialize the main GUI elements."""
+        # Builds GUI
+        window.setObjectName("MainWindow")
         window.resize(1000, 800)
-        #MainWindow.showFullScreen()
+        # MainWindow.showFullScreen()
 
         self.centralwidget = QWidget(MainWindow)
-        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        self.centralwidget.setObjectName("centralwidget")
 
         self.width = window.frameGeometry().width()
         self.height = window.frameGeometry().height()
@@ -76,148 +87,159 @@ class MainWindow(QMainWindow):
         self.show()
         window.setCentralWidget(self.centralwidget)
 
-        menuBar = self.menuBar()
+        menu_bar = self.menuBar()
 
-        file_menu = menuBar.addMenu('&File')
+        file_menu = menu_bar.addMenu('&File')
 
         exit_action = QAction('&Exit', self)
         exit_action.setShortcut('Ctrl+Q')
         exit_action.setStatusTip('Exit application')
-        exit_action.triggered.connect(self.close) #This is built in
+        exit_action.triggered.connect(self.close)  # This is built in
         file_menu.addAction(exit_action)
 
-        round_menu = menuBar.addMenu('&Match')
-        startAction = QAction('&Start Match', self)
-        #bluePointAction.setStatusTip('Exit application')
-        startAction.triggered.connect(self.mainProcess.startMatch) #This is built in
-        round_menu.addAction(startAction)
+        round_menu = menu_bar.addMenu('&Match')
+        start_action = QAction('&Start Match', self)
+        # bluePointAction.setStatusTip('Exit application')
+        start_action.triggered.connect(self.main_process.start_match)
+        # This is built in
+        round_menu.addAction(start_action)
 
-        pauseAction = QAction('&Pause Match', self)
-        #pauseAction.setStatusTip('Exit application')
-        pauseAction.triggered.connect(self.mainProcess.pauseRound) #This is built in
-        round_menu.addAction(pauseAction)
+        pause_action = QAction('&Pause Match', self)
+        # pauseAction.setStatusTip('Exit application')
+        pause_action.triggered.connect(self.main_process.pause_round)
+        # This is built in
+        round_menu.addAction(pause_action)
 
-        resumeAction = QAction('&Resume Match', self)
-        #bluePointAction.setStatusTip('Exit application')
-        resumeAction.triggered.connect(self.mainProcess.resumeRound) #This is built in
-        round_menu.addAction(resumeAction)
+        resume_action = QAction('&Resume Match', self)
+        # bluePointAction.setStatusTip('Exit application')
+        resume_action.triggered.connect(self.main_process.resume_round)
+        # This is built in
+        round_menu.addAction(resume_action)
 
-        resetAction = QAction('&Reset Match', self)
-        #bluePointAction.setStatusTip('Exit application')
-        resetAction.triggered.connect(self.mainProcess.resetRound)
-        round_menu.addAction(resetAction)
+        reset_action = QAction('&Reset Match', self)
+        # bluePointAction.setStatusTip('Exit application')
+        reset_action.triggered.connect(self.main_process.reset_round)
+        round_menu.addAction(reset_action)
 
+        red_menu = menu_bar.addMenu('&Red')
 
-        red_menu = menuBar.addMenu('&Red')
+        red_point_action = QAction('&Point', self)
+        red_point_action.setShortcut('r')
+        # bluePointAction.setStatusTip('Exit application')
+        red_point_action.triggered.connect(
+            lambda: self.main_process.red_point(1))
+        red_menu.addAction(red_point_action)
 
-        redPointAction = QAction('&Point', self)
-        redPointAction.setShortcut('r')
-        #bluePointAction.setStatusTip('Exit application')
-        redPointAction.triggered.connect(lambda: self.mainProcess.redPoint(1))
-        red_menu.addAction(redPointAction)
+        red_penalty_action = QAction('&Penalty', self)
+        # redPenaltyAction.setShortcut('')
+        # bluePointAction.setStatusTip('Exit application')
+        red_penalty_action.triggered.connect(self.main_process.red_penalty)
+        red_menu.addAction(red_penalty_action)
 
-        redPenaltyAction = QAction('&Penalty',self)
-        #redPenaltyAction.setShortcut('')
-        #bluePointAction.setStatusTip('Exit application')
-        redPenaltyAction.triggered.connect(self.mainProcess.redPenalty)
-        red_menu.addAction(redPenaltyAction)
+        blue_menu = menu_bar.addMenu('&Blue')
+        blue_point_action = QAction('&Point', self)
+        blue_point_action.setShortcut('b')
+        # bluePointAction.setStatusTip('Exit application')
+        blue_point_action.triggered.connect(
+            lambda: self.main_process.blue_point(1))
+        blue_menu.addAction(blue_point_action)
 
-        blue_menu = menuBar.addMenu('&Blue')
-        bluePointAction = QAction('&Point', self)
-        bluePointAction.setShortcut('b')
-        #bluePointAction.setStatusTip('Exit application')
-        bluePointAction.triggered.connect(lambda: self.mainProcess.bluePoint(1))
-        blue_menu.addAction(bluePointAction)
-
-        bluePenaltyAction = QAction('&Penalty',self)
-        #redPenaltyAction.setShortcut('')
-        #bluePointAction.setStatusTip('Exit application')
-        bluePenaltyAction.triggered.connect(self.mainProcess.bluePenalty)
-        blue_menu.addAction(bluePenaltyAction)
+        blue_penalty_action = QAction('&Penalty', self)
+        # redPenaltyAction.setShortcut('')
+        # bluePointAction.setStatusTip('Exit application')
+        blue_penalty_action.triggered.connect(self.main_process.blue_penalty)
+        blue_menu.addAction(blue_penalty_action)
 
         QtCore.QMetaObject.connectSlotsByName(window)
 
-    def paintEvent(self, e):
-        qp = QPainter()
-        qp.begin(self)
-        self.drawBackground(qp)
-        self.drawScores(e,qp)
-        self.drawPenalties(e,qp)
-        self.drawTime(e,qp)
-        qp.end()
+    def paint_event(self):
+        """Draw all necessary elements when update is needed."""
+        q_paint = QPainter()
+        q_paint.begin(self)
+        self.draw_background(q_paint)
+        self.draw_scores(q_paint)
+        self.draw_penalties(q_paint)
+        self.draw_time(q_paint)
+        q_paint.end()
 
-    def drawBackground(self, qp):
+    def draw_background(self, q_paint):
+        """Draw the colored boxes of the screen background."""
         col = QColor(0, 0, 0, 1)
         col.setNamedColor('#d4d4d4')
-        qp.setPen(Qt.NoPen)
+        q_paint.setPen(Qt.NoPen)
 
-        qp.setBrush(QColor(255, 0, 0))
-        qp.drawRect(0, 0, self.width/2, self.height+1)
+        q_paint.setBrush(QColor(255, 0, 0))
+        q_paint.drawRect(0, 0, self.width/2, self.height+1)
 
-        qp.setBrush(QColor(0, 0, 255))
-        qp.drawRect(self.width/2, 0, self.width/2+2, self.height+1)
+        q_paint.setBrush(QColor(0, 0, 255))
+        q_paint.drawRect(self.width/2, 0, self.width/2+2, self.height+1)
 
         # Penalty bar
-        qp.setBrush(QColor(0, 0, 0,100))
-        qp.drawRect(0, 0, self.width, self.penaltyBarHeight)
+        q_paint.setBrush(QColor(0, 0, 0, 100))
+        q_paint.drawRect(0, 0, self.width, self.penaltyBarHeight)
 
         # Time box
-        qp.setBrush(QColor(0, 0, 0, 255))
-        qp.drawRect(self.width/4, self.penaltyBarHeight, self.width/2, self.timeHeight)
+        q_paint.setBrush(QColor(0, 0, 0, 255))
+        q_paint.drawRect(
+            self.width/4, self.penaltyBarHeight, self.width/2,
+            self.timeHeight)
 
-    def drawScores(self, event, qp):
-        qp.setPen(QColor(255, 255, 255))
-        qp.setFont(QFont('Decorative', self.width/4))
-        qp.drawText(QRect(0, 0, self.width/2, self.height), Qt.AlignCenter, str(int(self.redScore)))
-        qp.drawText(QRect(self.width/2, 0, self.width/2+2, self.height), Qt.AlignCenter, str(int(self.blueScore)))
+    def draw_scores(self, q_paint):
+        """Draw the current scores on the screen."""
+        q_paint.setPen(QColor(255, 255, 255))
+        q_paint.setFont(QFont('Decorative', self.width/4))
+        q_paint.drawText(
+            QRect(0, 0, self.width/2, self.height),
+            Qt.AlignCenter, str(int(self.redScore)))
+        q_paint.drawText(
+            QRect(self.width/2, 0, self.width/2+2, self.height),
+            Qt.AlignCenter, str(int(self.blueScore)))
 
-    def drawPenalties(self,event,qp):
+    def draw_penalties(self, q_paint):
+        """Draw the penalties scores on the screen."""
         offset = 10
-        if self.redPenalties >= 10:
-            self.redPenaltyText = "Disqualified"
+        if self.red_penalties >= 10:
+            self.red_penalty_text = "Disqualified"
         else:
-            self.redPenaltyText = "Penalties: "
-            for i in range(0,self.redPenalties):
-                self.redPenaltyText += "X"
-        if self.bluePenalties >= 10:
-            self.bluePenaltyText = "Disqualified"
+            self.red_penalty_text = "Penalties: "
+            for _ in range(0, self.redPenalties):
+                self.red_penalty_text += "X"
+        if self.blue_penalties >= 10:
+            self.blue_penalty_text = "Disqualified"
         else:
-            self.bluePenaltyText = "Penalties: "
-            for i in range(0,self.bluePenalties):
-                self.bluePenaltyText += "X"
+            self.blue_penalty_text = "Penalties: "
+            for _ in range(0, self.blue_penalties):
+                self.blue_penalty_text += "X"
 
-        qp.setPen(QColor(255, 255, 255))
-        qp.setFont(QFont('Decorative', 20))
-        qp.drawText(QRect(offset, 0, self.width/2, self.penaltyBarHeight), (Qt.AlignLeft | Qt.AlignVCenter), self.redPenaltyText)
-        qp.drawText(QRect(self.width/2+offset, 0, self.width/2, self.penaltyBarHeight), (Qt.AlignLeft | Qt.AlignVCenter), self.bluePenaltyText)
+        q_paint.setPen(QColor(255, 255, 255))
+        q_paint.setFont(QFont('Decorative', 20))
+        q_paint.drawText(
+            QRect(offset, 0, self.width/2, self.penaltyBarHeight),
+            (Qt.AlignLeft | Qt.AlignVCenter), self.redPenaltyText)
+        q_paint.drawText(
+            QRect(self.width/2+offset, 0, self.width/2, self.penaltyBarHeight),
+            (Qt.AlignLeft | Qt.AlignVCenter), self.bluePenaltyText)
 
-    def drawTime(self,event,qp):
-        self.timeString = str(datetime.timedelta(seconds=self.time))
-        self.timeString = ':'.join(str(self.timeString ).split(':')[1:])
-        self.timeString = self.timeString[1:]
-        qp.setPen(QColor(255, 255, 255))
-        qp.setFont(QFont('Decorative', int(self.timeHeight*3/4)))
-        qp.drawText(QRect(self.width/4, self.penaltyBarHeight, self.width/2, self.timeHeight), Qt.AlignCenter, self.timeString)
+    def draw_time(self, q_paint):
+        """Draw the current scores on the screen."""
+        self.time_string = str(datetime.timedelta(seconds=self.time))
+        self.time_string = ':'.join(str(self.time_string).split(':')[1:])
+        self.time_string = self.time_string[1:]
+        q_paint.setPen(QColor(255, 255, 255))
+        q_paint.setFont(QFont('Decorative', int(self.time_height*3/4)))
+        q_paint.drawText(
+            QRect(
+                self.width/4, self.penalty_bar_height,
+                self.width/2, self.time_height),
+            Qt.AlignCenter, self.time_string)
 
-    #def load_data(self):
-        #Write this function
-    #    options = QFileDialog.Options()
-    #    options |= QFileDialog.DontUseNativeDialog
-    #    fileName, _ = QFileDialog.getOpenFileName(self,
-    #        "QFileDialog.getOpenFileName()",
-    #        "","All Files (*);;Text Files (*.txt)",
-    #        options=options)
-    #    if fileName:
-    #        with open(fileName, 'r') as fin:
-    #            print('Reading file')
-    #        self.redrawInputTables()
-    #        self.graph_canvas.plotTruss(self.initialNodeArray,self.initialBeamArray)
-
-    def resizeEvent(self, event):
+    def resize_event(self, event):
+        """Resize elements to scale appropriately with window."""
         self.width = self.frameGeometry().width()
         self.height = self.frameGeometry().height()
         self.update()
         QMainWindow.resizeEvent(self, event)
+
 
 class LatestValueBoxIOQT():
     '''A container which holds only the most recent object put in it.
@@ -228,10 +250,10 @@ class LatestValueBoxIOQT():
     '''
     qt_signal = pyqtSignal()
 
-    def __init__(value=None):
+    def __init__(self, value=None):
         self.lock = threading.Lock()
         self._value = value
-        self._pending = False
+        self.pending = False
 
     def put(self, value):
         '''Place an object in the container.
@@ -242,9 +264,9 @@ class LatestValueBoxIOQT():
 
         self.lock.acquire()
         self._value = value
-        if not self._pending:
+        if not self.pending:
             self.qt_signal.emit()
-            self._pending = True
+            self.pending = True
         self.lock.release()
 
     def get(self):
@@ -256,6 +278,6 @@ class LatestValueBoxIOQT():
 
         self.lock.acquire()
         value = self._value
-        self._pending = False
+        self.pending = False
         self.lock.release()
         return value
