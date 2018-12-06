@@ -9,15 +9,11 @@ Phase 1 of the judging system will use judge triggers connected by wires to the 
 While the system is designed to mimic expensive World TaeKwonDo-approved systems, it is not certified for official tournament use.
 
 # Status
-[![Build Status](https://travis-ci.com/Wright4TheJob/PiKwonDo.svg?branch=master)](https://travis-ci.com/Wright4TheJob/PiKwonDo)
-[![codecov](https://codecov.io/gh/Wright4TheJob/PiKwonDo/branch/master/graph/badge.svg)](https://codecov.io/gh/Wright4TheJob/PiKwonDo)
-Bill of Materials:[![goodtables.io](https://goodtables.io/badge/github/Wright4TheJob/PiKwonDo.svg)](https://goodtables.io/github/Wright4TheJob/PiKwonDo)
-
-
 The project is under alpha development. Software has been developed but has yet to be tested with the hardware. Electronics are designed for single-sided PCB routing and have all completed initial design but have not been tested yet. Cases are designed for 3D printing. Hardware and software folders have individual README files with more particular statuses and todo items.
 
 All design files and software are provided "as-is." Any stable releases will be bundled for easy download, but this does not guarantee suitability for your particular setup.
 
+Bill of Materials (BOM) table validation: [![goodtables.io](https://goodtables.io/badge/github/Wright4TheJob/PiKwonDo.svg)](https://goodtables.io/github/Wright4TheJob/PiKwonDo)
 
 # Software
 The judging software and UI is written in python and QT. A dedicated thread scans the status of judge controller buttons. Game logic and UI are run as the primary thread.
