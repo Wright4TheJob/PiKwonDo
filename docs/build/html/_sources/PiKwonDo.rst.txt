@@ -7,7 +7,7 @@ Submodules
 PiKwonDo.GUI module
 ------------------------
 
-.. automodule:: PiKwonDo.GUI
+.. automodule:: pikwondo.gui
     :members:
     :undoc-members:
     :show-inheritance:

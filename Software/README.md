@@ -1,5 +1,10 @@
+[![Build Status](https://travis-ci.com/Wright4TheJob/PiKwonDo.svg?branch=master)](https://travis-ci.com/Wright4TheJob/PiKwonDo)
+[![codecov](https://codecov.io/gh/Wright4TheJob/PiKwonDo/branch/master/graph/badge.svg)](https://codecov.io/gh/Wright4TheJob/PiKwonDo)
+
 # Software
 The PiKwonDo software uses two primary processing threads to control 1) game logic and GUI and 2) scanning buttons and driving GPIO data flow. Software is written in Python and uses PiQT5 for GUI elements.
+
+The documentation for PiKwonDo software can be found [here on the Github.io page](https://wright4thejob.github.io/PiKwonDo/docs/build/html/index.html). 
 
 # Dependencies
 * PyQT5
@@ -10,7 +15,7 @@ Delete the RPi folder in Software to direct the python installtion to the global
 
 # Startup
 To start the PiKwonDo software, navigate to the Software folder in the terminal and launch the PyKwonDo.py file using Python 3:
-``` 
+```
 $ python3 PyKwonDo.py
 ```
 

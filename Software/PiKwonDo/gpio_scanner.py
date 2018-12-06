@@ -1,265 +1,311 @@
 #! /bin/env/python3
 # David Wright
 # Copyright 2017
-# Written for Python 3.5.6
-"""Scan hardware status for buttons and emit correct signal."""
+# Written for Python 3.5.2
+from PyQt5.QtCore import QThread
+import PyQt5.QtCore as QtCore
 import os
+
+# PointListener.py
+# from PyQt5.QtGui import *
+# from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+import datetime
 import time
+import traceback
+import sys
 import threading
-try:
-    import RPi.GPIO as GPIO
-except ImportError:
-    print("Not running on Pi")
 
 
+# TODO: Do I even want this? Periodic scanning would make this not work
 class ButtonHandler(threading.Thread):
-    """Detect desired signal from GPIO pin and emits signal after debounce."""
-
-    def __init__(self, pin, func, edge='both'):
-        """Initialize timing thread and input assignments."""
+    '''Detects desired signal from GPIO pin and emits signal after debounce'''
+    def __init__(self, pin, func, edge='both', bouncetime=100, glitchtime=5):
         super().__init__(daemon=True)
 
         self.edge = edge
         self.func = func
         self.pin = pin
-        self.glitchtime = 0.00005  # 50 us
+        self.glitchtime = float(glitchtime)/1000
         self.lastpinval = GPIO.input(self.pin)
-        self.glitch_lock = threading.Lock()
-        if self.edge == 'rising':
-            gpio_edge = GPIO.RISING
-        elif self.edge == 'falling':
-            gpio_edge = GPIO.FALLING
+        self.glitchLock = threading.Lock()
 
-        GPIO.add_event_detect(pin, gpio_edge, callback=self)
+        if (self.edge == 'rising'):
+            gpioEdge = GPIO.RISING
+        elif (self.edge == 'falling'):
+            gpioEdge = GPIO.FALLING
+
+        GPIO.add_event_detect(pin, gpioEdge,callback=self)
 
     def __call__(self, *args):
-        if not self.glitch_lock.acquire(blocking=False):
+        if not self.glitchLock.acquire(blocking=False):
             return
 
-        glitch_timer = threading.Timer(
-            self.glitchtime, self.glitch_done, args=args)
-        glitch_timer.start()
+        glitchTimer = threading.Timer(self.glitchtime, self.glitchDone, args=args)
+        glitchTimer.start()
 
-    def glitch_done(self, *args):
-        """Emit assigned signal when valid signal detected."""
+    def glitchDone(self, *args):
         pinval = GPIO.input(self.pin)
-        rising = (pinval == 0 and self.lastpinval == 1)
-        falling = (pinval == 1 and self.lastpinval == 0)
-        if ((rising and (self.edge in ['falling', 'both'])) or
-                (falling and (self.edge in ['rising', 'both']))):
+        if (
+            ((pinval == 0 and self.lastpinval == 1) and
+            (self.edge in ['falling', 'both'])) or
+            ((pinval == 1 and self.lastpinval == 0) and
+            (self.edge in ['rising', 'both']))
+            ):
             self.func(*args)
 
         self.lastpinval = pinval
-        self.glitch_lock.release()
-
+        self.glitchLock.release()
 
 class PeriodicActionThread(threading.Thread):
-    """Perform an action on a regular repeating schedule."""
-    def __init__(self, function, period):
-        """Start thread and setup settings."""
-        super().__init__()
+
+    def __init__(self,function,period):
         self.function = function
+        self.timer = threading.Timer(period,self.step)
+        self.timer.start()
         self.lock = threading.Lock()
-        self.period = period/1000
-        self.step()
 
     def step(self):
-        """Perform desired action in thread-safe way."""
+        self.timer.start()
         if self.lock.acquire(blocking=False):
             self.function()
             self.lock.release()
-        self.timer = threading.Timer(self.period, self.step)
-        self.timer.start()
-
-
-class HardwareConfiguration():
-    """Configure pins for each generation of hardware."""
-
-    def __init__(self):
-        self.load_pins = False
-        self.clock_pins = False
-        self.data_pins = False
-        # cluster clock, step, and data pins
-        self.set_pinout()
-        self.setup_gpio()
-
-    def set_pinout(self):
-        """Assign pins to circuit expectations."""
-        j0_clk_pin = 2
-        j0_load_pin = 3
-        j0_dat_pin = 4
-
-        j1_clk_pin = 17
-        j1_load_pin = 27
-        j1_dat_pin = 22
-
-        j2_clk_pin = 10
-        j2_load_pin = 9
-        j2_dat_pin = 11
-
-        # timer
-        t_load_pin = 19
-        t_clk_pin = 6
-        t_dat_pin = 26
-
-        self.load_pins = [j0_load_pin, j1_load_pin, j2_load_pin, t_load_pin]
-        self.clock_pins = [j0_clk_pin, j1_clk_pin, j2_clk_pin, t_clk_pin]
-        self.data_pins = [j0_dat_pin, j1_dat_pin, j2_dat_pin, t_dat_pin]
-
-    def setup_gpio(self):
-        """Set GPIO pin numbering scheme and pin initialization."""
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        initialize_pins(self.load_pins)
-        initialize_pins(self.clock_pins)
-        initialize_pins(self.data_pins)
-
 
 class HardwareControllerScanner():
-    """Monitor hardware status by regular sweep scans."""
-    # bit_changed = pyqtSignal(float,object)
-    try:
-        import RPi.GPIO as GPIO
-    except ImportError:
-        print("Not running on raspberry Pi.")
+    bit_changed = pyqtSignal(float,object)
 
     def __init__(self):
-        """Set initial pin numbers and class values."""
         name = os.uname()
-        self.running_raspi = name[1] == "raspberrypi"
+        if name[0] == "RPi":#TODO:Check sys names on python
+            import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+            self.hasGPIO = True
+        else:
+            # disable GPIO pinging
+            self.hasGPIO = False
+        # specify pin connections (load, clock, data pin array)
+        self.bitsToScan = 13
+        self.scanPeriod = 5 # ms
+        # cluster clock, step, and data pins
+        self.j0_load_pin = -1
+        self.j0_clk_pin = -1
+        self.j0_dat_pin = -1
 
-        self.target_queue = None
-        # last meaningful bit in the judge controller is the 13th
-        self.bits_to_scan = 10
-        self.scan_period = 5  # ms
-        if self.running_raspi:
-            self.pinout = HardwareConfiguration()
-        self.pin_change_signal_array = None
+        self.j0_load_pin = -1
+        self.j0_clk_pin = -1
+        self.j0_dat_pin = -1
 
-        self.old_bits = False
+        self.j0_load_pin = -1
+        self.j0_clk_pin = -1
+        self.j0_dat_pin = -1
 
-        _ = PeriodicActionThread(self.step, self.scan_period)
+        # timer
+        self.t_load_pin = -1
+        self.t_clk_pin = -1
+        self.t_dat_pin = -1
+
+        self.load_pins = [self.j0_load_pin, self.j0_load_pin, self.j0_load_pin, self.t_load_pin]
+        self.clock_pins = [self.j0_clk_pin, self.j0_clk_pin, self.j0_clk_pin, self.t_clk_pin]
+        self.data_pins = [self.j0_dat_pin, self.j0_dat_pin, self.j0_dat_pin, self.t_dat_pin]
+
+        [GPIO.setup(pin, GPIO.OUT) for pin in self.load_pins]
+        [GPIO.setup(pin, GPIO.OUT) for pin in self.clock_pins]
+        [GPIO.setup(pin, GPIO.IN) for pin in self.data_pins]
+
+        self.periodicActionThread = PeriodicActionThread()
+        periodicActionThread.init(self.step,self.scanPeriod)
+
+        self.oldBits = []
 
     @property
-    def pin_change_signals(self):
-        """Return array of button_signal-signal matrix."""
-        return self.pin_change_signal_array
+    def pinChangeSignals(self):
+        return self.pinChangeSignalArray
 
-    def read_bits(self):
-        """Read one bit from each data input pin."""
-        result = [GPIO.input(pin) for pin in self.pinout.data_pins]
+    def microsecond(self):
+        time.sleep(0.001)
+
+    def pulseGPIOPin(self,pin):
+        GPIO.set(pin,HIGH)
+        self.microsecond()
+        GPIO.set(pin,LOW)
+
+    def readBits(self):
+        '''reads one bit from each controller'''
+        result = []
+        for pin in self.dataPins:
+            result.append(GPIO.read(pin))
         return result
 
-    def load_data(self):
-        """Load data into shift registers."""
-        for pin in self.pinout.load_pins:
-            pulse_gpio_pin(pin)
-
-    def shift_data(self):
-        """Cycle the clock pin on each controller."""
-        for pin in self.pinout.clock_pins:
-            pulse_gpio_pin(pin)
-
-    def scan_bits(self):
-        """Read all data from controllers."""
+    def scanBits(self):
+        '''reads all data from controllers'''
         result = []
         # send load signal
-        self.load_data()
+        self.pulseGPIOPin(self.loadPin)
         # Read bits from all controllers
-        for _ in range(0, self.bits_to_scan):
-            milliseconds(0.1)  # Wait for signals to stabilize
-            result.append(self.read_bits())
-            # Read a single bit from each of controllers
-            self.shift_data()
-        return result
+        for i in range(0,self.bitsToScan):
+            self.microsecond() # Wait for signals to stabilize
+            result.append(self.readBits()) # Read a single bit from each of controllers
+            self.pulseGPIOPin(self.shiftPin) # Shift data to next bit
+
+        return zip(*result)
+
+    def compareBits(self,olds,news):
+        '''Subtracts 2D list to determine changes to bit state'''
+        n = len(olds)
+        m = len(olds[0])
+        delta = [[0] * m for i in range(n)]
+        for i in range(0,n):
+            for j in range(0,m):
+                delta[i][j] = news[i][j] - olds[i][j]
+        return delta
+
+    def is_nonzero(self,delta):
+        '''Returns True if any element of 2D list is nonzero, otherwise False'''
+        nonzero = False
+        for row in delta:
+            for element in row:
+                if element != 0:
+                    nonzero = True
+        return nonzero
 
     def step(self):
-        """Cycle bit scanning and detects changes."""
-        if self.running_raspi is True:
-            new_bits = self.scan_bits()
-        if self.old_bits and self.running_raspi:
-            changes = compare_bits(self.old_bits, new_bits)
-            changed = is_nonzero(changes)
+        '''cycles bit scanning and detects changes'''
+        newBits = self.scanBits()
+        if len(self.oldBits) != 0:
+            changes = self.compareBits(self.oldBits,newBits)
+            changed = self.is_nonzero(changes)
             if changed:
-                print(new_bits)
-                # time = -1
-                # if self.target_queue is not None:
-                # self.target_queue.put(newBits)
-                # self.bit_changed.emit(time,changes)
-        self.old_bits = new_bits
-
-    def __del__(self):
-        """Cleanup GPIO settings on close."""
-        GPIO.cleanup()  # Clean up
-
+                time = -1 # TODO: Get current system time, or from start of match/round
+                self.bit_changed.emit(time,changes)
+        self.oldBits = newBits
 
 class BitDecoder():
-    """Correlate button press events to signals to emit."""
-    def __init__(self, pikwondo):
-        self.main_process = pikwondo
-        bits = 13
-        controllers = 4
-        for _ in range(0, bits):
-            for _ in range(0, controllers):
+    def __init__(self,piKwonDo):
+        self.main_process = piKwonDo
+        a = 13
+        b = 4
+        for i in range(0,a):
+            for j in range(0,b):
                 pass
-        # [pin1,pin2,pin3...]
-        # [bit1,bit1,bit1...]
-        # [bit2,bit2,bit2...]
-        # [bit3,bit3,bit3...]
+        #[pin1,pin2,pin3...]
+        #[bit1,bit1,bit1...]
+        #[bit2,bit2,bit2...]
+        #[bit3,bit3,bit3...]
         # where each element is a touple of rising and falling signals
         # or rising is 1, falling is -1, and
-        self.pin_change_signal_array = [[1, 0, -1], [0, 0, 0]]
+        self.pinChangeSignalArray = [[1,0,-1],[0,0,0]]
 
-        # connect(lambda: self.main_process.redPoint(1))
+        connect(lambda: self.main_process.redPoint(1))
+class GPIOListenerThread(QThread):
 
-    @property
-    def pin_signal_array(self):
-        """Return pin change signal array, or calculate it."""
-        return self.pin_change_signal_array
+    pointDetected = pyqtSignal(int,int) # Person(Red = 0, Blue = 1), Points
+    penaltyDetected = pyqtSignal(int) # Person(Red = 0, Blue = 1)
+    startRoundDetected = pyqtSignal()
+    pauseRoundDetected = pyqtSignal()
+    resetRoundDetected = pyqtSignal()
+
+    def __init__(self, judgeGapThreshhold):
+        QThread.__init__(self)
+        print("Starting gpio listener")
+        self.maxGapTime = judgeGapThreshhold
+
+        self.lastTime = datetime.datetime.now()
+        self.lastJudge = 0 # Judge codes are 0, 1, and 2
+        self.lastValue = 0
+        self.lastFighter = 0
+        self.lastPointCounted = False
+        self.thisTime = datetime.datetime.now()# - 1 minute to ensure first trigger counts
+        self.thisJudge = 0
+        self.thisValue = 0
+        self.thisFighter = 0 # Red is 0, blue is 1
+
+        #GPIO.setwarnings(False) # Ignore warning for now
+        GPIO.setmode(GPIO.BCM) # Use physical pin numbering
+        # Falling edge detection on all pins for judge boxes
+        # Judge 0 input pins
+        self.judge0Pins = [2,3,4]
+        self.judge0TriggerPin = 16
+        GPIO.setup(self.judge0Pins[0], GPIO.IN)
+        GPIO.setup(self.judge0Pins[1], GPIO.IN)
+        GPIO.setup(self.judge0Pins[2], GPIO.IN)
+        GPIO.setup(self.judge0TriggerPin, GPIO.IN)
+        j0Handler = ButtonHandler(self.judge0TriggerPin, self.judge0Signal, edge='falling')
+        j0Handler.start()
+
+        # Judge 1 input pins
+        self.judge1Pins = [17,27,22]
+        self.judge1TriggerPin = 20
+        GPIO.setup(self.judge1Pins[0], GPIO.IN)
+        GPIO.setup(self.judge1Pins[1], GPIO.IN)
+        GPIO.setup(self.judge1Pins[2], GPIO.IN)
+        GPIO.setup(self.judge1TriggerPin, GPIO.IN)
+        j1Handler = ButtonHandler(self.judge1TriggerPin, self.judge1Signal, edge='falling')
+        j1Handler.start()
+
+        # Judge 2 input pins
+        self.judge2Pins = [10,9,11]
+        self.judge2TriggerPin = 21
+        GPIO.setup(self.judge2Pins[0], GPIO.IN)
+        GPIO.setup(self.judge2Pins[1], GPIO.IN)
+        GPIO.setup(self.judge2Pins[2], GPIO.IN)
+        GPIO.setup(self.judge2TriggerPin, GPIO.IN)
+        j2Handler = ButtonHandler(self.judge2TriggerPin, self.judge2Signal, edge='falling')
+        j2Handler.start()
+
+        # Timer input pins
+        self.timerPins = [5,6,13,19,26]
+        self.startPin = self.timerPins[0]
+        self.pausePin = self.timerPins[1]
+        self.resetPin = self.timerPins[2]
+        self.redPenaltyPin = self.timerPins[3]
+        self.bluePenaltyPin = self.timerPins[4]
+        GPIO.setup(self.startPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        startHandler = ButtonHandler(self.startPin, self.startRoundPushed, edge='rising')
+        startHandler.start()
+
+        GPIO.setup(self.pausePin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        pauseHandler = ButtonHandler(self.pausePin, self.pauseRoundPushed, edge='rising')
+        pauseHandler.start()
+
+        GPIO.setup(self.resetPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        resetHandler = ButtonHandler(self.resetPin, self.resetRoundPushed, edge='rising')
+        resetHandler.start()
+
+        GPIO.setup(self.redPenaltyPin , GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        redPenaltyHandler = ButtonHandler(self.redPenaltyPin, self.penaltyPushed, edge='rising')
+        redPenaltyHandler.start()
+
+        GPIO.setup(self.bluePenaltyPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        bluePenaltyHandler = ButtonHandler(self.bluePenaltyPin, self.penaltyPushed, edge='rising')
+        bluePenaltyHandler.start()
+
+
+        # Compare results to last values, check for differences
+        # If different, send
+
+    def startRoundPushed(self,callback):
+        self.startRoundDetected.emit()
+
+    def pauseRoundPushed(self,callback):
+        self.pauseRoundDetected.emit()
+
+    def resetRoundPushed(self,callback):
+        self.resetRoundDetected.emit()
+
+    # TODO: Replace this with more general interpretation method
+    def penaltyPushed(self,callback):
+        personCode = -1
+        if self.gpioRead(self.redPenaltyPin) == 1 and self.gpioRead(self.bluePenaltyPin) == 0:
+            personCode = 0
+            print('Penalty for Red')
+        elif self.gpioRead(self.redPenaltyPin) == 0 and self.gpioRead(self.bluePenaltyPin) == 1:
+            personCode = 1
+            print('Penalty for Blue')
+        else:
+            print("Unknown combination of penalty pin presses:")
+            print("Red Pin: %i" %(self.gpioRead(self.redPenaltyPin)))
+            print("Blue Pin: %i" %(self.gpioRead(self.bluePenaltyPin)))
+        self.penaltyDetected.emit(personCode)
 
     def __del__(self):
-        # GPIO.cleanup() # Clean up
-        # self.wait()
-        pass
-
-
-def initialize_pins(pins, pin_type='output'):
-    """Set pinmode for list of GPIO pin numbers."""
-    for pin in pins:
-        if pin_type == 'output':
-            GPIO.setup(pin, GPIO.OUT)
-        elif pin_type == 'input':
-            GPIO.setup(pin, GPIO.IN)
-
-
-def pulse_gpio_pin(pin):
-    """Set a gpio pin high and low, with appropriate delay."""
-    GPIO.output(pin, GPIO.HIGH)
-    milliseconds(0.2)
-    GPIO.output(pin, GPIO.LOW)
-
-
-def milliseconds(duration):
-    """Delay for desired number of milliseconds."""
-    time.sleep(0.001*duration)
-
-
-def compare_bits(olds, news):
-    """Subtract 2D list to determine changes to bit state."""
-    rows = len(olds)
-    cols = len(olds[0])
-    delta = [[0] * cols for i in range(rows)]
-    for i in range(0, rows):
-        for j in range(0, cols):
-            delta[i][j] = news[i][j] - olds[i][j]
-    return delta
-
-
-def is_nonzero(delta):
-    """Return True if any element of 2D list is nonzero."""
-    nonzero = False
-    for row in delta:
-        for element in row:
-            if element != 0:
-                nonzero = True
-    return nonzero
+        #GPIO.cleanup() # Clean up
+        self.wait()
