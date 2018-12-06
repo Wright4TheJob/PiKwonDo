@@ -10,18 +10,11 @@
 # Import
 import time
 
-import pkd_timer
-# import GPIOListener
+from match import Match
+import pkdtimer
 from gui import FrontEndController
-
-
-class OutOfRangeError(ValueError):
-    """Exeption raised when input or result is outside of specified bounds."""
-
-
-class UnknownFighterError(ValueError):
-    """Exeption raised when input or result is not a known fighter code."""
-
+from utilities import UnknownFighterError
+from utilities import OutOfRangeError
 # Create match class
 # Have game emit signal to indicate something changed
 # Have GUI check game variables
@@ -47,11 +40,7 @@ class PiKwonDo():
         self.break_length = 30  # seconds
         self.max_gap_time = 1000  # ms
         # Initialize variables
-        self.red_score = 0
-        self.blue_score = 0
-        self.red_penalties = 0
-        self.blue_penalties = 0
-        self.current_section = 1
+        self.match = Match()
         self.match_running = False
         self.timer_running = False
         self.section_durations = [self.round_length]
@@ -89,30 +78,30 @@ class PiKwonDo():
 
     def red_point(self, point_value):
         """Assign points to red player."""
-        self.red_score += point_value
+        self.match.red_score += point_value
         # self.updateUI()
 
     def red_penalty(self):
         """Assign penalty to red player, and add a point to blue."""
-        self.red_penalties += 1
+        self.match.red_penalties += 1
         self.blue_point(1)
         # self.updateUI()
 
     def blue_point(self, point_value):
         """Assign points to blue player."""
-        self.blue_score += point_value
+        self.match.blue_score += point_value
         # self.updateUI()
 
     def blue_penalty(self):
         """Assign penalty to blue player, and add a point to red."""
-        self.blue_penalties += 1
+        self.match.blue_penalties += 1
         self.red_point(1)
         # self.updateUI()
 
     def start_match(self):
         """Begin match timer and round tracking."""
         if self.match_running is False:
-            self.current_section = 1
+            self.match.current_section = 1
             self.start_round()
         else:
             self.resume_round()
@@ -121,8 +110,8 @@ class PiKwonDo():
         """Begin round timer and incremement round."""
         if self.timer_running is False:
             # Timer Thread
-            self.timer_thread = pkd_timer.TimerThread(
-                self.section_durations[self.current_section-1])
+            self.timer_thread = pkdtimer.TimerThread(
+                self.section_durations[self.match.current_section-1])
             # Connect to emitted signals
             # self.timerThread.timerTicked.connect(self.timerTicked)
             # self.timerThread.timerDone.connect(self.timerDone)
@@ -140,7 +129,7 @@ class PiKwonDo():
     def resume_round(self):
         """Initialize new timer with remaining time."""
         if self.timer_running is False:
-            self.timer_thread = pkd_timer.TimerThread(self.time_left)
+            self.timer_thread = pkdtimer.TimerThread(self.time_left)
             # Connect to emitted signals
             # self.timerThread.timerTicked.connect(self.timerTicked)
             # self.timerThread.timerDone.connect(self.timerDone)
@@ -149,11 +138,7 @@ class PiKwonDo():
 
     def reset_round(self):
         """Set points, penalties, and time to zero."""
-        self.red_score = 0
-        self.blue_score = 0
-        self.red_penalties = 0
-        self.blue_penalties = 0
-        self.current_section = 1
+        self.match = Match()
         self.time_left = self.round_length
         if self.timer_running is True:
             self.timer_thread.terminate()
@@ -173,28 +158,15 @@ class PiKwonDo():
         self.time_left = 0
         # self.update()
         time.sleep(1)
-        if self.current_section < self.sections:
-            self.current_section += 1
+        if self.match.current_section < self.sections:
+            self.match.current_section += 1
             # TODO:Wait for manual trigger for start of next section?
             self.start_round()
-        elif self.current_section == self.sections:
+        elif self.match.current_section == self.sections:
             self.match_running = False
         else:
             raise OutOfRangeError(
                 'number is out of range (must be less than 10)')
-
-
-class Match():
-    """A particular match driven by the rules of TaeKwonDo."""
-
-    def __init__(self):
-        """Begin a new match."""
-        print('Started new match!')
-        self.red_score = 0
-        self.blue_score = 0
-        self.red_penalties = 0
-        self.blue_penalties = 0
-        self.current_section = 1
 
 
 def main():

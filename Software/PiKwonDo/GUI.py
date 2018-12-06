@@ -12,7 +12,7 @@ from PyQt5.QtCore import Qt, QRect, pyqtSignal
 from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QAction
 from PyQt5.QtGui import QPainter, QColor, QFont
 
-from PiKwonDo import Match
+import match
 
 
 class FrontEndController():
@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
         self.program_loaded = False
         super().__init__()
         self.main_process = pkd
-        self.match = Match()
+        self.match = match.Match()
         self.time = 90
         self.penalty_bar_height = 50
         self.time_height = 100
@@ -190,10 +190,10 @@ class MainWindow(QMainWindow):
         q_paint.setFont(QFont('Decorative', self.width/4))
         q_paint.drawText(
             QRect(0, 0, self.width/2, self.height),
-            Qt.AlignCenter, str(int(self.match.redScore)))
+            Qt.AlignCenter, str(int(self.match.red_score)))
         q_paint.drawText(
             QRect(self.width/2, 0, self.width/2+2, self.height),
-            Qt.AlignCenter, str(int(self.match.blueScore)))
+            Qt.AlignCenter, str(int(self.match.blue_score)))
 
     def draw_penalties(self, q_paint):
         """Draw the penalties scores on the screen."""
@@ -202,7 +202,7 @@ class MainWindow(QMainWindow):
             self.red_penalty_text = "Disqualified"
         else:
             self.red_penalty_text = "Penalties: "
-            for _ in range(0, self.match.redPenalties):
+            for _ in range(0, self.match.red_penalties):
                 self.red_penalty_text += "X"
         if self.match.blue_penalties >= 10:
             self.blue_penalty_text = "Disqualified"

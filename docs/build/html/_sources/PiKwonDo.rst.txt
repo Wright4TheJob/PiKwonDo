@@ -4,10 +4,16 @@ PiKwonDo package
 Submodules
 ----------
 
-pikwondo.gui module
+gui module
+gpio_scanner module
 ------------------------
 
-.. automodule:: pikwondo.gui
+.. automodule:: gui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: gpio_scanner
     :members:
     :undoc-members:
     :show-inheritance:

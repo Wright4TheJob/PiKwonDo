@@ -4,12 +4,12 @@ echo "-------------------"
 cd ../../docs
 make html
 
-cd ../Software
+cd ../Software/pikwondo
 
 echo "------------------"
 echo "Test Documentation"
 echo "------------------"
-pydocstyle pikwondo/
+pydocstyle $PWD
 
 
 # echo "Code Style:"
@@ -18,9 +18,8 @@ pydocstyle pikwondo/
 echo "------"
 echo "PyLint"
 echo "------"
-pylint pikwondo/
+pylint $PWD
 
-cd pikwondo
 echo "---------"
 echo "Unit Test"
 echo "---------"

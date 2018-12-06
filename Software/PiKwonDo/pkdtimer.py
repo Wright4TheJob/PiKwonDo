@@ -53,3 +53,6 @@ class TimerThread():
     def wait_until_done(self, timeout=None):
         """Idle the thread when not in use."""
         self.is_done.wait(timeout=timeout)
+
+    def terminate(self):
+        """Clean up thread upon close."""

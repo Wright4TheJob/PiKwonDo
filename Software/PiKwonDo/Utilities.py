@@ -40,3 +40,11 @@ class SignalThread(threading.Thread):
         while True:
             func = self.signal_queue.get()
             func()
+
+
+class OutOfRangeError(ValueError):
+    """Exeption raised when input or result is outside of specified bounds."""
+
+
+class UnknownFighterError(ValueError):
+    """Exeption raised when input or result is not a known fighter code."""

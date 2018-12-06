@@ -81,7 +81,6 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PiKwonDo package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pikwondo.gui">pikwondo.gui module</a></li>
 </ul>
 </li>
 </ul>
@@ -152,40 +151,40 @@
 <h1>PiKwonDo package<a class="headerlink" href="#pikwondo-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-pikwondo.gui">
-<span id="pikwondo-gui-module"></span><h2>pikwondo.gui module<a class="headerlink" href="#module-pikwondo.gui" title="Permalink to this headline">¶</a></h2>
-<p>Classes for front-end display and screen-based input.</p>
+<p>gui module
+gpio_scanner module
+————————</p>
+<span class="target" id="module-gui"></span><p>Classes for front-end display and screen-based input.</p>
 <dl class="class">
-<dt id="pikwondo.gui.FrontEndController">
-<em class="property">class </em><code class="descclassname">pikwondo.gui.</code><code class="descname">FrontEndController</code><span class="sig-paren">(</span><em>main</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.FrontEndController" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.FrontEndController">
+<em class="property">class </em><code class="descclassname">gui.</code><code class="descname">FrontEndController</code><span class="sig-paren">(</span><em>main</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.FrontEndController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Central QT window manager for all GUI elements.</p>
 <dl class="method">
-<dt id="pikwondo.gui.FrontEndController.show">
-<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.FrontEndController.show" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.FrontEndController.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.FrontEndController.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the window.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.FrontEndController.update_ui">
-<code class="descname">update_ui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.FrontEndController.update_ui" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.FrontEndController.update_ui">
+<code class="descname">update_ui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.FrontEndController.update_ui" title="Permalink to this definition">¶</a></dt>
 <dd><p>Redraw all elements of GUI that may change during use.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="pikwondo.gui.LatestValueBoxIOQT">
-<em class="property">class </em><code class="descclassname">pikwondo.gui.</code><code class="descname">LatestValueBoxIOQT</code><span class="sig-paren">(</span><em>value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.LatestValueBoxIOQT">
+<em class="property">class </em><code class="descclassname">gui.</code><code class="descname">LatestValueBoxIOQT</code><span class="sig-paren">(</span><em>value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.LatestValueBoxIOQT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A container which holds only the most recent object put in it.</p>
 <p>The container provides threadsafe object storage and retrieval. Object get
 and place functions are pure python. The container instance emits a qt
 signal when a new object is placed in the container.</p>
 <dl class="method">
-<dt id="pikwondo.gui.LatestValueBoxIOQT.get">
-<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT.get" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.LatestValueBoxIOQT.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.LatestValueBoxIOQT.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the latest object from the container.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -198,8 +197,8 @@ signal when a new object is placed in the container.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.LatestValueBoxIOQT.put">
-<code class="descname">put</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT.put" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.LatestValueBoxIOQT.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.LatestValueBoxIOQT.put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Place an object in the container.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -212,59 +211,191 @@ signal when a new object is placed in the container.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pikwondo.gui.LatestValueBoxIOQT.qt_signal">
-<code class="descname">qt_signal</code><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT.qt_signal" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.LatestValueBoxIOQT.qt_signal">
+<code class="descname">qt_signal</code><a class="headerlink" href="#gui.LatestValueBoxIOQT.qt_signal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="pikwondo.gui.MainWindow">
-<em class="property">class </em><code class="descclassname">pikwondo.gui.</code><code class="descname">MainWindow</code><span class="sig-paren">(</span><em>pkd</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow">
+<em class="property">class </em><code class="descclassname">gui.</code><code class="descname">MainWindow</code><span class="sig-paren">(</span><em>pkd</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
 <p>Window for primary ringside display.</p>
 <dl class="method">
-<dt id="pikwondo.gui.MainWindow.draw_background">
-<code class="descname">draw_background</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_background" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow.draw_background">
+<code class="descname">draw_background</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow.draw_background" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the colored boxes of the screen background.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.MainWindow.draw_penalties">
-<code class="descname">draw_penalties</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_penalties" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow.draw_penalties">
+<code class="descname">draw_penalties</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow.draw_penalties" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the penalties scores on the screen.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.MainWindow.draw_scores">
-<code class="descname">draw_scores</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_scores" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow.draw_scores">
+<code class="descname">draw_scores</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow.draw_scores" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the current scores on the screen.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.MainWindow.draw_time">
-<code class="descname">draw_time</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_time" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow.draw_time">
+<code class="descname">draw_time</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow.draw_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw the current scores on the screen.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.MainWindow.paint_event">
-<code class="descname">paint_event</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.paint_event" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow.paint_event">
+<code class="descname">paint_event</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow.paint_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw all necessary elements when update is needed.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.MainWindow.resize_event">
-<code class="descname">resize_event</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.resize_event" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow.resize_event">
+<code class="descname">resize_event</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow.resize_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resize elements to scale appropriately with window.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pikwondo.gui.MainWindow.setup_ui">
-<code class="descname">setup_ui</code><span class="sig-paren">(</span><em>window</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.setup_ui" title="Permalink to this definition">¶</a></dt>
+<dt id="gui.MainWindow.setup_ui">
+<code class="descname">setup_ui</code><span class="sig-paren">(</span><em>window</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.MainWindow.setup_ui" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the main GUI elements.</p>
 </dd></dl>
 
+</dd></dl>
+
+<span class="target" id="module-gpio_scanner"></span><p>Scan hardware status for buttons and emit correct signal.</p>
+<dl class="class">
+<dt id="gpio_scanner.BitDecoder">
+<em class="property">class </em><code class="descclassname">gpio_scanner.</code><code class="descname">BitDecoder</code><span class="sig-paren">(</span><em>pikwondo</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.BitDecoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Correlate button press events to signals to emit.</p>
+<dl class="attribute">
+<dt id="gpio_scanner.BitDecoder.pin_signal_array">
+<code class="descname">pin_signal_array</code><a class="headerlink" href="#gpio_scanner.BitDecoder.pin_signal_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return pin change signal array, or calculate it.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpio_scanner.ButtonHandler">
+<em class="property">class </em><code class="descclassname">gpio_scanner.</code><code class="descname">ButtonHandler</code><span class="sig-paren">(</span><em>pin</em>, <em>func</em>, <em>edge='both'</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.ButtonHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code></p>
+<p>Detect desired signal from GPIO pin and emits signal after debounce.</p>
+<dl class="method">
+<dt id="gpio_scanner.ButtonHandler.glitch_done">
+<code class="descname">glitch_done</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.ButtonHandler.glitch_done" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emit assigned signal when valid signal detected.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpio_scanner.HardwareConfiguration">
+<em class="property">class </em><code class="descclassname">gpio_scanner.</code><code class="descname">HardwareConfiguration</code><a class="headerlink" href="#gpio_scanner.HardwareConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Configure pins for each generation of hardware.</p>
+<dl class="method">
+<dt id="gpio_scanner.HardwareConfiguration.set_pinout">
+<code class="descname">set_pinout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.HardwareConfiguration.set_pinout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign pins to circuit expectations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpio_scanner.HardwareConfiguration.setup_gpio">
+<code class="descname">setup_gpio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.HardwareConfiguration.setup_gpio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set GPIO pin numbering scheme and pin initialization.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpio_scanner.HardwareControllerScanner">
+<em class="property">class </em><code class="descclassname">gpio_scanner.</code><code class="descname">HardwareControllerScanner</code><a class="headerlink" href="#gpio_scanner.HardwareControllerScanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Monitor hardware status by regular sweep scans.</p>
+<dl class="method">
+<dt id="gpio_scanner.HardwareControllerScanner.load_data">
+<code class="descname">load_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.HardwareControllerScanner.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data into shift registers.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpio_scanner.HardwareControllerScanner.pin_change_signals">
+<code class="descname">pin_change_signals</code><a class="headerlink" href="#gpio_scanner.HardwareControllerScanner.pin_change_signals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return array of button_signal-signal matrix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpio_scanner.HardwareControllerScanner.read_bits">
+<code class="descname">read_bits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.HardwareControllerScanner.read_bits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read one bit from each data input pin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpio_scanner.HardwareControllerScanner.scan_bits">
+<code class="descname">scan_bits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.HardwareControllerScanner.scan_bits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read all data from controllers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpio_scanner.HardwareControllerScanner.shift_data">
+<code class="descname">shift_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.HardwareControllerScanner.shift_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cycle the clock pin on each controller.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpio_scanner.HardwareControllerScanner.step">
+<code class="descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.HardwareControllerScanner.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cycle bit scanning and detects changes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpio_scanner.PeriodicActionThread">
+<em class="property">class </em><code class="descclassname">gpio_scanner.</code><code class="descname">PeriodicActionThread</code><span class="sig-paren">(</span><em>function</em>, <em>period</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.PeriodicActionThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code></p>
+<p>Perform an action on a regular repeating schedule.</p>
+<dl class="method">
+<dt id="gpio_scanner.PeriodicActionThread.step">
+<code class="descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.PeriodicActionThread.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform desired action in thread-safe way.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="gpio_scanner.compare_bits">
+<code class="descclassname">gpio_scanner.</code><code class="descname">compare_bits</code><span class="sig-paren">(</span><em>olds</em>, <em>news</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.compare_bits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subtract 2D list to determine changes to bit state.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpio_scanner.initialize_pins">
+<code class="descclassname">gpio_scanner.</code><code class="descname">initialize_pins</code><span class="sig-paren">(</span><em>pins</em>, <em>pin_type='output'</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.initialize_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set pinmode for list of GPIO pin numbers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpio_scanner.is_nonzero">
+<code class="descclassname">gpio_scanner.</code><code class="descname">is_nonzero</code><span class="sig-paren">(</span><em>delta</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.is_nonzero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if any element of 2D list is nonzero.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpio_scanner.milliseconds">
+<code class="descclassname">gpio_scanner.</code><code class="descname">milliseconds</code><span class="sig-paren">(</span><em>duration</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.milliseconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delay for desired number of milliseconds.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpio_scanner.pulse_gpio_pin">
+<code class="descclassname">gpio_scanner.</code><code class="descname">pulse_gpio_pin</code><span class="sig-paren">(</span><em>pin</em><span class="sig-paren">)</span><a class="headerlink" href="#gpio_scanner.pulse_gpio_pin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a gpio pin high and low, with appropriate delay.</p>
 </dd></dl>
 
 </div>
