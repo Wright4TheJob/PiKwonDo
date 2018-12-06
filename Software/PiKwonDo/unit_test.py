@@ -30,14 +30,14 @@ class BadInput(unittest.TestCase):
     bad_fighter_values = (-1, 2, 10)
 
     def test_unknown_fighter_code_penalty(self):
-        """penalty function should fail with bad fighter input"""
+        """Penalty function should fail with bad fighter input."""
         for bad_value in self.bad_fighter_values:
             main = pkd.PiKwonDo(create_gui=False)
             with self.assertRaises(pkd.UnknownFighterError):
                 main.penalty_detected(bad_value)
 
     def test_unknown_fighter_code_point(self):
-        """point function should fail with invalid fighter input"""
+        """Point function should fail with invalid fighter input."""
         for bad_value in self.bad_fighter_values:
             main = pkd.PiKwonDo(create_gui=False)
             with self.assertRaises(pkd.UnknownFighterError):
@@ -47,7 +47,8 @@ class BadInput(unittest.TestCase):
 class TickingTimer(unittest.TestCase):
     """Test timing functions for accuracy and emissions."""
 
-    def __init__(self):
+    def setUp(self):
+        """Set up class variables."""
         self.ticks = 0
         self.times = []
 
@@ -122,7 +123,7 @@ class TickingTimer(unittest.TestCase):
         for i in range(0, len(self.times)-1):
             time_deltas.append(self.times[i+1]-self.times[i])
         self.assertGreaterEqual(interval+max_deviation, max(time_deltas))
-    # other tests:  time between ticks is acceptable
+        # other tests:  time between ticks is acceptable
 
 
 if __name__ == '__main__':

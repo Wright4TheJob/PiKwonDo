@@ -12,10 +12,14 @@ from PyQt5.QtCore import Qt, QRect, pyqtSignal
 from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QAction
 from PyQt5.QtGui import QPainter, QColor, QFont
 
+from PiKwonDo import Match
+
 
 class FrontEndController():
     """Central QT window manager for all GUI elements."""
+
     def __init__(self, main):
+        """Create main window objects."""
         app = QApplication([])
         self.main_window = MainWindow(main)
         form = self.main_window
@@ -45,14 +49,11 @@ class MainWindow(QMainWindow):
     # Testing this supression
 
     def __init__(self, pkd):
+        """Create main window elements."""
         self.program_loaded = False
         super().__init__()
         self.main_process = pkd
-        self.red_score = 0
-        self.blue_score = 0
-        self.red_penalties = 0
-        self.blue_penalties = 0
-        self.current_section = 0
+        self.match = Match()
         self.time = 90
         self.penalty_bar_height = 50
         self.time_height = 100
@@ -70,7 +71,6 @@ class MainWindow(QMainWindow):
 
     def setup_ui(self, window):
         """Initialize the main GUI elements."""
-        # Builds GUI
         window.setObjectName("MainWindow")
         window.resize(1000, 800)
         # MainWindow.showFullScreen()
@@ -190,25 +190,25 @@ class MainWindow(QMainWindow):
         q_paint.setFont(QFont('Decorative', self.width/4))
         q_paint.drawText(
             QRect(0, 0, self.width/2, self.height),
-            Qt.AlignCenter, str(int(self.redScore)))
+            Qt.AlignCenter, str(int(self.match.redScore)))
         q_paint.drawText(
             QRect(self.width/2, 0, self.width/2+2, self.height),
-            Qt.AlignCenter, str(int(self.blueScore)))
+            Qt.AlignCenter, str(int(self.match.blueScore)))
 
     def draw_penalties(self, q_paint):
         """Draw the penalties scores on the screen."""
         offset = 10
-        if self.red_penalties >= 10:
+        if self.match.red_penalties >= 10:
             self.red_penalty_text = "Disqualified"
         else:
             self.red_penalty_text = "Penalties: "
-            for _ in range(0, self.redPenalties):
+            for _ in range(0, self.match.redPenalties):
                 self.red_penalty_text += "X"
-        if self.blue_penalties >= 10:
+        if self.match.blue_penalties >= 10:
             self.blue_penalty_text = "Disqualified"
         else:
             self.blue_penalty_text = "Penalties: "
-            for _ in range(0, self.blue_penalties):
+            for _ in range(0, self.match.blue_penalties):
                 self.blue_penalty_text += "X"
 
         q_paint.setPen(QColor(255, 255, 255))
@@ -242,26 +242,27 @@ class MainWindow(QMainWindow):
 
 
 class LatestValueBoxIOQT():
-    '''A container which holds only the most recent object put in it.
+    """A container which holds only the most recent object put in it.
 
     The container provides threadsafe object storage and retrieval. Object get
     and place functions are pure python. The container instance emits a qt
     signal when a new object is placed in the container.
-    '''
+    """
+
     qt_signal = pyqtSignal()
 
     def __init__(self, value=None):
+        """Create threading lock and initialize values."""
         self.lock = threading.Lock()
         self._value = value
         self.pending = False
 
     def put(self, value):
-        '''Place an object in the container.
+        """Place an object in the container.
 
         :param value: Object to place in the container.
 
-        '''
-
+        """
         self.lock.acquire()
         self._value = value
         if not self.pending:
@@ -270,12 +271,11 @@ class LatestValueBoxIOQT():
         self.lock.release()
 
     def get(self):
-        '''Retrieve the latest object from the container.
+        """Retrieve the latest object from the container.
 
         :returns: The object placed in the container.
 
-        '''
-
+        """
         self.lock.acquire()
         value = self._value
         self.pending = False

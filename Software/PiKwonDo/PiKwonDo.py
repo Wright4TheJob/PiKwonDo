@@ -16,11 +16,11 @@ from gui import FrontEndController
 
 
 class OutOfRangeError(ValueError):
-    '''exeption raised when input or result is outside of specified bounds'''
+    """Exeption raised when input or result is outside of specified bounds."""
 
 
 class UnknownFighterError(ValueError):
-    '''exeption raised when input or result is not a known fighter code'''
+    """Exeption raised when input or result is not a known fighter code."""
 
 # Create match class
 # Have game emit signal to indicate something changed
@@ -34,7 +34,9 @@ class UnknownFighterError(ValueError):
 
 class PiKwonDo():
     """Primary game logic."""
+
     def __init__(self, create_gui=True):
+        """Initialize variables and create game instance."""
         self.program_loaded = False
         # super(self.__class__, self).__init__()
 

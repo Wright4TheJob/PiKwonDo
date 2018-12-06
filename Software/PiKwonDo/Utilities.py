@@ -13,6 +13,7 @@ class Signal():
     """a signal object to pass messages between classes using python queue."""
 
     def __init__(self):
+        """Create list of subscribers to signal."""
         super().__init__()
         self.listeners = []
 

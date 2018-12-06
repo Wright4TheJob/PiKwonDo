@@ -4,10 +4,10 @@ PiKwonDo package
 Submodules
 ----------
 
-PiKwonDo.GUI module
+pikwondo.gui module
 ------------------------
 
-.. automodule:: PiKwonDo.GUI
+.. automodule:: pikwondo.gui
     :members:
     :undoc-members:
     :show-inheritance:

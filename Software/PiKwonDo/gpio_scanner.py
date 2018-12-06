@@ -33,6 +33,7 @@ class ButtonHandler(threading.Thread):
         GPIO.add_event_detect(pin, gpio_edge, callback=self)
 
     def __call__(self, *args):
+        """Lock thread and start new timer."""
         if not self.glitch_lock.acquire(blocking=False):
             return
 
@@ -55,6 +56,7 @@ class ButtonHandler(threading.Thread):
 
 class PeriodicActionThread(threading.Thread):
     """Perform an action on a regular repeating schedule."""
+
     def __init__(self, function, period):
         """Start thread and setup settings."""
         super().__init__()
@@ -76,6 +78,7 @@ class HardwareConfiguration():
     """Configure pins for each generation of hardware."""
 
     def __init__(self):
+        """Set class variables."""
         self.load_pins = False
         self.clock_pins = False
         self.data_pins = False
@@ -117,7 +120,7 @@ class HardwareConfiguration():
 
 class HardwareControllerScanner():
     """Monitor hardware status by regular sweep scans."""
-    # bit_changed = pyqtSignal(float,object)
+
     try:
         import RPi.GPIO as GPIO
     except ImportError:
@@ -195,7 +198,9 @@ class HardwareControllerScanner():
 
 class BitDecoder():
     """Correlate button press events to signals to emit."""
+
     def __init__(self, pikwondo):
+        """Create matrix to lookup correct signal to emit."""
         self.main_process = pikwondo
         bits = 13
         controllers = 4
@@ -218,9 +223,9 @@ class BitDecoder():
         return self.pin_change_signal_array
 
     def __del__(self):
+        """Cleanup gpio pin statuses on close."""
         # GPIO.cleanup() # Clean up
         # self.wait()
-        pass
 
 
 def initialize_pins(pins, pin_type='output'):

@@ -1,15 +1,31 @@
-coverage run unit_test.py
-#echo "#################################"
-echo "Coverage:"
-coverage report
+echo "-------------------"
+echo "Build Documentation"
+echo "-------------------"
+cd ../../docs
+make html
 
-cd ..
+cd ../Software
 
-echo "Code Style:"
-pycodestyle pikwondo/
-
-echo "Documentation:"
+echo "------------------"
+echo "Test Documentation"
+echo "------------------"
 pydocstyle pikwondo/
 
-echo "PyLint:"
+
+# echo "Code Style:"
+# pycodestyle pikwondo/
+
+echo "------"
+echo "PyLint"
+echo "------"
 pylint pikwondo/
+
+cd pikwondo
+echo "---------"
+echo "Unit Test"
+echo "---------"
+
+coverage run unit_test.py
+#echo "#################################"
+# echo "Coverage:"
+coverage report

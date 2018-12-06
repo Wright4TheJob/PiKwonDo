@@ -81,7 +81,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PiKwonDo package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-PiKwonDo.GUI">PiKwonDo.GUI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pikwondo.gui">pikwondo.gui module</a></li>
 </ul>
 </li>
 </ul>
@@ -153,35 +153,39 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-PiKwonDo.GUI">
-<span id="pikwondo-gui-module"></span><h2>PiKwonDo.GUI module<a class="headerlink" href="#module-PiKwonDo.GUI" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pikwondo.gui">
+<span id="pikwondo-gui-module"></span><h2>pikwondo.gui module<a class="headerlink" href="#module-pikwondo.gui" title="Permalink to this headline">¶</a></h2>
+<p>Classes for front-end display and screen-based input.</p>
 <dl class="class">
-<dt id="PiKwonDo.GUI.FrontEndController">
-<em class="property">class </em><code class="descclassname">PiKwonDo.GUI.</code><code class="descname">FrontEndController</code><span class="sig-paren">(</span><em>main</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.FrontEndController" title="Permalink to this definition">¶</a></dt>
+<dt id="pikwondo.gui.FrontEndController">
+<em class="property">class </em><code class="descclassname">pikwondo.gui.</code><code class="descname">FrontEndController</code><span class="sig-paren">(</span><em>main</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.FrontEndController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Central QT window manager for all GUI elements.</p>
 <dl class="method">
-<dt id="PiKwonDo.GUI.FrontEndController.show">
-<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.FrontEndController.show" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.FrontEndController.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.FrontEndController.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the window.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.FrontEndController.updateUI">
-<code class="descname">updateUI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.FrontEndController.updateUI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.FrontEndController.update_ui">
+<code class="descname">update_ui</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.FrontEndController.update_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redraw all elements of GUI that may change during use.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="PiKwonDo.GUI.LatestValueBoxIOQT">
-<em class="property">class </em><code class="descclassname">PiKwonDo.GUI.</code><code class="descname">LatestValueBoxIOQT</code><a class="headerlink" href="#PiKwonDo.GUI.LatestValueBoxIOQT" title="Permalink to this definition">¶</a></dt>
+<dt id="pikwondo.gui.LatestValueBoxIOQT">
+<em class="property">class </em><code class="descclassname">pikwondo.gui.</code><code class="descname">LatestValueBoxIOQT</code><span class="sig-paren">(</span><em>value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A container which holds only the most recent object put in it.</p>
 <p>The container provides threadsafe object storage and retrieval. Object get
 and place functions are pure python. The container instance emits a qt
 signal when a new object is placed in the container.</p>
 <dl class="method">
-<dt id="PiKwonDo.GUI.LatestValueBoxIOQT.get">
-<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.LatestValueBoxIOQT.get" title="Permalink to this definition">¶</a></dt>
+<dt id="pikwondo.gui.LatestValueBoxIOQT.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve the latest object from the container.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -194,8 +198,8 @@ signal when a new object is placed in the container.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.LatestValueBoxIOQT.put">
-<code class="descname">put</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.LatestValueBoxIOQT.put" title="Permalink to this definition">¶</a></dt>
+<dt id="pikwondo.gui.LatestValueBoxIOQT.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT.put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Place an object in the container.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -208,50 +212,58 @@ signal when a new object is placed in the container.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="PiKwonDo.GUI.LatestValueBoxIOQT.qt_signal">
-<code class="descname">qt_signal</code><a class="headerlink" href="#PiKwonDo.GUI.LatestValueBoxIOQT.qt_signal" title="Permalink to this definition">¶</a></dt>
+<dt id="pikwondo.gui.LatestValueBoxIOQT.qt_signal">
+<code class="descname">qt_signal</code><a class="headerlink" href="#pikwondo.gui.LatestValueBoxIOQT.qt_signal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="PiKwonDo.GUI.MainWindow">
-<em class="property">class </em><code class="descclassname">PiKwonDo.GUI.</code><code class="descname">MainWindow</code><span class="sig-paren">(</span><em>piKwonDo</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="pikwondo.gui.MainWindow">
+<em class="property">class </em><code class="descclassname">pikwondo.gui.</code><code class="descname">MainWindow</code><span class="sig-paren">(</span><em>pkd</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<p>Window for primary ringside display.</p>
 <dl class="method">
-<dt id="PiKwonDo.GUI.MainWindow.drawBackground">
-<code class="descname">drawBackground</code><span class="sig-paren">(</span><em>qp</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow.drawBackground" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.MainWindow.draw_background">
+<code class="descname">draw_background</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_background" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the colored boxes of the screen background.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.MainWindow.drawPenalties">
-<code class="descname">drawPenalties</code><span class="sig-paren">(</span><em>event</em>, <em>qp</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow.drawPenalties" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.MainWindow.draw_penalties">
+<code class="descname">draw_penalties</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_penalties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the penalties scores on the screen.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.MainWindow.drawScores">
-<code class="descname">drawScores</code><span class="sig-paren">(</span><em>event</em>, <em>qp</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow.drawScores" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.MainWindow.draw_scores">
+<code class="descname">draw_scores</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the current scores on the screen.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.MainWindow.drawTime">
-<code class="descname">drawTime</code><span class="sig-paren">(</span><em>event</em>, <em>qp</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow.drawTime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.MainWindow.draw_time">
+<code class="descname">draw_time</code><span class="sig-paren">(</span><em>q_paint</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.draw_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the current scores on the screen.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.MainWindow.paintEvent">
-<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>self</em>, <em>QPaintEvent</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow.paintEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.MainWindow.paint_event">
+<code class="descname">paint_event</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.paint_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw all necessary elements when update is needed.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.MainWindow.resizeEvent">
-<code class="descname">resizeEvent</code><span class="sig-paren">(</span><em>self</em>, <em>QResizeEvent</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow.resizeEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.MainWindow.resize_event">
+<code class="descname">resize_event</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.resize_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize elements to scale appropriately with window.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="PiKwonDo.GUI.MainWindow.setupUI">
-<code class="descname">setupUI</code><span class="sig-paren">(</span><em>window</em><span class="sig-paren">)</span><a class="headerlink" href="#PiKwonDo.GUI.MainWindow.setupUI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pikwondo.gui.MainWindow.setup_ui">
+<code class="descname">setup_ui</code><span class="sig-paren">(</span><em>window</em><span class="sig-paren">)</span><a class="headerlink" href="#pikwondo.gui.MainWindow.setup_ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the main GUI elements.</p>
+</dd></dl>
 
 </dd></dl>
 
