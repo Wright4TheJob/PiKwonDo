@@ -156,12 +156,12 @@ class HardwareControllerScanner():
     def load_data(self):
         """Load data into shift registers."""
         for pin in self.pinout.load_pins:
-            pulse_gpio_pin(pin)
+            pulse_gpio_pin_high(pin)
 
     def shift_data(self):
         """Cycle the clock pin on each controller."""
         for pin in self.pinout.clock_pins:
-            pulse_gpio_pin(pin)
+            pulse_gpio_pin_low(pin)
 
     def scan_bits(self):
         """Read all data from controllers."""
@@ -237,11 +237,18 @@ def initialize_pins(pins, pin_type='output'):
             GPIO.setup(pin, GPIO.IN)
 
 
-def pulse_gpio_pin(pin):
-    """Set a gpio pin high and low, with appropriate delay."""
+def pulse_gpio_pin_high(pin):
+    """Set a gpio pin high then low, with appropriate delay."""
     GPIO.output(pin, GPIO.HIGH)
     milliseconds(0.2)
     GPIO.output(pin, GPIO.LOW)
+
+
+def pulse_gpio_pin_low(pin):
+    """Set a gpio pin low then high, with appropriate delay."""
+    GPIO.output(pin, GPIO.LOW)
+    milliseconds(0.2)
+    GPIO.output(pin, GPIO.HIGH)
 
 
 def milliseconds(duration):
