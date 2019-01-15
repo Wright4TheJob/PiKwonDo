@@ -15,50 +15,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L PiKwonDo:RJ12-UNSHLD CN2
-U 1 1 5B25A715
-P 9300 1600
-F 0 "CN2" H 9500 2100 50  0000 C CNN
-F 1 "Judge1" H 9150 2100 50  0000 C CNN
-F 2 "PiKwonDo:TH-RJ12" H 9300 1600 50  0001 C CNN
-F 3 "" H 9300 1600 50  0001 C CNN
-	1    9300 1600
-	0    1    1    0   
-$EndComp
-$Comp
-L PiKwonDo:RJ12-UNSHLD CN3
-U 1 1 5B25A769
-P 9300 2900
-F 0 "CN3" H 9500 3400 50  0000 C CNN
-F 1 "Judge2" H 9150 3400 50  0000 C CNN
-F 2 "PiKwonDo:TH-RJ12" H 9300 2900 50  0001 C CNN
-F 3 "" H 9300 2900 50  0001 C CNN
-	1    9300 2900
-	0    1    1    0   
-$EndComp
-$Comp
-L PiKwonDo:RJ12-UNSHLD CN4
-U 1 1 5B25A78D
-P 9300 4200
-F 0 "CN4" H 9500 4700 50  0000 C CNN
-F 1 "Judge3" H 9150 4700 50  0000 C CNN
-F 2 "PiKwonDo:TH-RJ12" H 9300 4200 50  0001 C CNN
-F 3 "" H 9300 4200 50  0001 C CNN
-	1    9300 4200
-	0    1    1    0   
-$EndComp
-$Comp
-L PiKwonDo:RJ12-UNSHLD CN5
-U 1 1 5B25A7B5
-P 9300 5500
-F 0 "CN5" H 9500 6000 50  0000 C CNN
-F 1 "Controller" H 9150 6000 50  0000 C CNN
-F 2 "PiKwonDo:TH-RJ12" H 9300 5500 50  0001 C CNN
-F 3 "" H 9300 5500 50  0001 C CNN
-	1    9300 5500
-	0    1    1    0   
-$EndComp
-$Comp
 L power:PWR_FLAG #FLG01
 U 1 1 5B25A8B6
 P 3050 2200
@@ -79,17 +35,6 @@ F 2 "" H 3050 2200 50  0001 C CNN
 F 3 "" H 3050 2200 50  0001 C CNN
 	1    3050 2200
 	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic_MountingPin:Conn_02x20_Odd_Even_MountingPin CN1
-U 1 1 5B25D769
-P 3300 3700
-F 0 "CN1" H 3350 4700 50  0000 C CNN
-F 1 "Conn_02x20_Odd_Even" H 3350 2600 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical" H 3300 3700 50  0001 C CNN
-F 3 "" H 3300 3700 50  0001 C CNN
-	1    3300 3700
-	-1   0    0    1   
 $EndComp
 $Comp
 L power:GND #PWR03
@@ -135,14 +80,6 @@ F 3 "" H 8850 5700 50  0001 C CNN
 	1    8850 5700
 	0    1    1    0   
 $EndComp
-NoConn ~ 8850 1400
-NoConn ~ 8850 1900
-NoConn ~ 8850 2700
-NoConn ~ 8850 3200
-NoConn ~ 8850 4000
-NoConn ~ 8850 4500
-NoConn ~ 8850 5300
-NoConn ~ 8850 5800
 Text Label 4900 2800 0    60   ~ 0
 J2_CLK
 Text Label 6050 1600 0    60   ~ 0
@@ -1214,4 +1151,60 @@ Wire Wire Line
 	6050 1500 6050 1350
 Wire Wire Line
 	6050 1350 5900 1350
+$Comp
+L Connector:RJ10 J1
+U 1 1 5C3E11E7
+P 9250 1700
+F 0 "J1" H 8920 1796 50  0000 R CNN
+F 1 "RJ10" H 8920 1705 50  0000 R CNN
+F 2 "Local_lib:RJ14" V 9250 1750 50  0001 C CNN
+F 3 "~" V 9250 1750 50  0001 C CNN
+	1    9250 1700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:RJ10 J2
+U 1 1 5C3ED1FE
+P 9250 3000
+F 0 "J2" H 8920 3096 50  0000 R CNN
+F 1 "RJ10" H 8920 3005 50  0000 R CNN
+F 2 "Local_lib:RJ14" V 9250 3050 50  0001 C CNN
+F 3 "~" V 9250 3050 50  0001 C CNN
+	1    9250 3000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:RJ10 J3
+U 1 1 5C3ED6D8
+P 9250 4300
+F 0 "J3" H 8920 4396 50  0000 R CNN
+F 1 "RJ10" H 8920 4305 50  0000 R CNN
+F 2 "Local_lib:RJ14" V 9250 4350 50  0001 C CNN
+F 3 "~" V 9250 4350 50  0001 C CNN
+	1    9250 4300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:RJ10 J4
+U 1 1 5C3ED8E8
+P 9250 5600
+F 0 "J4" H 8920 5696 50  0000 R CNN
+F 1 "RJ10" H 8920 5605 50  0000 R CNN
+F 2 "Local_lib:RJ14" V 9250 5650 50  0001 C CNN
+F 3 "~" V 9250 5650 50  0001 C CNN
+	1    9250 5600
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x20_Odd_Even J5
+U 1 1 5C3F1F55
+P 3300 3700
+F 0 "J5" H 3350 2475 50  0000 C CNN
+F 1 "Conn_02x20_Odd_Even" H 3350 2566 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical" H 3300 3700 50  0001 C CNN
+F 3 "~" H 3300 3700 50  0001 C CNN
+	1    3300 3700
+	-1   0    0    1   
+$EndComp
+Connection ~ 3500 2700
 $EndSCHEMATC
