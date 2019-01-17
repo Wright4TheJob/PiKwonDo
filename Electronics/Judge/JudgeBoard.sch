@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L power1:+3.3V #PWR02
+L JudgeBoard-rescue:+3.3V-power1 #PWR02
 U 1 1 5AEBE39C
 P 7650 750
 F 0 "#PWR02" H 7650 600 50  0001 C CNN
@@ -34,7 +34,7 @@ Wire Wire Line
 Wire Wire Line
 	7450 2400 9700 2400
 $Comp
-L PiKwonDo:74HC165 U1
+L JudgeBoard-rescue:74HC165-PiKwonDo U1
 U 1 1 5AECD96E
 P 5700 2300
 F 0 "U1" H 5700 2650 60  0000 C CNN
@@ -45,7 +45,7 @@ F 3 "" H 5700 2300 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L PiKwonDo:74HC165 U2
+L JudgeBoard-rescue:74HC165-PiKwonDo U2
 U 1 1 5AECD9AB
 P 4900 4700
 F 0 "U2" H 4900 5050 60  0000 C CNN
@@ -56,7 +56,7 @@ F 3 "" H 4900 4700 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:+3.3V #PWR03
+L JudgeBoard-rescue:+3.3V-power1 #PWR03
 U 1 1 5AECDC8D
 P 4900 3500
 F 0 "#PWR03" H 4900 3350 50  0001 C CNN
@@ -67,7 +67,7 @@ F 3 "" H 4900 3500 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:+3.3V #PWR04
+L JudgeBoard-rescue:+3.3V-power1 #PWR04
 U 1 1 5AECDCC2
 P 5700 1150
 F 0 "#PWR04" H 5700 1000 50  0001 C CNN
@@ -78,7 +78,7 @@ F 3 "" H 5700 1150 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR05
+L JudgeBoard-rescue:GND-power1 #PWR05
 U 1 1 5AECDCF7
 P 5700 3350
 F 0 "#PWR05" H 5700 3100 50  0001 C CNN
@@ -89,7 +89,7 @@ F 3 "" H 5700 3350 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR06
+L JudgeBoard-rescue:GND-power1 #PWR06
 U 1 1 5AECDDAA
 P 4900 5750
 F 0 "#PWR06" H 4900 5500 50  0001 C CNN
@@ -110,7 +110,7 @@ CLK
 Text Label 5000 1650 2    60   ~ 0
 LOAD
 $Comp
-L power1:GND #PWR09
+L JudgeBoard-rescue:GND-power1 #PWR09
 U 1 1 5AED1707
 P 1300 2350
 F 0 "#PWR09" H 1300 2100 50  0001 C CNN
@@ -121,7 +121,7 @@ F 3 "" H 1300 2350 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR011
+L JudgeBoard-rescue:GND-power1 #PWR011
 U 1 1 5AED1A83
 P 700 800
 F 0 "#PWR011" H 700 550 50  0001 C CNN
@@ -132,7 +132,7 @@ F 3 "" H 700 800 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:PWR_FLAG #FLG012
+L JudgeBoard-rescue:PWR_FLAG-power1 #FLG012
 U 1 1 5AED1AC8
 P 700 800
 F 0 "#FLG012" H 700 875 50  0001 C CNN
@@ -143,7 +143,7 @@ F 3 "" H 700 800 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L device:C C1
+L JudgeBoard-rescue:C-device C1
 U 1 1 5AECE346
 P 6050 1150
 F 0 "C1" H 6075 1250 50  0000 L CNN
@@ -154,7 +154,7 @@ F 3 "" H 6050 1150 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L device:C C2
+L JudgeBoard-rescue:C-device C2
 U 1 1 5AECE390
 P 5150 3550
 F 0 "C2" H 5175 3650 50  0000 L CNN
@@ -167,7 +167,7 @@ $EndComp
 Wire Wire Line
 	5700 1250 5700 1150
 $Comp
-L power1:GND #PWR014
+L JudgeBoard-rescue:GND-power1 #PWR014
 U 1 1 5AECE986
 P 6200 1150
 F 0 "#PWR014" H 6200 900 50  0001 C CNN
@@ -178,7 +178,7 @@ F 3 "" H 6200 1150 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR015
+L JudgeBoard-rescue:GND-power1 #PWR015
 U 1 1 5AECEA91
 P 5300 3550
 F 0 "#PWR015" H 5300 3300 50  0001 C CNN
@@ -189,7 +189,7 @@ F 3 "" H 5300 3550 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S1
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S1
 U 1 1 5AF3A7BC
 P 10250 3650
 F 0 "S1" H 10250 4100 60  0000 C CNN
@@ -200,7 +200,7 @@ F 3 "" H 10250 3650 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR017
+L JudgeBoard-rescue:GND-power1 #PWR017
 U 1 1 5AF3AF90
 P 10800 1500
 F 0 "#PWR017" H 10800 1250 50  0001 C CNN
@@ -211,7 +211,7 @@ F 3 "" H 10800 1500 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S2
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S2
 U 1 1 5AF3B1C2
 P 8750 1900
 F 0 "S2" H 8750 2350 60  0000 C CNN
@@ -222,7 +222,7 @@ F 3 "" H 8750 1900 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR018
+L JudgeBoard-rescue:GND-power1 #PWR018
 U 1 1 5AF3B202
 P 9300 1750
 F 0 "#PWR018" H 9300 1500 50  0001 C CNN
@@ -233,7 +233,7 @@ F 3 "" H 9300 1750 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S7
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S7
 U 1 1 5AF3B375
 P 8750 2900
 F 0 "S7" H 8750 3350 60  0000 C CNN
@@ -244,7 +244,7 @@ F 3 "" H 8750 2900 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR020
+L JudgeBoard-rescue:GND-power1 #PWR020
 U 1 1 5AF3B694
 P 10800 2500
 F 0 "#PWR020" H 10800 2250 50  0001 C CNN
@@ -255,7 +255,7 @@ F 3 "" H 10800 2500 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S3
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S3
 U 1 1 5AF3B69E
 P 10250 2650
 F 0 "S3" H 10250 3100 60  0000 C CNN
@@ -266,7 +266,7 @@ F 3 "" H 10250 2650 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S8
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S8
 U 1 1 5AF3B6A4
 P 10350 4850
 F 0 "S8" H 10350 5300 60  0000 C CNN
@@ -277,7 +277,7 @@ F 3 "" H 10350 4850 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR022
+L JudgeBoard-rescue:GND-power1 #PWR022
 U 1 1 5AF3B6B7
 P 9300 4450
 F 0 "#PWR022" H 9300 4200 50  0001 C CNN
@@ -288,7 +288,7 @@ F 3 "" H 9300 4450 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S9
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S9
 U 1 1 5AF3B6C0
 P 8750 6150
 F 0 "S9" H 8750 6600 60  0000 C CNN
@@ -299,7 +299,7 @@ F 3 "" H 8750 6150 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S5
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S5
 U 1 1 5AF3BB10
 P 10350 5900
 F 0 "S5" H 10350 6350 60  0000 C CNN
@@ -310,7 +310,7 @@ F 3 "" H 10350 5900 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L PiKwonDo:DPDT-Button S10
+L JudgeBoard-rescue:DPDT-Button-PiKwonDo S10
 U 1 1 5AF3BB1F
 P 8750 5200
 F 0 "S10" H 8750 5650 60  0000 C CNN
@@ -321,7 +321,7 @@ F 3 "" H 8750 5200 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR025
+L JudgeBoard-rescue:GND-power1 #PWR025
 U 1 1 5AF3BB25
 P 9300 5050
 F 0 "#PWR025" H 9300 4800 50  0001 C CNN
@@ -366,7 +366,7 @@ $EndComp
 Text Label 2400 2650 2    60   ~ 0
 CLK
 $Comp
-L device:LED D1
+L JudgeBoard-rescue:LED-device D1
 U 1 1 5B28344D
 P 2450 2400
 F 0 "D1" H 2450 2500 50  0000 C CNN
@@ -377,7 +377,7 @@ F 3 "" H 2450 2400 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L device:R R1
+L JudgeBoard-rescue:R-device R1
 U 1 1 5B283531
 P 2100 2400
 F 0 "R1" V 2180 2400 50  0000 C CNN
@@ -388,7 +388,7 @@ F 3 "" H 2100 2400 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR026
+L JudgeBoard-rescue:GND-power1 #PWR026
 U 1 1 5B2837C7
 P 3050 2450
 F 0 "#PWR026" H 3050 2200 50  0001 C CNN
@@ -401,7 +401,7 @@ $EndComp
 Text Label 2250 3400 2    60   ~ 0
 LOAD
 $Comp
-L device:R_Network05 RN1
+L JudgeBoard-rescue:R_Network05-device RN1
 U 1 1 5B28545A
 P 7450 950
 F 0 "RN1" V 7150 950 50  0000 C CNN
@@ -412,7 +412,7 @@ F 3 "" H 7450 950 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L device:R_Network05 RN2
+L JudgeBoard-rescue:R_Network05-device RN2
 U 1 1 5B285552
 P 6900 950
 F 0 "RN2" V 6600 950 50  0000 C CNN
@@ -423,7 +423,7 @@ F 3 "" H 6900 950 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:+3.3V #PWR027
+L JudgeBoard-rescue:+3.3V-power1 #PWR027
 U 1 1 5B2856AC
 P 7100 750
 F 0 "#PWR027" H 7100 600 50  0001 C CNN
@@ -452,7 +452,7 @@ Wire Wire Line
 	6300 2550 7250 2550
 Connection ~ 7250 2550
 $Comp
-L device:R R4
+L JudgeBoard-rescue:R-device R4
 U 1 1 5B42E59D
 P 2100 2050
 F 0 "R4" V 2180 2050 50  0000 C CNN
@@ -463,7 +463,7 @@ F 3 "" H 2100 2050 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR028
+L JudgeBoard-rescue:GND-power1 #PWR028
 U 1 1 5B42EA9B
 P 2650 2400
 F 0 "#PWR028" H 2650 2150 50  0001 C CNN
@@ -474,7 +474,7 @@ F 3 "" H 2650 2400 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L device:R R3
+L JudgeBoard-rescue:R-device R3
 U 1 1 5B42FAA7
 P 1850 3400
 F 0 "R3" V 1930 3400 50  0000 C CNN
@@ -485,7 +485,7 @@ F 3 "" H 1850 3400 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L device:C C4
+L JudgeBoard-rescue:C-device C4
 U 1 1 5B42FD0B
 P 1550 2950
 F 0 "C4" H 1575 3050 50  0000 L CNN
@@ -498,7 +498,7 @@ $EndComp
 Wire Wire Line
 	1550 2800 1550 2750
 $Comp
-L power1:GND #PWR029
+L JudgeBoard-rescue:GND-power1 #PWR029
 U 1 1 5B42FE22
 P 1550 3200
 F 0 "#PWR029" H 1550 2950 50  0001 C CNN
@@ -511,7 +511,7 @@ $EndComp
 Wire Wire Line
 	1550 3200 1550 3100
 $Comp
-L device:D_Schottky D2
+L JudgeBoard-rescue:D_Schottky-device D2
 U 1 1 5B430699
 P 2650 2050
 F 0 "D2" H 2650 2150 50  0000 C CNN
@@ -522,7 +522,7 @@ F 3 "" H 2650 2050 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L device:D_Zener D5
+L JudgeBoard-rescue:D_Zener-device D5
 U 1 1 5B4578F4
 P 3050 2250
 F 0 "D5" H 3050 2350 50  0000 C CNN
@@ -547,7 +547,7 @@ Wire Wire Line
 Wire Wire Line
 	1700 2150 1300 2150
 $Comp
-L device:R R2
+L JudgeBoard-rescue:R-device R2
 U 1 1 5BD07A1F
 P 1300 2750
 F 0 "R2" V 1380 2750 50  0000 C CNN
@@ -573,7 +573,7 @@ Wire Wire Line
 Text Label 5650 3900 0    60   ~ 0
 Q
 $Comp
-L device:R R5
+L JudgeBoard-rescue:R-device R5
 U 1 1 5BD648A3
 P 2100 2650
 F 0 "R5" V 2180 2650 50  0000 C CNN
@@ -613,7 +613,7 @@ Wire Wire Line
 Wire Wire Line
 	3050 2400 3050 2450
 $Comp
-L device:C C3
+L JudgeBoard-rescue:C-device C3
 U 1 1 5BDB3764
 P 3450 2250
 F 0 "C3" H 3475 2350 50  0000 L CNN
@@ -624,7 +624,7 @@ F 3 "" H 3450 2250 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR0101
+L JudgeBoard-rescue:GND-power1 #PWR0101
 U 1 1 5BDB624F
 P 3450 2450
 F 0 "#PWR0101" H 3450 2200 50  0001 C CNN
@@ -642,7 +642,7 @@ Wire Wire Line
 Wire Wire Line
 	3450 2400 3450 2450
 $Comp
-L power1:PWR_FLAG #FLG0101
+L JudgeBoard-rescue:PWR_FLAG-power1 #FLG0101
 U 1 1 5BDE93B3
 P 1450 800
 F 0 "#FLG0101" H 1450 875 50  0001 C CNN
@@ -697,7 +697,7 @@ Wire Wire Line
 	3700 2700 3750 2700
 Connection ~ 3700 2500
 $Comp
-L power1:GND #PWR0104
+L JudgeBoard-rescue:GND-power1 #PWR0104
 U 1 1 5BE1EA8F
 P 4150 2950
 F 0 "#PWR0104" H 4150 2700 50  0001 C CNN
@@ -710,7 +710,7 @@ $EndComp
 Wire Wire Line
 	4150 2900 4150 2950
 $Comp
-L power1:+3.3V #PWR0105
+L JudgeBoard-rescue:+3.3V-power1 #PWR0105
 U 1 1 5BE2CCFD
 P 4700 2450
 F 0 "#PWR0105" H 4700 2300 50  0001 C CNN
@@ -721,7 +721,7 @@ F 3 "" H 4700 2450 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L device:D_Zener D3
+L JudgeBoard-rescue:D_Zener-device D3
 U 1 1 5BE2CD40
 P 4700 2700
 F 0 "D3" H 4700 2800 50  0000 C CNN
@@ -732,7 +732,7 @@ F 3 "" H 4700 2700 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0106
+L JudgeBoard-rescue:GND-power1 #PWR0106
 U 1 1 5BE2CE01
 P 4700 2900
 F 0 "#PWR0106" H 4700 2650 50  0001 C CNN
@@ -755,7 +755,7 @@ Connection ~ 5700 1150
 Text Label 6400 1500 0    60   ~ 0
 Q_inter
 $Comp
-L power1:GND #PWR0107
+L JudgeBoard-rescue:GND-power1 #PWR0107
 U 1 1 5BEA0D70
 P 5100 3000
 F 0 "#PWR0107" H 5100 2750 50  0001 C CNN
@@ -766,7 +766,7 @@ F 3 "" H 5100 3000 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0108
+L JudgeBoard-rescue:GND-power1 #PWR0108
 U 1 1 5BEA3CD8
 P 5100 1950
 F 0 "#PWR0108" H 5100 1700 50  0001 C CNN
@@ -777,7 +777,7 @@ F 3 "" H 5100 1950 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0109
+L JudgeBoard-rescue:GND-power1 #PWR0109
 U 1 1 5BED1DF9
 P 6300 2850
 F 0 "#PWR0109" H 6300 2600 50  0001 C CNN
@@ -788,7 +788,7 @@ F 3 "" H 6300 2850 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0110
+L JudgeBoard-rescue:GND-power1 #PWR0110
 U 1 1 5BED1E3E
 P 6300 3000
 F 0 "#PWR0110" H 6300 2750 50  0001 C CNN
@@ -799,7 +799,7 @@ F 3 "" H 6300 3000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:+3.3V #PWR0111
+L JudgeBoard-rescue:+3.3V-power1 #PWR0111
 U 1 1 5BED475A
 P 6300 2700
 F 0 "#PWR0111" H 6300 2550 50  0001 C CNN
@@ -823,7 +823,7 @@ Wire Wire Line
 	4200 4050 4300 4050
 NoConn ~ 5500 4050
 $Comp
-L power1:GND #PWR0112
+L JudgeBoard-rescue:GND-power1 #PWR0112
 U 1 1 5BFBE52A
 P 4300 5400
 F 0 "#PWR0112" H 4300 5150 50  0001 C CNN
@@ -838,7 +838,7 @@ Wire Wire Line
 Text Label 3650 4350 0    60   ~ 0
 Q_inter
 $Comp
-L power1:GND #PWR0113
+L JudgeBoard-rescue:GND-power1 #PWR0113
 U 1 1 5BFC5651
 P 5500 5100
 F 0 "#PWR0113" H 5500 4850 50  0001 C CNN
@@ -849,7 +849,7 @@ F 3 "" H 5500 5100 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0114
+L JudgeBoard-rescue:GND-power1 #PWR0114
 U 1 1 5BFCECB0
 P 5500 5250
 F 0 "#PWR0114" H 5500 5000 50  0001 C CNN
@@ -860,7 +860,7 @@ F 3 "" H 5500 5250 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0115
+L JudgeBoard-rescue:GND-power1 #PWR0115
 U 1 1 5BFCECF5
 P 5500 4950
 F 0 "#PWR0115" H 5500 4700 50  0001 C CNN
@@ -871,7 +871,7 @@ F 3 "" H 5500 4950 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0116
+L JudgeBoard-rescue:GND-power1 #PWR0116
 U 1 1 5C01960C
 P 9300 2000
 F 0 "#PWR0116" H 9300 1750 50  0001 C CNN
@@ -882,7 +882,7 @@ F 3 "" H 9300 2000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0117
+L JudgeBoard-rescue:GND-power1 #PWR0117
 U 1 1 5C01BB70
 P 9300 2200
 F 0 "#PWR0117" H 9300 1950 50  0001 C CNN
@@ -893,7 +893,7 @@ F 3 "" H 9300 2200 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0118
+L JudgeBoard-rescue:GND-power1 #PWR0118
 U 1 1 5C01BBD2
 P 8200 2100
 F 0 "#PWR0118" H 8200 1850 50  0001 C CNN
@@ -904,7 +904,7 @@ F 3 "" H 8200 2100 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0119
+L JudgeBoard-rescue:GND-power1 #PWR0119
 U 1 1 5C03C4D7
 P 10800 2750
 F 0 "#PWR0119" H 10800 2500 50  0001 C CNN
@@ -915,7 +915,7 @@ F 3 "" H 10800 2750 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0120
+L JudgeBoard-rescue:GND-power1 #PWR0120
 U 1 1 5C03C51C
 P 10800 2950
 F 0 "#PWR0120" H 10800 2700 50  0001 C CNN
@@ -926,7 +926,7 @@ F 3 "" H 10800 2950 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0121
+L JudgeBoard-rescue:GND-power1 #PWR0121
 U 1 1 5C03C561
 P 9700 2850
 F 0 "#PWR0121" H 9700 2600 50  0001 C CNN
@@ -937,7 +937,7 @@ F 3 "" H 9700 2850 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0122
+L JudgeBoard-rescue:GND-power1 #PWR0122
 U 1 1 5C043373
 P 9300 2750
 F 0 "#PWR0122" H 9300 2500 50  0001 C CNN
@@ -948,7 +948,7 @@ F 3 "" H 9300 2750 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0123
+L JudgeBoard-rescue:GND-power1 #PWR0123
 U 1 1 5C04A35D
 P 8200 3100
 F 0 "#PWR0123" H 8200 2850 50  0001 C CNN
@@ -959,7 +959,7 @@ F 3 "" H 8200 3100 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0124
+L JudgeBoard-rescue:GND-power1 #PWR0124
 U 1 1 5C04A3A2
 P 9300 3000
 F 0 "#PWR0124" H 9300 2750 50  0001 C CNN
@@ -970,7 +970,7 @@ F 3 "" H 9300 3000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0125
+L JudgeBoard-rescue:GND-power1 #PWR0125
 U 1 1 5C04A3E7
 P 9300 3200
 F 0 "#PWR0125" H 9300 2950 50  0001 C CNN
@@ -981,7 +981,7 @@ F 3 "" H 9300 3200 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0126
+L JudgeBoard-rescue:GND-power1 #PWR0126
 U 1 1 5C05C658
 P 10800 3750
 F 0 "#PWR0126" H 10800 3500 50  0001 C CNN
@@ -992,7 +992,7 @@ F 3 "" H 10800 3750 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0127
+L JudgeBoard-rescue:GND-power1 #PWR0127
 U 1 1 5C05C69D
 P 10800 3500
 F 0 "#PWR0127" H 10800 3250 50  0001 C CNN
@@ -1003,7 +1003,7 @@ F 3 "" H 10800 3500 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0128
+L JudgeBoard-rescue:GND-power1 #PWR0128
 U 1 1 5C05C6E2
 P 10800 3950
 F 0 "#PWR0128" H 10800 3700 50  0001 C CNN
@@ -1014,7 +1014,7 @@ F 3 "" H 10800 3950 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0129
+L JudgeBoard-rescue:GND-power1 #PWR0129
 U 1 1 5C05C727
 P 9700 3850
 F 0 "#PWR0129" H 9700 3600 50  0001 C CNN
@@ -1025,7 +1025,7 @@ F 3 "" H 9700 3850 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0130
+L JudgeBoard-rescue:GND-power1 #PWR0130
 U 1 1 5C070939
 P 9800 5050
 F 0 "#PWR0130" H 9800 4800 50  0001 C CNN
@@ -1036,7 +1036,7 @@ F 3 "" H 9800 5050 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0131
+L JudgeBoard-rescue:GND-power1 #PWR0131
 U 1 1 5C07097E
 P 10900 4700
 F 0 "#PWR0131" H 10900 4450 50  0001 C CNN
@@ -1047,7 +1047,7 @@ F 3 "" H 10900 4700 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0132
+L JudgeBoard-rescue:GND-power1 #PWR0132
 U 1 1 5C072DBC
 P 10900 4950
 F 0 "#PWR0132" H 10900 4700 50  0001 C CNN
@@ -1058,7 +1058,7 @@ F 3 "" H 10900 4950 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0133
+L JudgeBoard-rescue:GND-power1 #PWR0133
 U 1 1 5C072E01
 P 10900 5150
 F 0 "#PWR0133" H 10900 4900 50  0001 C CNN
@@ -1069,7 +1069,7 @@ F 3 "" H 10900 5150 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0134
+L JudgeBoard-rescue:GND-power1 #PWR0134
 U 1 1 5C08724F
 P 9300 5300
 F 0 "#PWR0134" H 9300 5050 50  0001 C CNN
@@ -1080,7 +1080,7 @@ F 3 "" H 9300 5300 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0135
+L JudgeBoard-rescue:GND-power1 #PWR0135
 U 1 1 5C087294
 P 9300 5500
 F 0 "#PWR0135" H 9300 5250 50  0001 C CNN
@@ -1091,7 +1091,7 @@ F 3 "" H 9300 5500 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0136
+L JudgeBoard-rescue:GND-power1 #PWR0136
 U 1 1 5C0872D9
 P 8200 5400
 F 0 "#PWR0136" H 8200 5150 50  0001 C CNN
@@ -1102,7 +1102,7 @@ F 3 "" H 8200 5400 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0137
+L JudgeBoard-rescue:GND-power1 #PWR0137
 U 1 1 5C096EBC
 P 10900 5750
 F 0 "#PWR0137" H 10900 5500 50  0001 C CNN
@@ -1113,7 +1113,7 @@ F 3 "" H 10900 5750 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0138
+L JudgeBoard-rescue:GND-power1 #PWR0138
 U 1 1 5C096F01
 P 10900 6000
 F 0 "#PWR0138" H 10900 5750 50  0001 C CNN
@@ -1124,7 +1124,7 @@ F 3 "" H 10900 6000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0139
+L JudgeBoard-rescue:GND-power1 #PWR0139
 U 1 1 5C096F46
 P 10900 6200
 F 0 "#PWR0139" H 10900 5950 50  0001 C CNN
@@ -1135,7 +1135,7 @@ F 3 "" H 10900 6200 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0140
+L JudgeBoard-rescue:GND-power1 #PWR0140
 U 1 1 5C096F8B
 P 9800 6100
 F 0 "#PWR0140" H 9800 5850 50  0001 C CNN
@@ -1146,7 +1146,7 @@ F 3 "" H 9800 6100 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power1:GND #PWR0141
+L JudgeBoard-rescue:GND-power1 #PWR0141
 U 1 1 5C0A46D6
 P 9300 6000
 F 0 "#PWR0141" H 9300 5750 50  0001 C CNN
@@ -1157,7 +1157,7 @@ F 3 "" H 9300 6000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0142
+L JudgeBoard-rescue:GND-power1 #PWR0142
 U 1 1 5C0A471B
 P 9300 6250
 F 0 "#PWR0142" H 9300 6000 50  0001 C CNN
@@ -1168,7 +1168,7 @@ F 3 "" H 9300 6250 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0143
+L JudgeBoard-rescue:GND-power1 #PWR0143
 U 1 1 5C0A4760
 P 9300 6450
 F 0 "#PWR0143" H 9300 6200 50  0001 C CNN
@@ -1179,7 +1179,7 @@ F 3 "" H 9300 6450 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power1:GND #PWR0144
+L JudgeBoard-rescue:GND-power1 #PWR0144
 U 1 1 5C0A47A5
 P 8200 6350
 F 0 "#PWR0144" H 8200 6100 50  0001 C CNN
@@ -1201,7 +1201,7 @@ F 3 "~" V 900 2300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L device:C C5
+L JudgeBoard-rescue:C-device C5
 U 1 1 5C3EE2F6
 P 4350 1700
 F 0 "C5" H 4375 1800 50  0000 L CNN
@@ -1212,7 +1212,7 @@ F 3 "" H 4350 1700 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L device:C C6
+L JudgeBoard-rescue:C-device C6
 U 1 1 5C3EE4D6
 P 4750 1850
 F 0 "C6" H 4775 1950 50  0000 L CNN
@@ -1223,7 +1223,7 @@ F 3 "" H 4750 1850 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR01
+L JudgeBoard-rescue:GND-power1 #PWR01
 U 1 1 5C3EE52D
 P 4350 1850
 F 0 "#PWR01" H 4350 1600 50  0001 C CNN
@@ -1234,7 +1234,7 @@ F 3 "" H 4350 1850 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power1:GND #PWR07
+L JudgeBoard-rescue:GND-power1 #PWR07
 U 1 1 5C3F51D0
 P 4750 2000
 F 0 "#PWR07" H 4750 1750 50  0001 C CNN
@@ -1283,8 +1283,6 @@ Wire Wire Line
 Wire Wire Line
 	6800 1150 6800 4350
 Wire Wire Line
-	8200 4950 6800 4950
-Wire Wire Line
 	9800 4600 6700 4600
 Wire Wire Line
 	6700 1150 6700 4600
@@ -1298,17 +1296,19 @@ Wire Wire Line
 Connection ~ 6700 4600
 Wire Wire Line
 	6700 4600 6700 5400
-Wire Wire Line
-	6800 4350 6800 4950
 Connection ~ 6800 4350
-Wire Wire Line
-	6900 5650 6900 4500
-Wire Wire Line
-	6900 5650 9800 5650
-Connection ~ 6900 4500
 Wire Wire Line
 	7000 5900 7000 4650
 Wire Wire Line
 	7000 5900 8200 5900
 Connection ~ 7000 4650
+Wire Wire Line
+	6800 5650 9800 5650
+Wire Wire Line
+	6800 4350 6800 5650
+Wire Wire Line
+	8200 4950 6900 4950
+Wire Wire Line
+	6900 4950 6900 4500
+Connection ~ 6900 4500
 $EndSCHEMATC
