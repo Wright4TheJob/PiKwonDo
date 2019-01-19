@@ -126,7 +126,7 @@ F 3 "" H 7700 950 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Logic_74xx:DPDT-Button S5
+L Timer-rescue:DPDT-Button-Logic_74xx S5
 U 1 1 5B2D9B30
 P 9850 5700
 F 0 "S5" H 9850 6150 60  0000 C CNN
@@ -137,7 +137,7 @@ F 3 "" H 9850 5700 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Logic_74xx:DPDT-Button S1
+L Timer-rescue:DPDT-Button-Logic_74xx S1
 U 1 1 5B2D9E5E
 P 9850 2100
 F 0 "S1" H 9850 2550 60  0000 C CNN
@@ -148,7 +148,7 @@ F 3 "" H 9850 2100 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Logic_74xx:DPDT-Button S2
+L Timer-rescue:DPDT-Button-Logic_74xx S2
 U 1 1 5B2D9EA4
 P 9850 3000
 F 0 "S2" H 9850 3450 60  0000 C CNN
@@ -159,7 +159,7 @@ F 3 "" H 9850 3000 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Logic_74xx:DPDT-Button S3
+L Timer-rescue:DPDT-Button-Logic_74xx S3
 U 1 1 5B2D9EFB
 P 9850 3900
 F 0 "S3" H 9850 4350 60  0000 C CNN
@@ -170,7 +170,7 @@ F 3 "" H 9850 3900 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Logic_74xx:DPDT-Button S4
+L Timer-rescue:DPDT-Button-Logic_74xx S4
 U 1 1 5B2D9F4B
 P 9850 4800
 F 0 "S4" H 9850 5250 60  0000 C CNN
@@ -296,7 +296,7 @@ F 3 "" H 6200 4250 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L PiKwonDo:74HC165_PKD U2
+L Timer-rescue:74HC165_PKD-PiKwonDo U2
 U 1 1 5B5E202F
 P 7700 2200
 F 0 "U2" H 7700 2550 60  0000 C CNN
@@ -370,17 +370,6 @@ F 1 "GND" H 8300 2450 50  0000 C CNN
 F 2 "" H 8300 2600 50  0001 C CNN
 F 3 "" H 8300 2600 50  0001 C CNN
 	1    8300 2600
-	0    -1   1    0   
-$EndComp
-$Comp
-L power:GND #PWR017
-U 1 1 5B5E67F9
-P 8300 2750
-F 0 "#PWR017" H 8300 2500 50  0001 C CNN
-F 1 "GND" H 8300 2600 50  0000 C CNN
-F 2 "" H 8300 2750 50  0001 C CNN
-F 3 "" H 8300 2750 50  0001 C CNN
-	1    8300 2750
 	0    -1   1    0   
 $EndComp
 $Comp
@@ -538,16 +527,9 @@ Wire Wire Line
 Wire Wire Line
 	9000 2150 8300 2150
 Wire Wire Line
-	8900 1300 8900 2300
-Wire Wire Line
-	8900 2300 8300 2300
-Wire Wire Line
 	8800 2900 8800 5450
 Wire Wire Line
 	9200 1300 9200 1850
-Wire Wire Line
-	8300 2900 8800 2900
-Connection ~ 8800 2900
 Wire Wire Line
 	2000 3300 2900 3300
 Wire Wire Line
@@ -624,7 +606,6 @@ Wire Wire Line
 	8300 1850 9200 1850
 Connection ~ 9100 2000
 Connection ~ 9000 2150
-Connection ~ 8900 2300
 Connection ~ 9200 1850
 Wire Wire Line
 	9100 2750 9300 2750
@@ -688,8 +669,6 @@ Wire Wire Line
 	9100 2000 9100 2750
 Wire Wire Line
 	9000 2150 9000 3650
-Wire Wire Line
-	8900 2300 8900 4550
 Wire Wire Line
 	9200 1850 9300 1850
 $Comp
@@ -915,5 +894,26 @@ F 2 "Timer:RJ14" V 1600 3550 50  0001 C CNN
 F 3 "~" V 1600 3550 50  0001 C CNN
 	1    1600 3500
 	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8900 2300 8900 4550
+Wire Wire Line
+	8900 1300 8900 2300
+Connection ~ 8900 2300
+Wire Wire Line
+	8900 2300 8300 2300
+Connection ~ 8800 2900
+Wire Wire Line
+	8300 2900 8800 2900
+$Comp
+L power:GND #PWR017
+U 1 1 5B5E67F9
+P 8300 2750
+F 0 "#PWR017" H 8300 2500 50  0001 C CNN
+F 1 "GND" H 8300 2600 50  0000 C CNN
+F 2 "" H 8300 2750 50  0001 C CNN
+F 3 "" H 8300 2750 50  0001 C CNN
+	1    8300 2750
+	0    -1   1    0   
 $EndComp
 $EndSCHEMATC
