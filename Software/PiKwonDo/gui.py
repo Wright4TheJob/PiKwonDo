@@ -65,7 +65,7 @@ class MainWindow(QMainWindow):
         self.time_string = ''
         self.width = None
         self.centralwidget = None
-        self.setupUI(self)
+        self.setup_ui(self)
 
         self.program_loaded = True
 
@@ -75,7 +75,7 @@ class MainWindow(QMainWindow):
         window.resize(1000, 800)
         # MainWindow.showFullScreen()
 
-        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget = QWidget(window)
         self.centralwidget.setObjectName("centralwidget")
 
         self.width = window.frameGeometry().width()

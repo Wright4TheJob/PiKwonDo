@@ -8,6 +8,7 @@ import unittest
 from PiKwonDo import PiKwonDo
 from utilities import UnknownFighterError
 import pkdtimer
+import gui
 # from PyQt5.QtWidgets import QApplication
 # import sys
 # class KnownValues(unittest.TestCase):
@@ -23,6 +24,39 @@ import pkdtimer
 # '''parabola should return known results'''
 # result = MainProgram.valueOfParabola([0,0,0],1)
 # self.assertEqual(0,result)
+
+
+class FrontEndController(unittest.TestCase):
+    """Test that all GUI functions can be run without error."""
+
+    def test_frontendcontroller_init(self):
+        """Create the front end controller class without error."""
+        pkd = PiKwonDo()
+        try:
+            gui.FrontEndController(pkd)
+        except:
+            self.fail("FrontEndController raised exception unexpectedly!")
+
+
+# class CanCreateGUI(unittest.TestCase):
+#    """Test that all GUI functions can be run without error."""
+#
+#    def test_mainwindow_init(self):
+#        """Create the main window class without error."""
+#        pkd = PiKwonDo(create_gui=False)
+#        try:
+#            gui.MainWindow(pkd)
+#        except:
+#            self.fail("gui.MainWindow() raised exception unexpectedly!")
+#
+#    def test_setup_ui(self):
+#        """Test the setup_ui function."""
+#        pkd = PiKwonDo(create_gui=False)
+#        main_window = gui.MainWindow(pkd)
+#        try:
+#            main_window.setup_ui(main_window)
+#        except:
+#            self.fail("main_window.setup_ui() raised exception unexpectedly!")
 
 
 class BadInput(unittest.TestCase):
