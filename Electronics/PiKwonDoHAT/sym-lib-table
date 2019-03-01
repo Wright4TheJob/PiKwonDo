@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name PiKwonDo)(type Legacy)(uri /Users/davidwright/repositories/PiKwonDo/Electronics/Libraries/PiKwonDo.lib)(options "")(descr ""))
+  (lib (name PiKwonDoHAT-rescue)(type Legacy)(uri ${KIPRJMOD}/PiKwonDoHAT-rescue.lib)(options "")(descr ""))
 )

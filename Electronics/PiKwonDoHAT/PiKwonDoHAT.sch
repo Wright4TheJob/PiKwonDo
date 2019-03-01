@@ -384,7 +384,7 @@ F 3 "" H 3500 2900 50  0001 C CNN
 $EndComp
 NoConn ~ 3000 4300
 $Comp
-L PiKwonDo:SN74LV1T34DBVR U1
+L PiKwonDoHAT-rescue:SN74LV1T34DBVR-PiKwonDo U1
 U 1 1 5B5B2161
 P 5500 1400
 F 0 "U1" H 5200 1750 60  0000 C CNN
@@ -407,7 +407,7 @@ F 3 "" H 5500 1800 50  0001 C CNN
 $EndComp
 Connection ~ 4350 2700
 $Comp
-L PiKwonDo:SN74LV1T34DBVR U2
+L PiKwonDoHAT-rescue:SN74LV1T34DBVR-PiKwonDo U2
 U 1 1 5B5B4D01
 P 5650 2850
 F 0 "U2" H 5350 3200 60  0000 C CNN
@@ -482,9 +482,9 @@ Wire Wire Line
 	3500 2800 3500 2700
 Text Label 6050 1700 0    60   ~ 0
 J1_DATA
-Text Label 3750 4400 0    60   ~ 0
-J1_DATA
 Text Label 3750 4500 0    60   ~ 0
+J1_DATA
+Text Label 3750 4600 0    60   ~ 0
 J1_LOAD
 Text Label 6050 3000 0    60   ~ 0
 J2_DATA
@@ -516,25 +516,25 @@ Text Label 6050 4300 0    60   ~ 0
 J3_DATA
 Text Label 6050 5600 0    60   ~ 0
 C_DATA
-Text Label 3750 3800 0    60   ~ 0
-J2_DATA
 Text Label 3750 3900 0    60   ~ 0
-J2_LOAD
-Text Label 3750 4600 0    60   ~ 0
-J1_CLK
+J2_DATA
 Text Label 3750 4200 0    60   ~ 0
+J2_LOAD
+Text Label 3750 4400 0    60   ~ 0
+J1_CLK
+Text Label 3750 3800 0    60   ~ 0
 J2_CLK
-Text Label 3750 3400 0    60   ~ 0
-J3_DATA
 Text Label 3750 3500 0    60   ~ 0
+J3_DATA
+Text Label 3750 3700 0    60   ~ 0
 J3_LOAD
-Text Label 4250 3950 0    60   ~ 0
+Text Label 3750 3400 0    60   ~ 0
 J3_CLK
-Text Label 3750 3200 0    60   ~ 0
-C_CLK
 Text Label 3750 3000 0    60   ~ 0
-C_DATA
+C_CLK
 Text Label 3750 3100 0    60   ~ 0
+C_DATA
+Text Label 3750 3200 0    60   ~ 0
 C_LOAD
 $Comp
 L power:GND #PWR018
@@ -850,7 +850,7 @@ C_CLK
 Wire Wire Line
 	7400 4100 6050 4100
 $Comp
-L PiKwonDo:SN74LV1T34DBVR U3
+L PiKwonDoHAT-rescue:SN74LV1T34DBVR-PiKwonDo U3
 U 1 1 5B5DA6CA
 P 5650 4150
 F 0 "U3" H 5350 4500 60  0000 C CNN
@@ -872,7 +872,7 @@ F 3 "" H 5650 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PiKwonDo:SN74LV1T34DBVR U4
+L PiKwonDoHAT-rescue:SN74LV1T34DBVR-PiKwonDo U4
 U 1 1 5B5DA6D6
 P 5650 5450
 F 0 "U4" H 5350 5800 60  0000 C CNN
@@ -1196,7 +1196,6 @@ NoConn ~ 3000 3900
 NoConn ~ 3000 4200
 NoConn ~ 3000 4400
 NoConn ~ 3000 4500
-NoConn ~ 3000 4600
 Wire Wire Line
 	3750 3000 3500 3000
 Wire Wire Line
@@ -1221,4 +1220,15 @@ Wire Wire Line
 	3750 4500 3500 4500
 Wire Wire Line
 	3500 4600 3750 4600
+$Comp
+L power:GND #PWR?
+U 1 1 5C7A38CB
+P 3000 4600
+F 0 "#PWR?" H 3000 4350 50  0001 C CNN
+F 1 "GND" H 3000 4450 50  0000 C CNN
+F 2 "" H 3000 4600 50  0001 C CNN
+F 3 "" H 3000 4600 50  0001 C CNN
+	1    3000 4600
+	0    1    -1   0   
+$EndComp
 $EndSCHEMATC
