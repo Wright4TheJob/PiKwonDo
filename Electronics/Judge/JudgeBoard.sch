@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:JudgeBoard-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -653,7 +653,7 @@ F 3 "" H 1450 800 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L power:+5V #PWR0102
+L JudgeBoard-rescue:+5V-power #PWR0102
 U 1 1 5BDE9457
 P 1450 800
 F 0 "#PWR0102" H 1450 650 50  0001 C CNN
@@ -664,7 +664,7 @@ F 3 "" H 1450 800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0103
+L JudgeBoard-rescue:+5V-power #PWR0103
 U 1 1 5BDE9534
 P 3800 2050
 F 0 "#PWR0103" H 3800 1900 50  0001 C CNN
@@ -675,7 +675,7 @@ F 3 "" H 3800 2050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Regulator_Linear:MIC5504-3.3YM5 U3
+L JudgeBoard-rescue:MIC5504-3.3YM5-Regulator_Linear U3
 U 1 1 5BDFC1D2
 P 4150 2600
 F 0 "U3" H 4150 2967 50  0000 C CNN
@@ -1190,7 +1190,7 @@ F 3 "" H 8200 6350 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L Connector:RJ10 J1
+L JudgeBoard-rescue:RJ10-Connector J1
 U 1 1 5C3EA0C7
 P 900 2250
 F 0 "J1" H 955 2717 50  0000 C CNN

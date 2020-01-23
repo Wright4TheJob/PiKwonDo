@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:Timer-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -15,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L power:GND #PWR01
+L Timer-rescue:GND-power #PWR01
 U 1 1 5B2D833C
 P 1450 1550
 F 0 "#PWR01" H 1450 1300 50  0001 C CNN
@@ -26,7 +25,7 @@ F 3 "" H 1450 1550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG02
+L Timer-rescue:PWR_FLAG-power #FLG02
 U 1 1 5B2D8350
 P 1450 1500
 F 0 "#FLG02" H 1450 1575 50  0001 C CNN
@@ -37,7 +36,7 @@ F 3 "" H 1450 1500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Network05 RN1
+L Timer-rescue:R_Network05-Device RN1
 U 1 1 5B2D83AE
 P 9100 1100
 F 0 "RN1" V 8800 1100 50  0000 C CNN
@@ -48,7 +47,7 @@ F 3 "" H 9100 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:LED D2
+L Timer-rescue:LED-Device D2
 U 1 1 5B2D9078
 P 3600 3700
 F 0 "D2" H 3600 3600 50  0000 C CNN
@@ -59,7 +58,7 @@ F 3 "" H 3600 3700 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:+3.3V #PWR03
+L Timer-rescue:+3.3V-power #PWR03
 U 1 1 5B2D91A7
 P 6300 3700
 F 0 "#PWR03" H 6300 3550 50  0001 C CNN
@@ -70,7 +69,7 @@ F 3 "" H 6300 3700 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR04
+L Timer-rescue:GND-power #PWR04
 U 1 1 5B2D939C
 P 2000 3600
 F 0 "#PWR04" H 2000 3350 50  0001 C CNN
@@ -82,7 +81,7 @@ F 3 "" H 2000 3600 50  0001 C CNN
 $EndComp
 NoConn ~ 8300 1550
 $Comp
-L power:GND #PWR05
+L Timer-rescue:GND-power #PWR05
 U 1 1 5B2D93FE
 P 7700 3250
 F 0 "#PWR05" H 7700 3000 50  0001 C CNN
@@ -93,7 +92,7 @@ F 3 "" H 7700 3250 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:C C2
+L Timer-rescue:C-Device C2
 U 1 1 5B2D958C
 P 8000 1000
 F 0 "C2" V 8150 1000 50  0000 C CNN
@@ -104,7 +103,7 @@ F 3 "" H 8000 1000 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR06
+L Timer-rescue:GND-power #PWR06
 U 1 1 5B2D95FE
 P 8150 1000
 F 0 "#PWR06" H 8150 750 50  0001 C CNN
@@ -115,7 +114,7 @@ F 3 "" H 8150 1000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:+3.3V #PWR07
+L Timer-rescue:+3.3V-power #PWR07
 U 1 1 5B2D9621
 P 7700 950
 F 0 "#PWR07" H 7700 800 50  0001 C CNN
@@ -186,7 +185,7 @@ NoConn ~ 10400 3550
 NoConn ~ 10400 4450
 NoConn ~ 10400 5350
 $Comp
-L power:GND #PWR08
+L Timer-rescue:GND-power #PWR08
 U 1 1 5B2DA1C3
 P 10400 1950
 F 0 "#PWR08" H 10400 1700 50  0001 C CNN
@@ -197,7 +196,7 @@ F 3 "" H 10400 1950 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR09
+L Timer-rescue:GND-power #PWR09
 U 1 1 5B2DA234
 P 10400 2850
 F 0 "#PWR09" H 10400 2600 50  0001 C CNN
@@ -208,7 +207,7 @@ F 3 "" H 10400 2850 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L Device:R R1
+L Timer-rescue:R-Device R1
 U 1 1 5B46CBDD
 P 3200 3300
 F 0 "R1" V 3100 3300 50  0000 C CNN
@@ -219,7 +218,7 @@ F 3 "" H 3200 3300 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L Device:D_Zener D3
+L Timer-rescue:D_Zener-Device D3
 U 1 1 5B46CC66
 P 4250 3600
 F 0 "D3" V 4125 3550 50  0000 R CNN
@@ -230,7 +229,7 @@ F 3 "" H 4250 3600 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR010
+L Timer-rescue:GND-power #PWR010
 U 1 1 5B46CF5B
 P 4250 3850
 F 0 "#PWR010" H 4250 3600 50  0001 C CNN
@@ -252,18 +251,18 @@ F 3 "" H 5350 4000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D_Schottky D1
+L Timer-rescue:D_Schottky-Device D1
 U 1 1 5B5B5DBA
 P 3800 3300
 F 0 "D1" H 3800 3400 50  0000 C CNN
 F 1 "BAT54" H 3800 3200 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-123" H 3800 3300 50  0001 C CNN
+F 2 "Diode_SMD:D_SMA_Handsoldering" H 3800 3300 50  0001 C CNN
 F 3 "" H 3800 3300 50  0001 C CNN
 	1    3800 3300
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:C C1
+L Timer-rescue:C-Device C1
 U 1 1 5B5B6007
 P 4600 3600
 F 0 "C1" H 4550 3725 50  0000 R CNN
@@ -274,7 +273,7 @@ F 3 "" H 4600 3600 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:R R2
+L Timer-rescue:R-Device R2
 U 1 1 5B5B6D85
 P 3200 3700
 F 0 "R2" V 3300 3700 50  0000 C CNN
@@ -285,7 +284,7 @@ F 3 "" H 3200 3700 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR011
+L Timer-rescue:GND-power #PWR011
 U 1 1 5B5B72D4
 P 6200 4250
 F 0 "#PWR011" H 6200 4000 50  0001 C CNN
@@ -307,7 +306,7 @@ F 3 "" H 7700 2200 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR012
+L Timer-rescue:GND-power #PWR012
 U 1 1 5B5E52E5
 P 4600 3850
 F 0 "#PWR012" H 4600 3600 50  0001 C CNN
@@ -318,7 +317,7 @@ F 3 "" H 4600 3850 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR013
+L Timer-rescue:GND-power #PWR013
 U 1 1 5B5E531A
 P 5350 4250
 F 0 "#PWR013" H 5350 4000 50  0001 C CNN
@@ -329,7 +328,7 @@ F 3 "" H 5350 4250 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR014
+L Timer-rescue:+5V-power #PWR014
 U 1 1 5B5E5952
 P 5000 3300
 F 0 "#PWR014" H 5000 3150 50  0001 C CNN
@@ -340,7 +339,7 @@ F 3 "" H 5000 3300 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:+5V #PWR015
+L Timer-rescue:+5V-power #PWR015
 U 1 1 5B5E5C2E
 P 5800 3900
 F 0 "#PWR015" H 5800 3750 50  0001 C CNN
@@ -351,7 +350,7 @@ F 3 "" H 5800 3900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:D_Zener D4
+L Timer-rescue:D_Zener-Device D4
 U 1 1 5B5E643D
 P 6200 4000
 F 0 "D4" V 6075 3950 50  0000 R CNN
@@ -362,7 +361,7 @@ F 3 "" H 6200 4000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR016
+L Timer-rescue:GND-power #PWR016
 U 1 1 5B5E67AC
 P 8300 2600
 F 0 "#PWR016" H 8300 2350 50  0001 C CNN
@@ -373,7 +372,7 @@ F 3 "" H 8300 2600 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR018
+L Timer-rescue:GND-power #PWR018
 U 1 1 5B5E6846
 P 7100 1850
 F 0 "#PWR018" H 7100 1600 50  0001 C CNN
@@ -384,7 +383,7 @@ F 3 "" H 7100 1850 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR019
+L Timer-rescue:GND-power #PWR019
 U 1 1 5B5E781E
 P 3850 3700
 F 0 "#PWR019" H 3850 3450 50  0001 C CNN
@@ -395,7 +394,7 @@ F 3 "" H 3850 3700 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L Device:R R3
+L Timer-rescue:R-Device R3
 U 1 1 5B5E7B1D
 P 3200 4100
 F 0 "R3" V 3300 4100 50  0000 C CNN
@@ -410,7 +409,7 @@ Text Label 3700 4500 2    60   ~ 0
 Text Label 3700 4100 2    60   ~ 0
 CLK
 $Comp
-L Device:C C3
+L Timer-rescue:C-Device C3
 U 1 1 5B5E8ED0
 P 2400 4400
 F 0 "C3" H 2350 4525 50  0000 R CNN
@@ -421,7 +420,7 @@ F 3 "" H 2400 4400 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR020
+L Timer-rescue:GND-power #PWR020
 U 1 1 5B5E8FC7
 P 2400 4650
 F 0 "#PWR020" H 2400 4400 50  0001 C CNN
@@ -434,7 +433,7 @@ $EndComp
 Text Label 1650 4100 0    60   ~ 0
 Q
 $Comp
-L Device:R R4
+L Timer-rescue:R-Device R4
 U 1 1 5B5E9AEB
 P 3200 4500
 F 0 "R4" V 3300 4500 50  0000 C CNN
@@ -445,7 +444,7 @@ F 3 "" H 3200 4500 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L Device:R R5
+L Timer-rescue:R-Device R5
 U 1 1 5B5E9B57
 P 2050 4100
 F 0 "R5" V 2150 4100 50  0000 C CNN
@@ -462,7 +461,7 @@ Text Label 6750 1550 0    60   ~ 0
 Text Label 6750 1400 0    60   ~ 0
 CLK
 $Comp
-L power:GND #PWR021
+L Timer-rescue:GND-power #PWR021
 U 1 1 5B5EA020
 P 7100 2900
 F 0 "#PWR021" H 7100 2650 50  0001 C CNN
@@ -473,7 +472,7 @@ F 3 "" H 7100 2900 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR022
+L Timer-rescue:GND-power #PWR022
 U 1 1 5B5EA568
 P 10400 3750
 F 0 "#PWR022" H 10400 3500 50  0001 C CNN
@@ -484,7 +483,7 @@ F 3 "" H 10400 3750 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR023
+L Timer-rescue:GND-power #PWR023
 U 1 1 5B5EA5B2
 P 10400 4650
 F 0 "#PWR023" H 10400 4400 50  0001 C CNN
@@ -495,7 +494,7 @@ F 3 "" H 10400 4650 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR024
+L Timer-rescue:GND-power #PWR024
 U 1 1 5B5EA5FC
 P 10400 5550
 F 0 "#PWR024" H 10400 5300 50  0001 C CNN
@@ -506,7 +505,7 @@ F 3 "" H 10400 5550 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:+3.3V #PWR025
+L Timer-rescue:+3.3V-power #PWR025
 U 1 1 5B5E2650
 P 8300 2450
 F 0 "#PWR025" H 8300 2300 50  0001 C CNN
@@ -615,7 +614,7 @@ Wire Wire Line
 	8800 5450 9300 5450
 NoConn ~ 9300 1300
 $Comp
-L Device:R R6
+L Timer-rescue:R-Device R6
 U 1 1 5B5E2B7E
 P 8800 2750
 F 0 "R6" V 8900 2750 50  0000 C CNN
@@ -626,7 +625,7 @@ F 3 "" H 8800 2750 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:+3.3V #PWR026
+L Timer-rescue:+3.3V-power #PWR026
 U 1 1 5B5E2F61
 P 8800 2600
 F 0 "#PWR026" H 8800 2450 50  0001 C CNN
@@ -639,7 +638,7 @@ $EndComp
 Wire Wire Line
 	9300 4550 8900 4550
 $Comp
-L power:+3.3V #PWR0101
+L Timer-rescue:+3.3V-power #PWR0101
 U 1 1 5B5E304C
 P 8900 900
 F 0 "#PWR0101" H 8900 750 50  0001 C CNN
@@ -672,7 +671,7 @@ Wire Wire Line
 Wire Wire Line
 	9200 1850 9300 1850
 $Comp
-L power:GND #PWR0102
+L Timer-rescue:GND-power #PWR0102
 U 1 1 5BC0F80F
 P 9300 5000
 F 0 "#PWR0102" H 9300 4750 50  0001 C CNN
@@ -683,7 +682,7 @@ F 3 "" H 9300 5000 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0103
+L Timer-rescue:GND-power #PWR0103
 U 1 1 5BC0F846
 P 9300 5900
 F 0 "#PWR0103" H 9300 5650 50  0001 C CNN
@@ -694,7 +693,7 @@ F 3 "" H 9300 5900 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0104
+L Timer-rescue:GND-power #PWR0104
 U 1 1 5BC0F87D
 P 10400 5100
 F 0 "#PWR0104" H 10400 4850 50  0001 C CNN
@@ -705,7 +704,7 @@ F 3 "" H 10400 5100 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0105
+L Timer-rescue:GND-power #PWR0105
 U 1 1 5BC14F66
 P 10400 4900
 F 0 "#PWR0105" H 10400 4650 50  0001 C CNN
@@ -716,7 +715,7 @@ F 3 "" H 10400 4900 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0106
+L Timer-rescue:GND-power #PWR0106
 U 1 1 5BC17578
 P 10400 5800
 F 0 "#PWR0106" H 10400 5550 50  0001 C CNN
@@ -727,7 +726,7 @@ F 3 "" H 10400 5800 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0107
+L Timer-rescue:GND-power #PWR0107
 U 1 1 5BC175AF
 P 10400 6000
 F 0 "#PWR0107" H 10400 5750 50  0001 C CNN
@@ -738,7 +737,7 @@ F 3 "" H 10400 6000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0108
+L Timer-rescue:GND-power #PWR0108
 U 1 1 5BC1AEE3
 P 9300 4100
 F 0 "#PWR0108" H 9300 3850 50  0001 C CNN
@@ -749,7 +748,7 @@ F 3 "" H 9300 4100 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0109
+L Timer-rescue:GND-power #PWR0109
 U 1 1 5BC1AF1A
 P 10400 4200
 F 0 "#PWR0109" H 10400 3950 50  0001 C CNN
@@ -760,7 +759,7 @@ F 3 "" H 10400 4200 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0110
+L Timer-rescue:GND-power #PWR0110
 U 1 1 5BC1AF51
 P 10400 4000
 F 0 "#PWR0110" H 10400 3750 50  0001 C CNN
@@ -771,7 +770,7 @@ F 3 "" H 10400 4000 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0111
+L Timer-rescue:GND-power #PWR0111
 U 1 1 5BC1E4A7
 P 10400 3100
 F 0 "#PWR0111" H 10400 2850 50  0001 C CNN
@@ -782,7 +781,7 @@ F 3 "" H 10400 3100 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0112
+L Timer-rescue:GND-power #PWR0112
 U 1 1 5BC1E4DE
 P 10400 3300
 F 0 "#PWR0112" H 10400 3050 50  0001 C CNN
@@ -793,7 +792,7 @@ F 3 "" H 10400 3300 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0113
+L Timer-rescue:GND-power #PWR0113
 U 1 1 5BC1E515
 P 9300 3200
 F 0 "#PWR0113" H 9300 2950 50  0001 C CNN
@@ -804,7 +803,7 @@ F 3 "" H 9300 3200 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0114
+L Timer-rescue:GND-power #PWR0114
 U 1 1 5BC21A81
 P 9300 2300
 F 0 "#PWR0114" H 9300 2050 50  0001 C CNN
@@ -815,7 +814,7 @@ F 3 "" H 9300 2300 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR0115
+L Timer-rescue:GND-power #PWR0115
 U 1 1 5BC21AB8
 P 10400 2200
 F 0 "#PWR0115" H 10400 1950 50  0001 C CNN
@@ -826,7 +825,7 @@ F 3 "" H 10400 2200 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR0116
+L Timer-rescue:GND-power #PWR0116
 U 1 1 5BC21AEF
 P 10400 2400
 F 0 "#PWR0116" H 10400 2150 50  0001 C CNN
@@ -837,7 +836,7 @@ F 3 "" H 10400 2400 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L Device:C C4
+L Timer-rescue:C-Device C4
 U 1 1 5C3BCA70
 P 6150 1550
 F 0 "C4" H 6100 1675 50  0000 R CNN
@@ -850,7 +849,7 @@ $EndComp
 Wire Wire Line
 	6150 1400 7100 1400
 $Comp
-L power:GND #PWR0117
+L Timer-rescue:GND-power #PWR0117
 U 1 1 5C3BDD23
 P 6150 1700
 F 0 "#PWR0117" H 6150 1450 50  0001 C CNN
@@ -861,7 +860,7 @@ F 3 "" H 6150 1700 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:C C5
+L Timer-rescue:C-Device C5
 U 1 1 5C3C02A8
 P 6550 1700
 F 0 "C5" H 6500 1825 50  0000 R CNN
@@ -872,7 +871,7 @@ F 3 "" H 6550 1700 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0118
+L Timer-rescue:GND-power #PWR0118
 U 1 1 5C3C02AF
 P 6550 1850
 F 0 "#PWR0118" H 6550 1600 50  0001 C CNN
@@ -885,7 +884,7 @@ $EndComp
 Wire Wire Line
 	6550 1550 7100 1550
 $Comp
-L Connector:RJ10 J1
+L Timer-rescue:RJ10-Connector J1
 U 1 1 5C3D5B2C
 P 1600 3500
 F 0 "J1" H 1270 3504 50  0000 R CNN
@@ -906,7 +905,7 @@ Connection ~ 8800 2900
 Wire Wire Line
 	8300 2900 8800 2900
 $Comp
-L power:GND #PWR017
+L Timer-rescue:GND-power #PWR017
 U 1 1 5B5E67F9
 P 8300 2750
 F 0 "#PWR017" H 8300 2500 50  0001 C CNN
