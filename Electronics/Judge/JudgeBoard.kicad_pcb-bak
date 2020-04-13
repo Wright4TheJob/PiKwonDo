@@ -1238,7 +1238,7 @@
     )
   )
 
-  (gr_text "Judge Board \nVersion 1.0\nDavid Wright\n2020" (at 169.196 105.26) (layer F.SilkS)
+  (gr_text "PiKwonDo\nJudge Board \nVersion 1.0\nDavid Wright\n2020" (at 169.196 105.26) (layer F.SilkS)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
   (dimension 80 (width 0.3) (layer Dwgs.User)
@@ -1544,7 +1544,7 @@
   (segment (start 138.666 87.908) (end 138.106 87.348) (width 0.5) (layer B.Cu) (net 22))
   (segment (start 163.543745 79.924255) (end 163.543745 70.397745) (width 1) (layer F.Cu) (net 22))
 
-  (zone (net 3) (net_name GND) (layer B.Cu) (tstamp 5E28E7F8) (hatch edge 0.508)
+  (zone (net 3) (net_name GND) (layer B.Cu) (tstamp 5E28EBCE) (hatch edge 0.508)
     (connect_pads (clearance 0.3))
     (min_thickness 0.254)
     (fill yes (arc_segments 32) (thermal_gap 0.508) (thermal_bridge_width 0.508))
