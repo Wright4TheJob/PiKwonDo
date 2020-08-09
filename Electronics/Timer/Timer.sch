@@ -612,29 +612,6 @@ Wire Wire Line
 	9000 3650 9300 3650
 Wire Wire Line
 	8800 5450 9300 5450
-NoConn ~ 9300 1300
-$Comp
-L Timer-rescue:R-Device R6
-U 1 1 5B5E2B7E
-P 8800 2750
-F 0 "R6" V 8900 2750 50  0000 C CNN
-F 1 "470" V 8800 2750 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 8730 2750 50  0001 C CNN
-F 3 "" H 8800 2750 50  0001 C CNN
-	1    8800 2750
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Timer-rescue:+3.3V-power #PWR026
-U 1 1 5B5E2F61
-P 8800 2600
-F 0 "#PWR026" H 8800 2450 50  0001 C CNN
-F 1 "+3.3V" H 8800 2750 50  0000 C CNN
-F 2 "" H 8800 2600 50  0001 C CNN
-F 3 "" H 8800 2600 50  0001 C CNN
-	1    8800 2600
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	9300 4550 8900 4550
 $Comp
@@ -901,7 +878,6 @@ Wire Wire Line
 Connection ~ 8900 2300
 Wire Wire Line
 	8900 2300 8300 2300
-Connection ~ 8800 2900
 Wire Wire Line
 	8300 2900 8800 2900
 $Comp
@@ -915,4 +891,11 @@ F 3 "" H 8300 2750 50  0001 C CNN
 	1    8300 2750
 	0    -1   1    0   
 $EndComp
+Wire Wire Line
+	8800 2900 8800 1650
+Wire Wire Line
+	8800 1650 9300 1650
+Wire Wire Line
+	9300 1650 9300 1300
+Connection ~ 8800 2900
 $EndSCHEMATC
